@@ -13,9 +13,9 @@
         android:icon="@drawable/outline_delete_24"
         android:title="AR" />
     <item
-        android:id="@+id/bottom_settings"
+        android:id="@+id/bottom_cart"
         android:icon="@drawable/outline_delete_24"
-        android:title="Settings" />
+        android:title="Cart" />
     <item
         android:id="@+id/bottom_profile"
         android:icon="@drawable/outline_delete_24"
