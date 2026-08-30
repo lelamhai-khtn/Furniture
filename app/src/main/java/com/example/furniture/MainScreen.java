@@ -35,9 +35,9 @@ public class MainScreen extends AppCompatActivity {
                 loadFragment(new ARFragment());
                 return true;
             }
-            if (id == R.id.bottom_cart)
+            if (id == R.id.bottom_location)
             {
-                loadFragment(new CartFragment());
+                loadFragment(new LocationFragment());
                 return true;
             }
             if (id == R.id.bottom_profile)
