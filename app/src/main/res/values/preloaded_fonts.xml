@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="preloaded_fonts" translatable="false">
+        <item>@font/inter</item>
+        <item>@font/inter_bold</item>
+        <item>@font/inter_extralight</item>
+        <item>@font/inter_light</item>
+        <item>@font/inter_semibold</item>
+        <item>@font/inter_thin</item>
+        <item>@font/urbanist</item>
+        <item>@font/urbanist_black</item>
+        <item>@font/urbanist_bold</item>
+        <item>@font/urbanist_extralight</item>
+        <item>@font/urbanist_light</item>
+        <item>@font/urbanist_medium</item>
+        <item>@font/urbanist_semibold</item>
+        <item>@font/urbanist_thin</item>
+    </array>
+</resources>

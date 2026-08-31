@@ -25,7 +25,7 @@
             android:id="@+id/btnCart"
             android:layout_width="36dp"
             android:layout_height="36dp"
-            android:background="@drawable/outline_shopping_cart_24" />
+            android:background="@drawable/outline_shoping" />
     </LinearLayout>
 
     <!-- 2) Block Body chiếm toàn bộ phần còn lại (Full height - 70dp) -->
@@ -44,6 +44,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
                 android:background="#FFCDD2"
+                android:fontFamily="@font/urbanist_black"
                 android:gravity="center"
                 android:text="Khối 1" />
 
