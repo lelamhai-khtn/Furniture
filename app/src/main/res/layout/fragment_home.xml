@@ -1,15 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/color_root"
     tools:context=".HomeFragment">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Home"
-        android:gravity="center"
-        android:textSize="36dp"
-        android:textColor="#FF0000"/>
-</FrameLayout>
+        android:layout_height="70dp"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Home"
+            android:textSize="26dp" />
+
+        <Button
+            android:id="@+id/btnCart"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:background="@drawable/outline_shopping_cart_24" />
+    </LinearLayout>
+
+    <!-- 2) Block Body chiếm toàn bộ phần còn lại (Full height - 70dp) -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:background="#FFCDD2"
+                android:gravity="center"
+                android:text="Khối 1" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:background="#C8E6C9"
+                android:gravity="center"
+                android:text="Khối 2" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:background="#BBDEFB"
+                android:gravity="center"
+                android:text="Khối 3 (Cuộn xuống để thấy)" />
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
