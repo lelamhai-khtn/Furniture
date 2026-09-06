@@ -2,11 +2,24 @@ package com.example.furniture;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+
+import com.bumptech.glide.Glide;
+import com.example.furniture.adapters.CategoryAdapter;
+import com.example.furniture.models.CategoryModel;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -14,6 +27,10 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class HomeFragment extends Fragment {
+
+    private RecyclerView rvCategory;
+    private List<CategoryModel> categories;
+    private CategoryAdapter categoryAdapter;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -60,5 +77,43 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        rvCategory = view.findViewById(R.id.rv_category);
+        categories = new ArrayList<>();
+        CategoryModel c1 = new CategoryModel("C1", "https://drive.google.com/uc?export=view&id=1n_T1K4mmirStTlwKQOty3ScJ8izQteFg");
+        CategoryModel c2 = new CategoryModel("C2", "https://drive.google.com/uc?export=view&id=1n_T1K4mmirStTlwKQOty3ScJ8izQteFg");
+        CategoryModel c3 = new CategoryModel("C3", "https://drive.google.com/uc?export=view&id=1n_T1K4mmirStTlwKQOty3ScJ8izQteFg");
+        categories.add(c1);
+        categories.add(c2);
+        categories.add(c3);
+
+        categoryAdapter = new CategoryAdapter(categories);
+
+        // RecyclerView chạy ngang
+        LinearLayoutManager layoutManager =
+                new LinearLayoutManager(
+                        requireContext(),
+                        LinearLayoutManager.HORIZONTAL,
+                        false
+                );
+
+
+        rvCategory.setLayoutManager(layoutManager);
+
+
+        // Thêm khoảng cách giữa các item
+        RecyclerView.ItemDecoration decoration =
+                new DividerItemDecoration(
+                        requireContext(),
+                        DividerItemDecoration.HORIZONTAL
+                );
+
+        rvCategory.addItemDecoration(decoration);
+        rvCategory.setAdapter(categoryAdapter);
     }
 }
