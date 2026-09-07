@@ -85,34 +85,31 @@ public class HomeFragment extends Fragment {
 
         rvCategory = view.findViewById(R.id.rv_category);
         categories = new ArrayList<>();
-        CategoryModel c1 = new CategoryModel("C1", "https://drive.google.com/uc?export=view&id=1n_T1K4mmirStTlwKQOty3ScJ8izQteFg");
-        CategoryModel c2 = new CategoryModel("C2", "https://drive.google.com/uc?export=view&id=1n_T1K4mmirStTlwKQOty3ScJ8izQteFg");
-        CategoryModel c3 = new CategoryModel("C3", "https://drive.google.com/uc?export=view&id=1n_T1K4mmirStTlwKQOty3ScJ8izQteFg");
+        CategoryModel c0 = new CategoryModel("All", "https://drive.google.com/uc?export=view&id=1n_T1K4mmirStTlwKQOty3ScJ8izQteFg");
+        CategoryModel c1 = new CategoryModel("Chair", "https://drive.google.com/uc?export=view&id=1n_T1K4mmirStTlwKQOty3ScJ8izQteFg");
+        CategoryModel c2 = new CategoryModel("Bed", "https://drive.google.com/uc?export=view&id=1n_T1K4mmirStTlwKQOty3ScJ8izQteFg");
+        CategoryModel c3 = new CategoryModel("table", "https://drive.google.com/uc?export=view&id=1n_T1K4mmirStTlwKQOty3ScJ8izQteFg");
+        CategoryModel c4 = new CategoryModel("Lamp", "https://drive.google.com/uc?export=view&id=1n_T1K4mmirStTlwKQOty3ScJ8izQteFg");
+        categories.add(c0);
         categories.add(c1);
         categories.add(c2);
         categories.add(c3);
-
+        categories.add(c4);
         categoryAdapter = new CategoryAdapter(categories);
 
-        // RecyclerView chạy ngang
         LinearLayoutManager layoutManager =
                 new LinearLayoutManager(
                         requireContext(),
                         LinearLayoutManager.HORIZONTAL,
                         false
                 );
-
-
         rvCategory.setLayoutManager(layoutManager);
 
-
-        // Thêm khoảng cách giữa các item
         RecyclerView.ItemDecoration decoration =
                 new DividerItemDecoration(
                         requireContext(),
                         DividerItemDecoration.HORIZONTAL
                 );
-
         rvCategory.addItemDecoration(decoration);
         rvCategory.setAdapter(categoryAdapter);
     }

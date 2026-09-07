@@ -1,10 +1,12 @@
 package com.example.furniture.adapters;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,7 +19,7 @@ import java.util.List;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>{
     private List<CategoryModel> categories;
-
+    private int selectedPosition = 0;
     public CategoryAdapter(List<CategoryModel> model)
     {
         this.categories = model;
@@ -44,6 +46,21 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
                 .load(item.getUrlImage())
                 .placeholder(android.R.color.darker_gray)
                 .into(holder.iv_image);
+
+        if (selectedPosition == position) {
+            holder.itemView.setBackgroundColor(Color.parseColor("#808080"));
+        } else {
+            holder.itemView.setBackgroundColor(Color.parseColor("#000000"));
+        }
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int previousPosition = selectedPosition;
+                selectedPosition = holder.getAdapterPosition();
+                notifyItemChanged(previousPosition);
+                notifyItemChanged(selectedPosition);
+            }
+        });
     }
 
     @Override
