@@ -24,7 +24,7 @@ public class MainScreen extends AppCompatActivity {
             v.setPadding(systemBars.left, 0, systemBars.right, 0);
             return insets;
         });
-        contentFrame = findViewById(R.id.content_frame);
+        contentFrame = findViewById(R.id.fl_content_frame);
         loadFragment(new HomeFragment());
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
@@ -63,7 +63,7 @@ public class MainScreen extends AppCompatActivity {
 
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.content_frame,fragment)
+                .replace(R.id.fl_content_frame,fragment)
                 .commit();
 
     }

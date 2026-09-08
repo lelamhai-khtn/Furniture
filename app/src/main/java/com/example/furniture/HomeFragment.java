@@ -16,7 +16,9 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.example.furniture.adapters.CategoryAdapter;
+import com.example.furniture.adapters.ProductsAdapter;
 import com.example.furniture.models.CategoryModel;
+import com.example.furniture.models.ProductModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +33,10 @@ public class HomeFragment extends Fragment {
     private RecyclerView rvCategory;
     private List<CategoryModel> categories;
     private CategoryAdapter categoryAdapter;
+
+    private RecyclerView rvProduct;
+    private List<ProductModel> products;
+    private ProductsAdapter productAdapter;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -82,8 +88,12 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         rvCategory = view.findViewById(R.id.rv_category);
+        rvProduct = view.findViewById(R.id.rv_product);
+        category();
+        product();
+    }
+    private void category() {
         categories = new ArrayList<>();
         CategoryModel c0 = new CategoryModel("All", "https://drive.google.com/uc?export=view&id=1n_T1K4mmirStTlwKQOty3ScJ8izQteFg");
         CategoryModel c1 = new CategoryModel("Chair", "https://drive.google.com/uc?export=view&id=1n_T1K4mmirStTlwKQOty3ScJ8izQteFg");
@@ -112,5 +122,70 @@ public class HomeFragment extends Fragment {
                 );
         rvCategory.addItemDecoration(decoration);
         rvCategory.setAdapter(categoryAdapter);
+    }
+    private void product() {
+
+        List<ProductModel> products = new ArrayList<>();
+        products.add(new ProductModel(
+                1,
+                "iPhone 15 Pro Max",
+                "Điện thoại cao cấp của Apple với chip A17 Pro, camera 48MP.",
+                29990000.0,
+                34990000.0,
+                "https://images.unsplash.com/photo-1605236453806-6ff36851218e?q=80&w=800&auto=format&fit=crop"
+        ));
+
+        products.add(new ProductModel(
+                2,
+                "Samsung Galaxy S24 Ultra",
+                "Flagship của Samsung tích hợp Galaxy AI, bút S-Pen.",
+                28590000.0,
+                33990000.0,
+                "https://images.unsplash.com/photo-1610945265064-3201021bc1e5?q=80&w=800&auto=format&fit=crop"
+        ));
+
+        products.add(new ProductModel(
+                3,
+                "MacBook Air M2",
+                "Laptop mỏng nhẹ, pin trâu, phù hợp cho dân văn phòng.",
+                22490000.0,
+                24990000.0,
+                "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?q=80&w=800&auto=format&fit=crop"
+        ));
+
+        products.add(new ProductModel(
+                4,
+                "Tai nghe Sony WH-1000XM5",
+                "Tai nghe chụp tai chống ồn chủ động tốt nhất phân khúc.",
+                7490000.0,
+                8990000.0,
+                "https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb?q=80&w=800&auto=format&fit=crop"
+        ));
+
+        products.add(new ProductModel(
+                5,
+                "Bàn phím cơ Keychron K2",
+                "Bàn phím cơ không dây layout 75%, switch Gateron.",
+                1890000.0,
+                2200000.0,
+                "https://images.unsplash.com/photo-1595225476474-87563907a212?q=80&w=800&auto=format&fit=crop"
+        ));
+
+        productAdapter = new ProductsAdapter(products);
+        LinearLayoutManager layoutManager =
+                new LinearLayoutManager(
+                        requireContext(),
+                        LinearLayoutManager.HORIZONTAL,
+                        false
+                );
+        rvProduct.setLayoutManager(layoutManager);
+
+        RecyclerView.ItemDecoration decoration =
+                new DividerItemDecoration(
+                        requireContext(),
+                        DividerItemDecoration.HORIZONTAL
+                );
+        rvProduct.addItemDecoration(decoration);
+        rvProduct.setAdapter(productAdapter);
     }
 }
