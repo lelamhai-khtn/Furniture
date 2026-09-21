@@ -1,4 +1,4 @@
-package com.example.furniture;
+package com.example.furniture.fragments;
 
 import android.os.Bundle;
 
@@ -12,9 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
+import com.example.furniture.R;
 import com.example.furniture.adapters.CategoryAdapter;
 import com.example.furniture.adapters.ProductsAdapter;
 import com.example.furniture.models.CategoryModel;

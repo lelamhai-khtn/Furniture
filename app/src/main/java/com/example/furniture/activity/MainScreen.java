@@ -1,4 +1,4 @@
-package com.example.furniture;
+package com.example.furniture.activity;
 
 import android.os.Bundle;
 import android.widget.FrameLayout;
@@ -10,6 +10,12 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 
+import com.example.furniture.R;
+import com.example.furniture.fragments.ARFragment;
+import com.example.furniture.fragments.HomeFragment;
+import com.example.furniture.fragments.LocationFragment;
+import com.example.furniture.fragments.ProfileFragment;
+import com.example.furniture.fragments.SearchFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainScreen extends AppCompatActivity {
