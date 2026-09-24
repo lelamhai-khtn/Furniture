@@ -1,6 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="black">#2b2b2b</color>
+    <color name="white">#ffffff</color>
     <color name="color_root">#152223</color>
+
+    <color name="Neutral100">#2b2b2b</color>
+    <color name="Neutral90">#303437</color>
+    <color name="Neutral80">#3a4045</color>
+    <color name="Neutral70">#525a61</color>
+    <color name="Neutral60">#69757c</color>
+    <color name="Neutral50">#75818b</color>
+    <color name="Neutral40">#a1a3b0</color>
+    <color name="Neutral30">#c9c9c9</color>
+    <color name="Neutral20">#e0e0e0</color>
+    <color name="Neutral10">#efefef</color>
+    <color name="Neutral5">#f1f3f4</color>
+
+    <!-- Màu Primary -->
+    <color name="Primary100">#316e6e</color>
+    <color name="Primary90">#005f60</color>
+    <color name="Primary80">#008183</color>
+    <color name="Primary70">#02a5a7</color>
+    <color name="Primary60">#0cc3c7</color>
+    <color name="Primary50">#0becef</color>
+    <color name="Primary40">#31eff3</color>
+    <color name="Primary30">#75fafd</color>
+    <color name="Primary20">#95f8fb</color>
+    <color name="Primary10">#d8ffff</color>
+    <color name="Primary5">#e6ffff</color>
+
+    <!-- Màu Critical -->
+    <color name="Critical100">#ff8029</color>
+    <color name="Critical90">#fe8938</color>
+    <color name="Critical80">#ff9c59</color>
+    <color name="Critical70">#ffc083</color>
+    <color name="Critical60">#ffdebe</color>
+    <color name="Critical50">#ffdac0</color>
+    <color name="Critical40">#ffeee4</color>
+    <color name="Critical30">#ffede1</color>
+    <color name="Critical20">#feeee0</color>
+    <color name="Critical10">#ffede1</color>
+    <color name="Critical5">#fff9f4</color>
+
 </resources>
