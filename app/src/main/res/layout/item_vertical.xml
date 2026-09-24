@@ -53,9 +53,7 @@
             android:id="@+id/tv_name_product"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/urbanist_semibold"
-            android:text="Chair"
-            android:textSize="14sp" />
+            android:text="Chair" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -68,9 +66,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:fontFamily="@font/urbanist_semibold"
-                android:text="$1.000"
-                android:textSize="14sp" />
+                android:text="$1.000" />
 
             <ImageButton
                 android:id="@+id/ib_cart"

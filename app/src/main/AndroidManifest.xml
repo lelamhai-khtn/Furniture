@@ -28,16 +28,17 @@
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
 
-        <meta-data
-            android:name="preloaded_fonts"
-            android:resource="@array/preloaded_fonts" />
 
         <activity
             android:name=".activity.SlashScreen"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".activity.LoginScreen"
+            android:name=".activity.SignInScreen"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".activity.SignUpScreen"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
     </application>
