@@ -3,6 +3,7 @@
     <color name="black">#2b2b2b</color>
     <color name="white">#ffffff</color>
     <color name="color_root">#152223</color>
+    <color name="Red">#f13356</color>
 
     <color name="Neutral100">#2b2b2b</color>
     <color name="Neutral90">#303437</color>
@@ -16,7 +17,6 @@
     <color name="Neutral10">#efefef</color>
     <color name="Neutral5">#f1f3f4</color>
 
-    <!-- Màu Primary -->
     <color name="Primary100">#316e6e</color>
     <color name="Primary90">#005f60</color>
     <color name="Primary80">#008183</color>
@@ -29,7 +29,6 @@
     <color name="Primary10">#d8ffff</color>
     <color name="Primary5">#e6ffff</color>
 
-    <!-- Màu Critical -->
     <color name="Critical100">#ff8029</color>
     <color name="Critical90">#fe8938</color>
     <color name="Critical80">#ff9c59</color>

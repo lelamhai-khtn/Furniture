@@ -40,9 +40,9 @@
 
     <!-- Body -->
     <style name="Typography.Body">
-        <item name="android:textSize">16sp</item>
+        <item name="android:textSize">14sp</item>
         <item name="android:fontFamily">@font/poppins_regular</item>
-        <item name="lineHeight">24sp</item>
+        <item name="lineHeight">20sp</item>
     </style>
 
     <!-- Body-em -->
@@ -56,6 +56,44 @@
     <style name="Typography.BodySm">
         <item name="android:textSize">14sp</item>
         <item name="android:fontFamily">@font/poppins_regular</item>
+        <item name="lineHeight">20sp</item>
+    </style>
+
+    <!-- Systems app -->
+    <style name="Systems" />
+
+    <style name="Systems.Name">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:fontFamily">@font/poppins_bold</item>
+        <item name="lineHeight">32sp</item>
+    </style>
+
+    <style name="Systems.Title">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:fontFamily">@font/poppins_semi_bold</item>
+        <item name="lineHeight">24sp</item>
+    </style>
+
+    <style name="Systems.Price">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/Primary100</item>
+        <item name="android:fontFamily">@font/poppins_light</item>
+        <item name="lineHeight">24sp</item>
+    </style>
+
+    <style name="Systems.Description">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/Neutral30</item>
+        <item name="android:fontFamily">@font/poppins_light</item>
+        <item name="lineHeight">20sp</item>
+    </style>
+
+    <style name="Systems.Errors">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/Red</item>
+        <item name="android:fontFamily">@font/poppins_semi_bold</item>
         <item name="lineHeight">20sp</item>
     </style>
 </resources>

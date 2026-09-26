@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- KHI ĐƯỢC CHECK -->
+    <item android:state_checked="true">
+        <layer-list>
+            <item>
+                <shape>
+                    <solid android:color="@color/Primary90" /> <!-- Nền -->
+                    <stroke android:width="2dp" android:color="@color/Primary100" /> <!-- Viền -->
+                    <corners android:radius="6dp" /> <!-- Bo góc -->
+                    <!-- Đồng bộ kích thước lên 24dp -->
+                    <size android:width="24dp" android:height="24dp" />
+                </shape>
+            </item>
+            <!-- Xóa bỏ top, bottom, left, right vì bản thân icon đã vừa khớp 24dp -->
+            <item android:drawable="@drawable/outline_check_24" />
+        </layer-list>
+    </item>
+
+    <!-- KHI CHƯA CHECK -->
+    <item android:state_checked="false">
+        <shape>
+            <solid android:color="@android:color/transparent" />
+            <stroke android:width="2dp" android:color="@color/Primary100" />
+            <corners android:radius="6dp" />
+            <!-- Đồng bộ kích thước lên 24dp -->
+            <size android:width="24dp" android:height="24dp" />
+        </shape>
+    </item>
+</selector>
