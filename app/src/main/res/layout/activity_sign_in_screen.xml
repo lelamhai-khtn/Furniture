@@ -99,7 +99,7 @@
                 android:layout_weight="1"
                 style="@style/Typography.BodySm"
                 android:textColor="@color/Primary100"
-                android:text="Forget Password"
+                android:text="Forgot password"
                 android:textAlignment="textEnd" />
 
         </LinearLayout>
@@ -109,8 +109,7 @@
             android:layout_height="wrap_content"
             android:text="Lỗi"
             style="@style/Systems.Errors"
-            android:paddingBottom="6dp"
-            />
+            android:paddingBottom="6dp"/>
 
         <Button
             android:id="@+id/btnSignIn"
@@ -118,7 +117,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/bg_green"
             app:backgroundTint="@null"
-            android:text="Sign In"
+            android:text="Sign in"
             android:layout_marginBottom="16dp"/>
 
         <LinearLayout
@@ -182,6 +181,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
             android:gravity="center"
             android:orientation="horizontal">
 
