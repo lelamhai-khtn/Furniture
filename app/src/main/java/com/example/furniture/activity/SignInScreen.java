@@ -1,6 +1,8 @@
 package com.example.furniture.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,6 +23,11 @@ public class SignInScreen extends AppCompatActivity {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
+        });
+        TextView tvSignUp = findViewById(R.id.tvSignUp);
+        tvSignUp.setOnClickListener(v -> {
+            Intent intent = new Intent(this, SignUpScreen.class);
+            startActivity(intent);
         });
     }
 }
