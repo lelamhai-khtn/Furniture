@@ -2,78 +2,75 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="188dp"
+    android:layout_width="170dp"
     android:layout_height="wrap_content"
+    android:layout_marginLeft="16dp"
+    android:background="@drawable/bg_item_vertical"
     android:orientation="vertical">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/black"
-        android:padding="5dp">
+        android:layout_height="200dp">
 
         <ImageView
             android:id="@+id/iv_image_product"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:adjustViewBounds="true"
-            android:scaleType="centerCrop"
-            android:src="@drawable/item_chair"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="ContentDescription" />
+            android:padding="16dp"
+            android:src="@drawable/chair" />
 
-        <LinearLayout
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:background="@drawable/bg_circle"
-            android:gravity="center"
-            app:layout_constraintEnd_toEndOf="@id/iv_image_product"
-            app:layout_constraintTop_toTopOf="@id/iv_image_product">
-
-            <ImageButton
-                android:id="@+id/ib_favorite"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:background="@android:color/transparent"
-                android:scaleType="fitCenter"
-                android:src="@drawable/favorite_24_fill"
-                app:tint="@color/white" />
-        </LinearLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
+        <ImageButton
+            android:id="@+id/ib_favorite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_margin="10dp"
+            android:background="@null"
+            android:src="@drawable/favorite_24" />
+    </FrameLayout>
+    <TextView
+        android:id="@+id/tv_name_product"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:maxLines="2"
+        android:minLines="2"
+        android:ellipsize="end"
+        style="@style/Systems.Title"
+        android:text="Chair beautiful" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:orientation="vertical">
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/tv_price_product"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:layout_weight="3"
+            style="@style/Systems.Price"
+            android:text="100$" />
 
         <TextView
-            android:id="@+id/tv_name_product"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Chair" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/tv_price_product"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="$1.000" />
+            android:layout_weight="3"
+            style="@style/Systems.Description"
+            android:text="120$" />
+        <FrameLayout
+            android:layout_width="20dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_cart_button">
 
             <ImageButton
                 android:id="@+id/ib_cart"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:src="@drawable/add_circle_24" />
-        </LinearLayout>
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                android:background="@null"
+                android:src="@drawable/add_24"/>
+        </FrameLayout>
     </LinearLayout>
 </LinearLayout>

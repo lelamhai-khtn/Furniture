@@ -117,62 +117,51 @@ public class HomeFragment extends Fragment {
                 1,
                 "iPhone 15 Pro Max",
                 "Điện thoại cao cấp của Apple với chip A17 Pro, camera 48MP.",
-                29990000.0,
-                34990000.0,
-                "https://images.unsplash.com/photo-1605236453806-6ff36851218e?q=80&w=800&auto=format&fit=crop"
+                100,
+                120,
+                "https://images.unsplash.com/photo-1595225476474-87563907a212?q=80&w=800&auto=format&fit=crop"
         ));
 
         products.add(new ProductModel(
                 2,
                 "Samsung Galaxy S24 Ultra",
                 "Flagship của Samsung tích hợp Galaxy AI, bút S-Pen.",
-                28590000.0,
-                33990000.0,
-                "https://images.unsplash.com/photo-1610945265064-3201021bc1e5?q=80&w=800&auto=format&fit=crop"
+                100,
+                120,
+                "https://drive.google.com/uc?export=view&id=1t3JeV1XONuAKGyYLZYAywFuZQ26B-iSo"
         ));
 
         products.add(new ProductModel(
                 3,
                 "MacBook Air M2",
                 "Laptop mỏng nhẹ, pin trâu, phù hợp cho dân văn phòng.",
-                22490000.0,
-                24990000.0,
-                "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?q=80&w=800&auto=format&fit=crop"
+                100,
+                120,
+                "https://drive.google.com/uc?export=view&id=1t3JeV1XONuAKGyYLZYAywFuZQ26B-iSo"
         ));
 
         products.add(new ProductModel(
                 4,
                 "Tai nghe Sony WH-1000XM5",
                 "Tai nghe chụp tai chống ồn chủ động tốt nhất phân khúc.",
-                7490000.0,
-                8990000.0,
-                "https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb?q=80&w=800&auto=format&fit=crop"
+                100,
+                120,
+                "https://drive.google.com/uc?export=view&id=1t3JeV1XONuAKGyYLZYAywFuZQ26B-iSo"
         ));
 
         products.add(new ProductModel(
                 5,
                 "Bàn phím cơ Keychron K2",
                 "Bàn phím cơ không dây layout 75%, switch Gateron.",
-                1890000.0,
-                2200000.0,
-                "https://images.unsplash.com/photo-1595225476474-87563907a212?q=80&w=800&auto=format&fit=crop"
+                100,
+                120,
+                "https://drive.google.com/uc?export=view&id=1t3JeV1XONuAKGyYLZYAywFuZQ26B-iSo"
         ));
 
-        productAdapter = new ProductsAdapter(products);
-        LinearLayoutManager layoutManager =
-                new LinearLayoutManager(
-                        requireContext(),
-                        LinearLayoutManager.HORIZONTAL,
-                        false
-                );
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         rvProduct.setLayoutManager(layoutManager);
 
-        RecyclerView.ItemDecoration decoration =
-                new DividerItemDecoration(
-                        requireContext(),
-                        DividerItemDecoration.HORIZONTAL
-                );
-        rvProduct.addItemDecoration(decoration);
+        productAdapter = new ProductsAdapter(products);
         rvProduct.setAdapter(productAdapter);
     }
 }

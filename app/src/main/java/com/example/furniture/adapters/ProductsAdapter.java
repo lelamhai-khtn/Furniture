@@ -39,8 +39,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Produc
         }
 
         Glide.with(holder.itemView.getContext())
-                .load(item.getImage())
-                .placeholder(android.R.color.darker_gray)
+                .load(R.drawable.chair) // Load trực tiếp từ thư mục drawable
                 .into(holder.iv_image_product);
 
         holder.tv_name_product.setText(item.getName());
