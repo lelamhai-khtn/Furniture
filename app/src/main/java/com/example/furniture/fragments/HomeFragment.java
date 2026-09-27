@@ -94,32 +94,20 @@ public class HomeFragment extends Fragment {
     }
     private void category() {
         categories = new ArrayList<>();
-        CategoryModel c0 = new CategoryModel("All", "https://drive.google.com/uc?export=view&id=1n_T1K4mmirStTlwKQOty3ScJ8izQteFg");
-        CategoryModel c1 = new CategoryModel("Chair", "https://drive.google.com/uc?export=view&id=1n_T1K4mmirStTlwKQOty3ScJ8izQteFg");
-        CategoryModel c2 = new CategoryModel("Bed", "https://drive.google.com/uc?export=view&id=1n_T1K4mmirStTlwKQOty3ScJ8izQteFg");
-        CategoryModel c3 = new CategoryModel("table", "https://drive.google.com/uc?export=view&id=1n_T1K4mmirStTlwKQOty3ScJ8izQteFg");
-        CategoryModel c4 = new CategoryModel("Lamp", "https://drive.google.com/uc?export=view&id=1n_T1K4mmirStTlwKQOty3ScJ8izQteFg");
-        categories.add(c0);
+        CategoryModel c1 = new CategoryModel("Chair", "https://drive.google.com/uc?export=view&id=1t3JeV1XONuAKGyYLZYAywFuZQ26B-iSo");
+        CategoryModel c2 = new CategoryModel("Bed", "https://drive.google.com/uc?export=view&id=1t3JeV1XONuAKGyYLZYAywFuZQ26B-iSo");
+        CategoryModel c3 = new CategoryModel("table", "https://drive.google.com/uc?export=view&id=1t3JeV1XONuAKGyYLZYAywFuZQ26B-iSo");
+        CategoryModel c4 = new CategoryModel("Lamp", "https://drive.google.com/uc?export=view&id=1t3JeV1XONuAKGyYLZYAywFuZQ26B-iSo");
         categories.add(c1);
         categories.add(c2);
         categories.add(c3);
         categories.add(c4);
-        categoryAdapter = new CategoryAdapter(categories);
-
-        LinearLayoutManager layoutManager =
-                new LinearLayoutManager(
-                        requireContext(),
-                        LinearLayoutManager.HORIZONTAL,
-                        false
-                );
+        // Thiết lập LayoutManager chiều ngang (HORIZONTAL)
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         rvCategory.setLayoutManager(layoutManager);
 
-        RecyclerView.ItemDecoration decoration =
-                new DividerItemDecoration(
-                        requireContext(),
-                        DividerItemDecoration.HORIZONTAL
-                );
-        rvCategory.addItemDecoration(decoration);
+        // Khởi tạo và gắn Adapter vào RecyclerView (đảm bảo hoàn toàn KHÔNG có DividerItemDecoration ở đây)
+        categoryAdapter = new CategoryAdapter(categories);
         rvCategory.setAdapter(categoryAdapter);
     }
     private void product() {

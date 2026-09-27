@@ -48,9 +48,9 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
                 .into(holder.iv_image);
 
         if (selectedPosition == position) {
-            holder.itemView.setBackgroundColor(Color.parseColor("#808080"));
+            holder.itemView.setBackgroundResource(R.drawable.card_selected_categories);
         } else {
-            holder.itemView.setBackgroundColor(Color.parseColor("#000000"));
+            holder.itemView.setBackgroundResource(R.drawable.card_unselect_categories);
         }
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
