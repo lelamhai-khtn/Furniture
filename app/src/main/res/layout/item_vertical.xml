@@ -36,7 +36,7 @@
         android:maxLines="2"
         android:minLines="2"
         android:ellipsize="end"
-        style="@style/Systems.Title"
+        style="@style/Systems.Name"
         android:text="Chair beautiful" />
     <LinearLayout
         android:layout_width="match_parent"

@@ -34,6 +34,7 @@ public class HomeFragment extends Fragment {
     private CategoryAdapter categoryAdapter;
 
     private RecyclerView rvProduct;
+    private RecyclerView rvBestProduct;
     private List<ProductModel> products;
     private ProductsAdapter productAdapter;
 
@@ -89,8 +90,10 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         rvCategory = view.findViewById(R.id.rv_category);
         rvProduct = view.findViewById(R.id.rv_product);
+        rvBestProduct = view.findViewById(R.id.rv_best_product);
         category();
         product();
+        BestProduct();
     }
     private void category() {
         categories = new ArrayList<>();
@@ -163,5 +166,60 @@ public class HomeFragment extends Fragment {
 
         productAdapter = new ProductsAdapter(products);
         rvProduct.setAdapter(productAdapter);
+    }
+
+    private void BestProduct() {
+
+        List<ProductModel> products = new ArrayList<>();
+        products.add(new ProductModel(
+                1,
+                "iPhone 15 Pro Max",
+                "Điện thoại cao cấp của Apple với chip A17 Pro, camera 48MP.",
+                100,
+                120,
+                "https://images.unsplash.com/photo-1595225476474-87563907a212?q=80&w=800&auto=format&fit=crop"
+        ));
+
+        products.add(new ProductModel(
+                2,
+                "Samsung Galaxy S24 Ultra",
+                "Flagship của Samsung tích hợp Galaxy AI, bút S-Pen.",
+                100,
+                120,
+                "https://drive.google.com/uc?export=view&id=1t3JeV1XONuAKGyYLZYAywFuZQ26B-iSo"
+        ));
+
+        products.add(new ProductModel(
+                3,
+                "MacBook Air M2",
+                "Laptop mỏng nhẹ, pin trâu, phù hợp cho dân văn phòng.",
+                100,
+                120,
+                "https://drive.google.com/uc?export=view&id=1t3JeV1XONuAKGyYLZYAywFuZQ26B-iSo"
+        ));
+
+        products.add(new ProductModel(
+                4,
+                "Tai nghe Sony WH-1000XM5",
+                "Tai nghe chụp tai chống ồn chủ động tốt nhất phân khúc.",
+                100,
+                120,
+                "https://drive.google.com/uc?export=view&id=1t3JeV1XONuAKGyYLZYAywFuZQ26B-iSo"
+        ));
+
+        products.add(new ProductModel(
+                5,
+                "Bàn phím cơ Keychron K2",
+                "Bàn phím cơ không dây layout 75%, switch Gateron.",
+                100,
+                120,
+                "https://drive.google.com/uc?export=view&id=1t3JeV1XONuAKGyYLZYAywFuZQ26B-iSo"
+        ));
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        rvBestProduct.setLayoutManager(layoutManager);
+
+        productAdapter = new ProductsAdapter(products);
+        rvBestProduct.setAdapter(productAdapter);
     }
 }
