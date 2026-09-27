@@ -2,6 +2,7 @@ package com.example.furniture.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -27,6 +28,12 @@ public class SignInScreen extends AppCompatActivity {
         TextView tvSignUp = findViewById(R.id.tvSignUp);
         tvSignUp.setOnClickListener(v -> {
             Intent intent = new Intent(this, SignUpScreen.class);
+            startActivity(intent);
+        });
+
+        Button btnSignIn = findViewById(R.id.btnSignIn);
+        btnSignIn.setOnClickListener(v->{
+            Intent intent = new Intent(this, MainScreen.class);
             startActivity(intent);
         });
     }

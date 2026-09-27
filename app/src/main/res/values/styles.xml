@@ -59,6 +59,13 @@
         <item name="lineHeight">20sp</item>
     </style>
 
+    <!-- Body-sm -->
+    <style name="Typography.Small">
+        <item name="android:textSize">12sp</item>
+        <item name="android:fontFamily">@font/poppins_regular</item>
+        <item name="lineHeight">16sp</item>
+    </style>
+
     <!-- Systems app -->
     <style name="Systems" />
 
