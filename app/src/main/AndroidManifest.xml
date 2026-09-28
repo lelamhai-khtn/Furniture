@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Furniture">
         <activity
-            android:name=".activity.SignInScreen"
+            android:name=".activity.DetailScreen"
             android:exported="true"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
@@ -27,7 +27,6 @@
             android:name=".MainActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
-
         <activity
             android:name=".activity.SlashScreen"
             android:exported="false"
@@ -38,6 +37,10 @@
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".activity.SignUpScreen"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".activity.SignInScreen"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
     </application>
