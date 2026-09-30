@@ -181,17 +181,82 @@
             android:layout_height="60dp"
             android:layout_gravity="bottom"
             android:background="@drawable/bg_rounded_top"
-            android:gravity="center"
+            android:gravity="center_vertical"
             android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="GIAO DIỆN A"
-                android:textColor="#FFFFFF"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:orientation="horizontal"
+                android:padding="16dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    >
+
+                    <ImageButton
+                        android:id="@+id/btn_decrease"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:background="@drawable/bg_minus_button"
+                        android:contentDescription="Giảm"
+                        android:src="@drawable/minus_24" /> <!-- Bạn cần bo góc và viền tím cho drawable này -->
+
+                    <TextView
+                        android:id="@+id/tv_quantity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:text="1"
+                        android:textColor="#000000"
+                        android:textStyle="bold"
+                        android:textSize="16sp" />
+
+                    <ImageButton
+                        android:id="@+id/btn_increase"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:background="@drawable/bg_plus_button"
+                        android:contentDescription="Tăng"
+                        android:src="@drawable/add_24" />
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    >
+
+                    <TextView
+                        android:id="@+id/tv_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="$ 599.00"
+                        android:textColor="@android:color/white"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        />
+
+                    <ImageView
+                        android:id="@+id/iv_cart"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/outline_shoping"
+                        app:tint="@android:color/white" />
+                </LinearLayout>
+
+            </LinearLayout>
         </LinearLayout>
+
+
     </FrameLayout>
 </LinearLayout>
 
