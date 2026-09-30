@@ -37,21 +37,23 @@
 
                     <ImageButton
                         android:id="@+id/ib_favorite"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
                         android:layout_gravity="end"
                         android:layout_margin="16dp"
                         android:background="@null"
-                        android:src="@drawable/favorite_24" />
+                        app:srcCompat="@drawable/favorite_24"
+                        android:contentDescription="Nút yêu thích" /> <!-- Thêm mô tả hoặc dùng tools:ignore="ContentDescription" -->
 
                     <ImageButton
-                        android:id="@+id/imageButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:id="@+id/ib_ar"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
                         android:layout_gravity="bottom|right"
                         android:layout_margin="16dp"
                         android:background="@null"
-                        android:src="@drawable/outline_view_in_ar_24" />
+                        app:srcCompat="@drawable/outline_view_in_ar_24"
+                        android:contentDescription="Xem chế độ AR" />
                 </FrameLayout>
 
                 <TextView
@@ -169,14 +171,14 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="102dp"
+            android:layout_height="62dp"
             android:layout_gravity="bottom"
             android:layout_marginLeft="2dp"
             android:background="@drawable/bg_shadow_top" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="60dp"
             android:layout_gravity="bottom"
             android:background="@drawable/bg_rounded_top"
             android:gravity="center"
