@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Furniture</string>
+    <string name="original_price"><s>10000 $</s></string>
 </resources>

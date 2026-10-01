@@ -1,5 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="white">#ffffff</color>
+    <color name="Black">#000000</color>
+    <color name="BlackText">#0d0d0d</color>
+
+    <color name="PrimaryBorder">#2d6467</color>
+    <color name="Primary3">#347175</color>
+    <color name="Primary2">#5c8a8c</color>
+    <color name="Primary1">#abc5c4</color>
+
+    <color name="GrayBorder">#b7b7b7</color>
+    <color name="Gray2">#e5e5e5</color>
+    <color name="Gray1">#f6f6f6</color>
+
+    <color name="Red">#eb3152</color>
+    <color name="Yellow">#ffa751</color>
+    <color name="PrimaryThin">#cbd4d6</color>
+    <color name="YellowThin">#fff7e9</color>
+    <color name="RedThin">#ffdee0</color>
 </resources>
