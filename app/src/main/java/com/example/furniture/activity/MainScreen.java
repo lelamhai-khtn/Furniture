@@ -16,6 +16,7 @@ import com.example.furniture.fragments.HomeFragment;
 import com.example.furniture.fragments.LocationFragment;
 import com.example.furniture.fragments.ProfileFragment;
 import com.example.furniture.fragments.SearchFragment;
+import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainScreen extends AppCompatActivity {
@@ -63,6 +64,10 @@ public class MainScreen extends AppCompatActivity {
             }
             return false;
         });
+
+
+
+
     }
 
     private void loadFragment(Fragment fragment){
