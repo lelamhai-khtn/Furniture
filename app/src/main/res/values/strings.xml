@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Furniture</string>
     <string name="original_price"><s>10000 $</s></string>
+    <string name="sign_in">Sign in</string>
+    <string name="add_information_to_sign_in">Add information to sign in</string>
+    <string name="email">Email</string>
 </resources>
