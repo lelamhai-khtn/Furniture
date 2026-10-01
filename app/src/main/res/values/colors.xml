@@ -2,8 +2,9 @@
 <resources>
     <color name="black">#2b2b2b</color>
     <color name="white">#ffffff</color>
+    <color name="blue">#2196F3</color>
     <color name="color_root">#152223</color>
-    <color name="Red">#f13356</color>
+    <color name="Red">#eb3152</color>
 
     <color name="Neutral100">#2b2b2b</color>
     <color name="Neutral90">#303437</color>
@@ -40,5 +41,22 @@
     <color name="Critical20">#feeee0</color>
     <color name="Critical10">#ffede1</color>
     <color name="Critical5">#fff9f4</color>
+
+
+    <color name="BlackText">#0d0d0d</color>
+
+    <color name="PrimaryBorder">#2d6467</color>
+    <color name="Primary3">#347175</color>
+    <color name="Primary2">#5c8a8c</color>
+    <color name="Primary1">#abc5c4</color>
+
+    <color name="GrayBorder">#b7b7b7</color>
+    <color name="Gray2">#e5e5e5</color>
+    <color name="Gray1">#f6f6f6</color>
+
+    <color name="Yellow">#ffa751</color>
+    <color name="PrimaryThin">#cbd4d6</color>
+    <color name="YellowThin">#fff7e9</color>
+    <color name="RedThin">#ffdee0</color>
 
 </resources>

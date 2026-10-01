@@ -8,7 +8,7 @@
     android:orientation="vertical"
     tools:context=".activity.SlashScreen">
 
-    <!-- PHẦN TOOLBAR PHÍA TRÊN -->
+
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"

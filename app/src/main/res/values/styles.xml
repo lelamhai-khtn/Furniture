@@ -103,4 +103,10 @@
         <item name="android:fontFamily">@font/poppins_semi_bold</item>
         <item name="lineHeight">20sp</item>
     </style>
+
+
+    <style name="BottomNavThemeOverlay" parent="ThemeOverlay.Material3.BottomNavigationView">
+        <item name="colorSecondaryContainer">@color/Primary100</item>
+        <item name="colorOnSecondaryContainer">@color/white</item>
+    </style>
 </resources>
