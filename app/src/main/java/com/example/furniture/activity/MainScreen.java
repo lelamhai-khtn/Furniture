@@ -1,9 +1,12 @@
 package com.example.furniture.activity;
 
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.widget.FrameLayout;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.SystemBarStyle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -31,6 +34,17 @@ public class MainScreen extends AppCompatActivity {
             v.setPadding(systemBars.left, 0, systemBars.right, 0);
             return insets;
         });
+
+        EdgeToEdge.enable(this,
+                SystemBarStyle.light(Color.TRANSPARENT, Color.TRANSPARENT),
+                SystemBarStyle.light(Color.WHITE, Color.BLACK)
+        );
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            getWindow().setNavigationBarContrastEnforced(false);
+        }
+
+
+
         contentFrame = findViewById(R.id.fl_content_frame);
         loadFragment(new HomeFragment());
 

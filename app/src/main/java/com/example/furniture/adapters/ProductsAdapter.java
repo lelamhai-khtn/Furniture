@@ -2,6 +2,7 @@ package com.example.furniture.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,6 +49,10 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Produc
 
         holder.tv_name_product.setText(item.getName());
         holder.tv_price_product.setText(String.valueOf(item.getPrice()));
+
+
+        holder.tv_old_price_product.setPaintFlags(holder.tv_old_price_product.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        holder.tv_old_price_product.setText(String.valueOf(item.getOldPrice()) + "$");
 
         holder.ib_favorite.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,6 +101,8 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Produc
         private ImageButton ib_favorite;
         private TextView tv_name_product;
         private TextView tv_price_product;
+
+        private TextView tv_old_price_product;
         private ImageButton ib_cart;
         public ProductVerticalViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -103,6 +110,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Produc
             ib_favorite = itemView.findViewById(R.id.ib_favorite);
             tv_name_product = itemView.findViewById(R.id.tv_name_product);
             tv_price_product = itemView.findViewById(R.id.tv_price_product);
+            tv_old_price_product = itemView.findViewById(R.id.tv_old_price);
             ib_cart = itemView.findViewById(R.id.ib_cart);
         }
     }
