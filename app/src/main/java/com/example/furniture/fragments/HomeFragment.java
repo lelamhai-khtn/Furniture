@@ -120,6 +120,15 @@ public class HomeFragment extends Fragment {
 
             // 7. Hiển thị Badge
             badge.setVisible(true);
+
+//            bottomNavigationView.setOnItemSelectedListener(item -> {
+//                // Kiểm tra xem item được click có phải là item thứ 3 (thông báo) không
+//                if (item.getItemId() == itemId) { // hoặc R.id.nav_notification
+//                    // Xoá badge đi khi người dùng đã đọc
+//                    bottomNavigationView.removeBadge(item.getItemId());
+//                }
+//                return true; // Trả về true để cho phép chuyển tab
+//            });
         }
 
 

@@ -46,19 +46,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Email"
-                android:textColorHint="@color/black"
                 app:hintTextColor="@color/Primary100"
                 app:boxStrokeColor="@color/input_border_color"
                 app:boxCornerRadiusTopStart="12dp"
                 app:boxCornerRadiusTopEnd="12dp"
                 app:boxCornerRadiusBottomStart="12dp"
-                app:boxCornerRadiusBottomEnd="12dp">
+                app:boxCornerRadiusBottomEnd="12dp"
+                >
 
                 <com.google.android.material.textfield.TextInputEditText
+                    style="@style/Systems.Input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textEmailAddress"
-                    android:textColor="@color/black"/>
+                    />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -98,11 +99,10 @@
                     android:text="Remember me"/>
 
                 <TextView
-                    android:id="@+id/textView2"
+                    android:id="@+id/tv_forgot_password"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    style="@style/Typography.BodySm"
                     android:textColor="@color/Primary100"
                     android:text="Forgot password"
                     android:textAlignment="textEnd" />
@@ -115,6 +115,7 @@
                 android:paddingBottom="6dp"/>
 
             <Button
+                style="@style/Systems.ButtonLogin"
                 android:id="@+id/btnSignIn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -170,6 +171,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
+                    style="@style/Systems.ButtonLogin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Sign in with Google"
@@ -195,13 +197,13 @@
                     android:textColor="@color/Neutral30" />
 
                 <TextView
+                    style="@style/Systems.TVSignIn"
                     android:id="@+id/tvSignUp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Sign up"
                     android:clickable="true"
                     android:focusable="true"
-                    style="@style/Typography.BodyEm"
                     android:textColor="@color/Primary100"/>
             </LinearLayout>
         </LinearLayout>
