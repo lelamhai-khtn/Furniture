@@ -8,7 +8,7 @@
     android:orientation="vertical"
     tools:context=".activity.SignUpScreen">
 
-    <include layout="@layout/toolbar_back"/>
+    <include layout="@layout/app_bar_layout"/>
 
     <ScrollView
         android:layout_width="match_parent"
