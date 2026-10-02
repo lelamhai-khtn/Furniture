@@ -28,8 +28,8 @@ public class SignUpScreen extends AppCompatActivity {
         });
 
         EdgeToEdge.enable(this,
-                SystemBarStyle.light(Color.TRANSPARENT, Color.TRANSPARENT), // Status Bar (Thanh trên)
-                SystemBarStyle.light(Color.WHITE, Color.BLACK)             // System Navigation Bar (Thanh dưới)
+                SystemBarStyle.light(Color.TRANSPARENT, Color.TRANSPARENT),
+                SystemBarStyle.light(Color.WHITE, Color.BLACK)
         );
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {

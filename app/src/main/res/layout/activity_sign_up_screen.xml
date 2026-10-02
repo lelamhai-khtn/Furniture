@@ -14,23 +14,23 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:fillViewport="true">
+        android:fillViewport="true"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp">
+            android:layout_marginRight="20dp"
+            android:paddingTop="16dp">
 
-            <!-- Tiêu đề -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Sign up"
                 style="@style/Typography.H4"/>
 
-            <!-- Phụ đề -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -39,14 +39,12 @@
                 style="@style/Systems.Description"/>
 
 
-            <!-- 1. Name -->
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 android:hint="Full name"
-                android:textColorHint="@color/black"
                 app:hintTextColor="@color/Primary100"
                 app:boxStrokeColor="@color/input_border_color"
                 app:boxCornerRadiusTopStart="12dp"
@@ -55,20 +53,18 @@
                 app:boxCornerRadiusBottomEnd="12dp">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    style="@style/Systems.Input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textPersonName"
-                    android:textColor="@color/black"/>
+                    android:inputType="textPersonName"/>
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- 2. Email -->
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 android:hint="Email"
-                android:textColorHint="@color/black"
                 app:hintTextColor="@color/Primary100"
                 app:boxStrokeColor="@color/input_border_color"
                 app:boxCornerRadiusTopStart="12dp"
@@ -77,20 +73,18 @@
                 app:boxCornerRadiusBottomEnd="12dp">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    style="@style/Systems.Input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textEmailAddress"
-                    android:textColor="@color/black"/>
+                    android:inputType="textEmailAddress"/>
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- 3. Phone -->
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 android:hint="Phone"
-                android:textColorHint="@color/black"
                 app:hintTextColor="@color/Primary100"
                 app:boxStrokeColor="@color/input_border_color"
                 app:boxCornerRadiusTopStart="12dp"
@@ -99,20 +93,18 @@
                 app:boxCornerRadiusBottomEnd="12dp">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    style="@style/Systems.Input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="phone"
-                    android:textColor="@color/black"/>
+                    android:inputType="phone"/>
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Gender (Giới tính) -->
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 android:hint="Gender"
-                android:textColorHint="@color/black"
                 app:hintTextColor="@color/Primary100"
                 app:boxStrokeColor="@color/input_border_color"
                 app:boxCornerRadiusTopStart="12dp"
@@ -122,6 +114,7 @@
 
                 <AutoCompleteTextView
                     android:id="@+id/tvGender"
+                    style="@style/Systems.Input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="none"
@@ -129,14 +122,12 @@
                     android:contentDescription="Choose"/>
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- 4. Password -->
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 android:hint="Password"
-                android:textColorHint="@color/black"
                 app:hintTextColor="@color/Primary100"
                 app:boxStrokeColor="@color/input_border_color"
                 app:boxCornerRadiusTopStart="12dp"
@@ -146,6 +137,7 @@
                 app:passwordToggleEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    style="@style/Systems.Input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPassword"
@@ -153,14 +145,12 @@
             </com.google.android.material.textfield.TextInputLayout>
 
 
-            <!-- 5. Confirm Password -->
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="32dp"
                 android:hint="Confirm password"
-                android:textColorHint="@color/black"
                 app:hintTextColor="@color/Primary100"
                 app:boxStrokeColor="@color/input_border_color"
                 app:boxCornerRadiusTopStart="12dp"
@@ -170,6 +160,7 @@
                 app:passwordToggleEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    style="@style/Systems.Input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPassword"
@@ -182,8 +173,9 @@
                 android:text="Lỗi"
                 style="@style/Systems.Errors"
                 android:paddingBottom="6dp"/>
-            <!-- Nút Sign up -->
+
             <Button
+                style="@style/Systems.ButtonLogin"
                 android:id="@+id/btnSignUp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
