@@ -4,10 +4,8 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#EFEFEF"
     android:orientation="vertical">
-
-
+    <include layout="@layout/app_bar_layout"/>
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -21,43 +19,53 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:padding="16dp"
                 android:orientation="vertical">
 
                 <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="16dp">
 
                     <ImageView
                         android:id="@+id/imageView"
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
-                        android:padding="32dp"
+                        android:layout_marginTop="16dp"
                         app:srcCompat="@drawable/chair" />
 
                     <ImageButton
                         android:id="@+id/ib_favorite"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="end"
-                        android:layout_margin="16dp"
                         android:background="@null"
-                        app:srcCompat="@drawable/favorite_24"
+                        app:srcCompat="@drawable/icon_favorite_24"
                         android:contentDescription="Nút yêu thích" /> <!-- Thêm mô tả hoặc dùng tools:ignore="ContentDescription" -->
 
                     <ImageButton
                         android:id="@+id/ib_ar"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="bottom|right"
-                        android:layout_margin="16dp"
                         android:background="@null"
                         app:srcCompat="@drawable/outline_view_in_ar_24"
                         android:contentDescription="Xem chế độ AR" />
                 </FrameLayout>
 
+                <ImageButton
+                    android:id="@+id/ib_add_card"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/bg_green"
+                    android:layout_marginBottom="32dp"
+                    app:tint="@color/white"
+                    app:srcCompat="@drawable/icon_add_shopping_cart_24" />
+
                 <TextView
                     android:id="@+id/tv_name_product"
-                    style="@style/Systems.Name"
+                    style="@style/Systems.NameDetail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Chair beautiful" />
@@ -66,27 +74,24 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
+                    android:paddingBottom="12dp"
                     android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/tv_price_product"
-                        style="@style/Systems.Price"
+                        style="@style/Systems.PriceProduct"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="100$" />
 
                     <TextView
-                        style="@style/Systems.Description"
+                        style="@style/Systems.OldPriceDetail"
+                        android:layout_marginLeft="12dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="120$" />
                 </LinearLayout>
 
-                <TextView
-                    style="@style/Systems.Name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Decription" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -187,7 +192,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:padding="16dp">
+                android:layout_gravity="center"
+                >
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -200,27 +206,29 @@
                         android:layout_width="32dp"
                         android:layout_height="32dp"
                         android:background="@drawable/bg_minus_button"
+                        app:tint="@color/white"
                         android:contentDescription="Giảm"
-                        android:src="@drawable/minus_24" /> <!-- Bạn cần bo góc và viền tím cho drawable này -->
+                        android:src="@drawable/icon_minus_24" /> <!-- Bạn cần bo góc và viền tím cho drawable này -->
 
                     <TextView
+                        style="@style/Systems.Title"
                         android:id="@+id/tv_quantity"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_marginEnd="16dp"
                         android:text="1"
-                        android:textColor="#000000"
-                        android:textStyle="bold"
-                        android:textSize="16sp" />
+                        android:textColor="@color/white"
+                        />
 
                     <ImageButton
                         android:id="@+id/btn_increase"
                         android:layout_width="32dp"
                         android:layout_height="32dp"
-                        android:background="@drawable/bg_plus_button"
+                        android:background="@drawable/bg_minus_button"
                         android:contentDescription="Tăng"
-                        android:src="@drawable/add_24" />
+                        app:tint="@color/white"
+                        android:src="@drawable/icon_add_24" />
                 </LinearLayout>
 
                 <Space
@@ -239,9 +247,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="$ 599.00"
-                        android:textColor="@android:color/white"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
+                        android:textColor="@color/white"
                         />
 
                     <ImageView
@@ -249,13 +255,11 @@
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:src="@drawable/outline_shoping"
-                        app:tint="@android:color/white" />
+                        app:tint="@color/white" />
                 </LinearLayout>
 
             </LinearLayout>
         </LinearLayout>
-
-
     </FrameLayout>
 </LinearLayout>
 

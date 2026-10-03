@@ -21,7 +21,7 @@
             android:minWidth="32dp"
             android:minHeight="32dp"
             android:layout_gravity="start"
-            android:src="@drawable/outline_arrow_back_24"
+            android:src="@drawable/icon_arrow_back_24"
             android:background="@null"
             android:scaleType="fitCenter"
             android:contentDescription="@string/app_name" />

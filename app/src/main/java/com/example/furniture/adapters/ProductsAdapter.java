@@ -58,9 +58,9 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Produc
             @Override
             public void onClick(View v) {
                 if (!stateFavorite) {
-                    holder.ib_favorite.setImageResource(R.drawable.favorite_24_fill);
+                    holder.ib_favorite.setImageResource(R.drawable.icon_favorite_fill_24);
                 } else {
-                    holder.ib_favorite.setImageResource(R.drawable.favorite_24);
+                    holder.ib_favorite.setImageResource(R.drawable.icon_favorite_24);
                 }
             }
         });

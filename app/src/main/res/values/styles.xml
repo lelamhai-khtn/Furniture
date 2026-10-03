@@ -148,7 +148,7 @@
         <item name="lineHeight">28sp</item>
     </style>
 
-    <style name="Systems.DescriptionOldProduct">
+    <style name="Systems.OldPriceProduct">
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/GrayBorder</item>
         <item name="fontFamily">@font/poppins_regular</item>
@@ -156,6 +156,27 @@
         <item name="lineHeight">20sp</item>
     </style>
 
+    <!-- Detail -->
+    <style name="Systems.NameDetail">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:fontFamily">@font/poppins_semi_bold</item>
+        <item name="lineHeight">36sp</item>
+    </style>
+
+    <style name="Systems.PriceDetail">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@color/Primary100</item>
+        <item name="android:fontFamily">@font/poppins_semi_bold</item>
+        <item name="lineHeight">36sp</item>
+    </style>
+
+    <style name="Systems.OldPriceDetail">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/Neutral30</item>
+        <item name="android:fontFamily">@font/poppins_semi_bold</item>
+        <item name="lineHeight">20sp</item>
+    </style>
 
     <style name="BottomNavThemeOverlay" parent="ThemeOverlay.Material3.BottomNavigationView">
         <item name="colorSecondaryContainer">@color/Primary100</item>
