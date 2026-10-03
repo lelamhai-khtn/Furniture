@@ -21,11 +21,7 @@
             android:textColor="@color/black"
             android:textSize="20dp" />
 
-        <ImageButton
-            android:id="@+id/btnCart"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:background="@drawable/outline_shoping" />
+
     </LinearLayout>
     <ScrollView
         android:layout_width="match_parent"

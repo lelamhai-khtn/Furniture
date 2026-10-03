@@ -13,7 +13,7 @@
                 </shape>
             </item>
             <!-- Xóa bỏ top, bottom, left, right vì bản thân icon đã vừa khớp 24dp -->
-            <item android:drawable="@drawable/outline_check_24" />
+            <item android:drawable="@drawable/icon_check_24" />
         </layer-list>
     </item>
 

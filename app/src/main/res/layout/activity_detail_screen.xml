@@ -49,7 +49,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="bottom|right"
                         android:background="@null"
-                        app:srcCompat="@drawable/outline_view_in_ar_24"
+                        app:srcCompat="@drawable/icon_ar_24"
                         android:contentDescription="Xem chế độ AR" />
                 </FrameLayout>
 
@@ -185,79 +185,76 @@
             android:layout_height="60dp"
             android:layout_gravity="bottom"
             android:background="@drawable/bg_rounded_top"
-            android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_gravity="center"
+                android:layout_marginStart="16dp"
                 >
 
-                <LinearLayout
+                <ImageButton
+                    android:id="@+id/btn_decrease"
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
+                    android:background="@drawable/bg_minus_button"
+                    android:scaleType="fitCenter"
+                    app:tint="@color/white"
+                    android:contentDescription="Giảm"
+                    android:src="@drawable/icon_minus_24" /> <!-- Bạn cần bo góc và viền tím cho drawable này -->
+
+                <TextView
+                    style="@style/Systems.Title"
+                    android:id="@+id/tv_quantity"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    >
+                    android:layout_marginTop="2dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="01"
+                    android:textColor="@color/white"
+                    />
 
-                    <ImageButton
-                        android:id="@+id/btn_decrease"
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:background="@drawable/bg_minus_button"
-                        app:tint="@color/white"
-                        android:contentDescription="Giảm"
-                        android:src="@drawable/icon_minus_24" /> <!-- Bạn cần bo góc và viền tím cho drawable này -->
+                <ImageButton
+                    android:id="@+id/btn_increase"
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
+                    android:background="@drawable/bg_minus_button"
+                    android:scaleType="fitCenter"
+                    android:contentDescription="Tăng"
+                    app:tint="@color/white"
+                    android:src="@drawable/icon_add_24" />
+            </LinearLayout>
 
-                    <TextView
-                        style="@style/Systems.Title"
-                        android:id="@+id/tv_quantity"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginEnd="16dp"
-                        android:text="1"
-                        android:textColor="@color/white"
-                        />
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
 
-                    <ImageButton
-                        android:id="@+id/btn_increase"
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:background="@drawable/bg_minus_button"
-                        android:contentDescription="Tăng"
-                        app:tint="@color/white"
-                        android:src="@drawable/icon_add_24" />
-                </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:gravity="center_vertical"
+                >
 
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-
-                <LinearLayout
+                <TextView
+                    style="@style/Systems.Title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    >
+                    android:layout_marginEnd="8dp"
+                    android:text="Toal:"
+                    android:textColor="@color/white"
+                    />
 
-                    <TextView
-                        android:id="@+id/tv_price"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="$ 599.00"
-                        android:textColor="@color/white"
-                        />
-
-                    <ImageView
-                        android:id="@+id/iv_cart"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/outline_shoping"
-                        app:tint="@color/white" />
-                </LinearLayout>
-
+                <TextView
+                    style="@style/Systems.Title"
+                    android:id="@+id/tv_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="$599.00"
+                    android:textColor="@color/white"
+                    />
             </LinearLayout>
         </LinearLayout>
     </FrameLayout>
