@@ -100,7 +100,7 @@ public class HomeFragment extends Fragment {
 
         if (bottomNavigationView != null) {
             // 2. Lấy ID của item thứ 3 (hoặc R.id.bottom_ar, R.id.bottom_home, v.v.)
-            int itemId = bottomNavigationView.getMenu().getItem(2).getItemId();
+            int itemId = bottomNavigationView.getMenu().getItem(3).getItemId();
 
             // 3. Tạo Badge cho item đó
             BadgeDrawable badge = bottomNavigationView.getOrCreateBadge(itemId);

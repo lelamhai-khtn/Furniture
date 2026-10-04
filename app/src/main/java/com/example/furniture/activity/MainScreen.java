@@ -15,11 +15,11 @@ import androidx.fragment.app.Fragment;
 
 import com.example.furniture.R;
 import com.example.furniture.fragments.ARFragment;
+import com.example.furniture.fragments.CartFragment;
 import com.example.furniture.fragments.HomeFragment;
 import com.example.furniture.fragments.LocationFragment;
 import com.example.furniture.fragments.ProfileFragment;
 import com.example.furniture.fragments.SearchFragment;
-import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainScreen extends AppCompatActivity {
@@ -43,8 +43,6 @@ public class MainScreen extends AppCompatActivity {
             getWindow().setNavigationBarContrastEnforced(false);
         }
 
-
-
         contentFrame = findViewById(R.id.fl_content_frame);
         loadFragment(new HomeFragment());
 
@@ -66,6 +64,11 @@ public class MainScreen extends AppCompatActivity {
                 loadFragment(new ARFragment());
                 return true;
             }
+            if (id == R.id.bottom_cart)
+            {
+                loadFragment(new CartFragment());
+                return true;
+            }
             if (id == R.id.bottom_location)
             {
                 loadFragment(new LocationFragment());
@@ -78,10 +81,6 @@ public class MainScreen extends AppCompatActivity {
             }
             return false;
         });
-
-
-
-
     }
 
     private void loadFragment(Fragment fragment){

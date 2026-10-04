@@ -63,7 +63,7 @@
             android:layout_width="20dp"
             android:layout_height="40dp"
             android:layout_weight="1"
-            android:background="@drawable/bg_cart_button">
+            android:background="@drawable/bg_product_button">
 
             <ImageButton
                 android:id="@+id/ib_cart"

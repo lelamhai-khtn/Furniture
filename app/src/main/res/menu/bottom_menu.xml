@@ -13,9 +13,9 @@
         android:icon="@drawable/icon_ar_24"
         android:title="AR" />
     <item
-        android:id="@+id/bottom_card"
+        android:id="@+id/bottom_cart"
         android:icon="@drawable/icon_shopping_cart_24"
-        android:title="Card" />
+        android:title="Cart" />
     <item
         android:id="@+id/bottom_location"
         android:icon="@drawable/icon_location_pin_24"
