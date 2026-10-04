@@ -5,16 +5,19 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.furniture.R;
 import com.example.furniture.activity.DetailScreen;
 import com.example.furniture.models.ProductModel;
+import com.example.furniture.popups.PopupDelete;
 
 import java.util.List;
 
@@ -64,6 +67,24 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CardViewHolder
                 context.startActivity(intent);
             }
         });
+
+        holder.ib_delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PopupDelete popup = PopupDelete.newInstance(item.getName(), item.getPrice() + " $", item.getImage(), position);
+                popup.setOnDeleteClickListener(new PopupDelete.OnDeleteClickListener() {
+                    @Override
+                    public void onDeleteConfirm(int itemPosition) {
+                        products.remove(itemPosition);
+                        notifyItemRemoved(itemPosition);
+                        notifyItemRangeChanged(itemPosition, products.size());
+                    }
+                });
+
+                AppCompatActivity activity = (AppCompatActivity) v.getContext();
+                popup.show(activity.getSupportFragmentManager(), "PopupDelete");
+            }
+        });
     }
 
     @Override
@@ -77,15 +98,16 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CardViewHolder
 
     class CardViewHolder extends RecyclerView.ViewHolder {
         private ImageView iv_image_product;
-
         private TextView tv_name_product;
         private TextView tv_price_product;
 
+        private ImageButton ib_delete;
         public CardViewHolder(@NonNull View itemView) {
             super(itemView);
             iv_image_product = itemView.findViewById(R.id.iv_image_product);
             tv_name_product = itemView.findViewById(R.id.tv_name_product);
             tv_price_product = itemView.findViewById(R.id.tv_price_product);
+            ib_delete = itemView.findViewById(R.id.ib_delete);
         }
     }
 }
