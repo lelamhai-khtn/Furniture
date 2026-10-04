@@ -43,6 +43,9 @@
             android:name=".activity.MainScreen"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
-    </application>
 
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAwLgGinTSvAukvnFzXDj1kRsId-Jc2aZc" />
+    </application>
 </manifest>
