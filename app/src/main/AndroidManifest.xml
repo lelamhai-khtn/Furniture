@@ -3,6 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:allowBackup="true"
@@ -47,5 +51,21 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyAwLgGinTSvAukvnFzXDj1kRsId-Jc2aZc" />
+
+        <activity
+            android:name=".activity.ImageScreen"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.example.furniture.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
     </application>
+
 </manifest>
