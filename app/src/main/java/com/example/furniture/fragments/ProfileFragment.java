@@ -10,8 +10,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import com.example.furniture.R;
+import com.example.furniture.observer.IEventListener;
+import com.example.furniture.observer.ManageEvent;
 import com.example.furniture.popups.PopupPhoto;
 
 /**
@@ -19,7 +22,9 @@ import com.example.furniture.popups.PopupPhoto;
  * Use the {@link ProfileFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ProfileFragment extends Fragment {
+public class ProfileFragment extends Fragment implements IEventListener {
+
+    private ImageView iv_avatar;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -55,6 +60,7 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ManageEvent.getInstance().addListener(this);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -66,15 +72,31 @@ public class ProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_profile, container, false);
+
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        iv_avatar = view.findViewById(R.id.iv_avatar);
         ImageButton imageButton = view.findViewById(R.id.bi_photo);
         imageButton.setOnClickListener(v -> {
             PopupPhoto popupPhoto = new PopupPhoto();
             popupPhoto.show(getParentFragmentManager(), "popup_photo");
         });
+    }
+
+    @Override
+    public void onEvent(boolean success) {
+        if(success) {
+            iv_avatar.setImageResource(R.drawable.icon_person_off_120);
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        ManageEvent.getInstance().removeListener(this);
     }
 }

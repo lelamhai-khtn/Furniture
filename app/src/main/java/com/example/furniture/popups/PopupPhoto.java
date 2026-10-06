@@ -24,6 +24,7 @@ import androidx.core.content.FileProvider;
 
 import com.example.furniture.R;
 import com.example.furniture.activity.ImageScreen;
+import com.example.furniture.observer.ManageEvent;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import java.io.File;
@@ -120,7 +121,7 @@ public class PopupPhoto extends BottomSheetDialogFragment {
         // Nút Xóa ảnh
         if (layoutDeletePhoto != null) {
             layoutDeletePhoto.setOnClickListener(v -> {
-                Toast.makeText(getContext(), "Đã xóa ảnh", Toast.LENGTH_SHORT).show();
+                ManageEvent.getInstance().notifyListeners(true);
                 dismiss();
             });
         }
