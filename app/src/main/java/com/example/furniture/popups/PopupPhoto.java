@@ -36,7 +36,7 @@ public class PopupPhoto extends BottomSheetDialogFragment {
     private ImageButton btnClose;
     private LinearLayout layoutTakePhoto, layoutChooseGallery, layoutDeletePhoto;
 
-    // Biến lưu trữ đường dẫn (URI) của bức ảnh chất lượng cao
+    // Biến lưu trữ đường dẫn (URI) của bức ảnh chất lượng cao từ Camera
     private Uri photoURI;
 
     // 1. Launcher xử lý xin quyền Camera
@@ -55,14 +55,31 @@ public class PopupPhoto extends BottomSheetDialogFragment {
     private final ActivityResultLauncher<Intent> cameraLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
-                // Kiểm tra xem người dùng có bấm chụp và lưu thành công không
                 if (result.getResultCode() == Activity.RESULT_OK) {
                     if (photoURI != null) {
-                        // Ảnh đã lưu vào photoURI, truyền đường dẫn URI sang ImageScreen
+                        // Truyền đường dẫn URI sang ImageScreen để cắt ảnh
                         Intent intent = new Intent(requireContext(), ImageScreen.class);
                         intent.putExtra("captured_image_uri", photoURI.toString());
                         startActivity(intent);
                         Toast.makeText(getContext(), "Đã chụp ảnh thành công!", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                dismiss();
+            }
+    );
+
+    // 3. Launcher xử lý kết quả sau khi chọn ảnh từ Thư viện (Gallery)
+    private final ActivityResultLauncher<Intent> galleryLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
+                    Uri selectedImageUri = result.getData().getData();
+                    if (selectedImageUri != null) {
+                        // Truyền đường dẫn URI từ thư viện sang ImageScreen để cắt ảnh
+                        Intent intent = new Intent(requireContext(), ImageScreen.class);
+                        intent.putExtra("captured_image_uri", selectedImageUri.toString());
+                        startActivity(intent);
+                        Toast.makeText(getContext(), "Đã chọn ảnh từ thư viện!", Toast.LENGTH_SHORT).show();
                     }
                 }
                 dismiss();
@@ -86,19 +103,21 @@ public class PopupPhoto extends BottomSheetDialogFragment {
 
         btnClose.setOnClickListener(v -> dismiss());
 
+        // Nút Chụp ảnh
         if (layoutTakePhoto != null) {
             layoutTakePhoto.setOnClickListener(v -> {
                 checkCameraPermissionAndOpen();
             });
         }
 
+        // Nút Mở Thư viện (Gallery)
         if (layoutChooseGallery != null) {
             layoutChooseGallery.setOnClickListener(v -> {
-                Toast.makeText(getContext(), "Open Gallery", Toast.LENGTH_SHORT).show();
-                dismiss();
+                openGallery();
             });
         }
 
+        // Nút Xóa ảnh
         if (layoutDeletePhoto != null) {
             layoutDeletePhoto.setOnClickListener(v -> {
                 Toast.makeText(getContext(), "Đã xóa ảnh", Toast.LENGTH_SHORT).show();
@@ -123,19 +142,16 @@ public class PopupPhoto extends BottomSheetDialogFragment {
         if (takePictureIntent.resolveActivity(requireActivity().getPackageManager()) != null) {
             File photoFile = null;
             try {
-                // Tạo một file rỗng để hứng ảnh
                 photoFile = createImageFile();
             } catch (IOException ex) {
                 Toast.makeText(getContext(), "Lỗi tạo file ảnh", Toast.LENGTH_SHORT).show();
             }
 
             if (photoFile != null) {
-                // Lấy URI an toàn thông qua FileProvider
                 photoURI = FileProvider.getUriForFile(requireContext(),
                         "com.example.furniture.fileprovider",
                         photoFile);
 
-                // Yêu cầu Camera lưu ảnh vào đường dẫn URI này
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                 cameraLauncher.launch(takePictureIntent);
             }
@@ -144,7 +160,13 @@ public class PopupPhoto extends BottomSheetDialogFragment {
         }
     }
 
-    // Hàm phụ trợ: Tạo file rỗng trong bộ nhớ máy với tên theo ngày giờ
+    // Hàm mở Thư viện lấy ảnh
+    private void openGallery() {
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        galleryLauncher.launch(intent);
+    }
+
+    // Hàm tạo file rỗng trong bộ nhớ máy với tên theo ngày giờ
     private File createImageFile() throws IOException {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";
