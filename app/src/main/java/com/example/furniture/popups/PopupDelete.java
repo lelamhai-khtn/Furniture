@@ -9,32 +9,18 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.furniture.R;
+import com.example.furniture.observer.ManageEvent;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 public class PopupDelete extends BottomSheetDialogFragment {
-    private static final String ARG_NAME = "product_name";
-    private static final String ARG_PRICE = "product_price";
-    private static final String ARG_IMAGE = "product_image";
-    private static final String ARG_POSITION = "product_position";
+    private String productName;
+    private double productPrice;
+    private String productImage;
 
-    public static PopupDelete newInstance(String productName, String productPrice, String productImage, int position) {
-        PopupDelete fragment = new PopupDelete();
-        Bundle args = new Bundle();
-        args.putString(ARG_NAME, productName);
-        args.putString(ARG_PRICE, productPrice);
-        args.putString(ARG_IMAGE, productImage);
-        args.putInt(ARG_POSITION, position);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    public interface OnDeleteClickListener {
-        void onDeleteConfirm(int position);
-    }
-
-    private OnDeleteClickListener listener;
-    public void setOnDeleteClickListener(OnDeleteClickListener listener) {
-        this.listener = listener;
+    public PopupDelete(String productName, double productPrice, String productImage) {
+        this.productName = productName;
+        this.productPrice = productPrice;
+        this.productImage = productImage;
     }
 
     @Override
@@ -47,25 +33,25 @@ public class PopupDelete extends BottomSheetDialogFragment {
         Button btnCancel = view.findViewById(R.id.btn_cancel);
         Button btnRemove = view.findViewById(R.id.btn_remove);
 
-        if (getArguments() != null) {
-            String name = getArguments().getString(ARG_NAME);
-            String price = getArguments().getString(ARG_PRICE);
-            String image = getArguments().getString(ARG_IMAGE);
-            int position = getArguments().getInt(ARG_POSITION);
+        if ( productImage != null && productName != null && productPrice >= 0) {
+            String name = productName;
+            String price = String.valueOf(productPrice);
             tvName.setText(name);
             tvPrice.setText(price);
         }
 
-        // Xử lý sự kiện nút
-        btnClose.setOnClickListener(v -> dismiss());
-        btnCancel.setOnClickListener(v -> dismiss());
+        btnClose.setOnClickListener(v -> {
+            ManageEvent.getInstance().notifyListeners(false);
+            dismiss();
+        });
+
+        btnCancel.setOnClickListener(v -> {
+            ManageEvent.getInstance().notifyListeners(false);
+            dismiss();
+        });
 
         btnRemove.setOnClickListener(v -> {
-            if (listener != null && getArguments() != null) {
-                // Lấy lại position đã truyền vào và gửi ngược về Adapter
-                int position = getArguments().getInt(ARG_POSITION);
-                listener.onDeleteConfirm(position);
-            }
+            ManageEvent.getInstance().notifyListeners(true);
             dismiss();
         });
 

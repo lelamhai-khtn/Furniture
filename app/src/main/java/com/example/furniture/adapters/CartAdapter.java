@@ -17,14 +17,18 @@ import com.bumptech.glide.Glide;
 import com.example.furniture.R;
 import com.example.furniture.activity.DetailScreen;
 import com.example.furniture.models.ProductModel;
+import com.example.furniture.observer.IEventListener;
+import com.example.furniture.observer.ManageEvent;
 import com.example.furniture.popups.PopupDelete;
 
 import java.util.List;
 
-public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CardViewHolder> {
+public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CardViewHolder> implements IEventListener {
+    private int selectedPosition = -1;
     private List<ProductModel> products;
     public CartAdapter(List<ProductModel> list) {
         this.products = list;
+        ManageEvent.getInstance().addListener(this);
     }
     @NonNull
     @Override
@@ -71,16 +75,9 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CardViewHolder
         holder.ib_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PopupDelete popup = PopupDelete.newInstance(item.getName(), item.getPrice() + " $", item.getImage(), position);
-                popup.setOnDeleteClickListener(new PopupDelete.OnDeleteClickListener() {
-                    @Override
-                    public void onDeleteConfirm(int itemPosition) {
-                        products.remove(itemPosition);
-                        notifyItemRemoved(itemPosition);
-                        notifyItemRangeChanged(itemPosition, products.size());
-                    }
-                });
+                selectedPosition = holder.getAdapterPosition();
 
+                PopupDelete popup = new PopupDelete(item.getName(), item.getPrice(), item.getImage());
                 AppCompatActivity activity = (AppCompatActivity) v.getContext();
                 popup.show(activity.getSupportFragmentManager(), "PopupDelete");
             }
@@ -94,6 +91,22 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CardViewHolder
             return products.size();
         }
         return 0;
+    }
+
+    @Override
+    public void onEvent(boolean success) {
+        if(success) {
+            products.remove(selectedPosition);
+            notifyItemRemoved(selectedPosition);
+            notifyItemRangeChanged(selectedPosition, products.size());
+            selectedPosition = -1;
+        }
+    }
+
+    @Override
+    public void onDetachedFromRecyclerView(@NonNull RecyclerView recyclerView) {
+        super.onDetachedFromRecyclerView(recyclerView);
+        ManageEvent.getInstance().removeListener(this);
     }
 
     class CardViewHolder extends RecyclerView.ViewHolder {
