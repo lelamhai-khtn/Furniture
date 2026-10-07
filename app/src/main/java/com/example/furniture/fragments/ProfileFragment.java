@@ -61,6 +61,16 @@ public class ProfileFragment extends Fragment implements IEventListener {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ManageEvent.getInstance().addListener(this);
+        getParentFragmentManager().setFragmentResultListener(
+                "photo_crop_result",
+                this,
+                (requestKey, bundle) -> {
+                    String croppedImageUri = bundle.getString("cropped_image_uri");
+                    if (croppedImageUri != null && iv_avatar != null) {
+                        iv_avatar.setImageURI(android.net.Uri.parse(croppedImageUri));
+                    }
+                }
+        );
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
