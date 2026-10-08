@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.furniture.R;
 import com.example.furniture.activity.DetailScreen;
+import com.example.furniture.activity.ViewScreen;
 import com.example.furniture.models.ProductModel;
 import com.example.furniture.observer.IEventListener;
 import com.example.furniture.observer.ManageEvent;
@@ -56,7 +57,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CardViewHolder
             @Override
             public void onClick(View v) {
                 Context context = v.getContext();
-                Intent intent = new Intent(context, DetailScreen.class);
+                Intent intent = new Intent(context, ViewScreen.class);
                 intent.putExtra("product_id", 1);
                 context.startActivity(intent);
             }
@@ -66,7 +67,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CardViewHolder
             @Override
             public void onClick(View v) {
                 Context context = v.getContext();
-                Intent intent = new Intent(context, DetailScreen.class);
+                Intent intent = new Intent(context, ViewScreen.class);
                 intent.putExtra("product_id", 1);
                 context.startActivity(intent);
             }

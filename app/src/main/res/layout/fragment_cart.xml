@@ -8,7 +8,6 @@
     android:background="@color/Neutral20"
     android:orientation="vertical">
 
-    <!-- ScrollView chiếm toàn bộ phần không gian còn lại ở phía trên -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
