@@ -1,57 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragments.CartFragment"
-    android:background="@color/Neutral20"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".activity.CheckoutScreen">
 
-    <!-- ScrollView chiếm toàn bộ phần không gian còn lại ở phía trên -->
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:orientation="vertical">
-
-            <TextView
-                style="@style/Systems.Title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="My Cart"
-                android:textAlignment="center"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginBottom="32dp"
-                >
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_card"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-        </LinearLayout>
-    </ScrollView>
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/app_bar_title" />
 
     <LinearLayout
-        android:id="@+id/bottom_screen"
         android:layout_width="match_parent"
-        android:layout_height="54dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="8dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="32dp"
+        >
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
         android:background="@drawable/bg_green"
         android:gravity="center_vertical"
         android:orientation="horizontal">
@@ -65,14 +40,14 @@
 
             <ImageView
                 android:id="@+id/iv_cart"
-                android:layout_width="28dp"
-                android:layout_height="28dp"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
                 android:src="@drawable/icon_payments_24"
                 app:tint="@color/white"
                 />
 
             <TextView
-                style="@style/Systems.NameProduct"
+                style="@style/Systems.Title"
                 android:id="@+id/tv_checkout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -93,7 +68,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:textColor="@color/white">
 
             <TextView
                 android:id="@+id/tv_total_label"
@@ -118,5 +94,6 @@
                 android:textColor="@color/white"
                 />
         </LinearLayout>
+
     </LinearLayout>
 </LinearLayout>

@@ -42,15 +42,6 @@
                         android:background="@null"
                         app:srcCompat="@drawable/icon_favorite_24"
                         android:contentDescription="Nút yêu thích" /> <!-- Thêm mô tả hoặc dùng tools:ignore="ContentDescription" -->
-
-                    <ImageButton
-                        android:id="@+id/ib_ar"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="bottom|right"
-                        android:background="@null"
-                        app:srcCompat="@drawable/icon_ar_24"
-                        android:contentDescription="Xem chế độ AR" />
                 </FrameLayout>
 
                 <ImageButton
@@ -156,110 +147,36 @@
             </LinearLayout>
         </ScrollView>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="102dp"
-            android:layout_gravity="bottom"
-            android:layout_marginLeft="2dp"
-            android:background="@drawable/bg_shadow_top" />
-
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_gravity="bottom"
-            android:background="@drawable/bg_rounded_top"
-            android:orientation="vertical">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                >
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:orientation="horizontal"
-                    >
+            android:id="@+id/btn_checkout"
+            android:layout_width="160dp"
+            android:layout_height="44dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="@drawable/bg_green"
+            android:layout_gravity="center_horizontal|bottom"
+            android:gravity="center_vertical"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:layout_marginBottom="8dp"
+            android:orientation="horizontal">
 
-                    <ImageButton
-                        android:id="@+id/btn_decrease"
-                        android:layout_width="22dp"
-                        android:layout_height="22dp"
-                        android:background="@drawable/bg_minus_button"
-                        android:scaleType="fitCenter"
-                        app:tint="@color/white"
-                        android:contentDescription="Giảm"
-                        android:src="@drawable/icon_minus_24" /> <!-- Bạn cần bo góc và viền tím cho drawable này -->
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/icon_cart_checkout_24"
+                app:tint="@color/white"
+                />
 
-                    <TextView
-                        style="@style/Systems.Title"
-                        android:id="@+id/tv_quantity"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="12dp"
-                        android:layout_marginEnd="12dp"
-                        android:text="01"
-                        android:textColor="@color/white"
-                        />
-
-                    <ImageButton
-                        android:id="@+id/btn_increase"
-                        android:layout_width="22dp"
-                        android:layout_height="22dp"
-                        android:background="@drawable/bg_minus_button"
-                        android:scaleType="fitCenter"
-                        android:contentDescription="Tăng"
-                        app:tint="@color/white"
-                        android:src="@drawable/icon_add_24" />
-                </LinearLayout>
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:gravity="center_vertical"
-                    >
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Total: "
-                        android:textColor="@color/white"
-                        />
-
-                    <TextView
-                        style="@style/Systems.Title"
-                        android:id="@+id/tv_price"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="$599.00"
-                        android:textColor="@color/white"
-                        />
-                </LinearLayout>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                style="@style/Systems.Title"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center_horizontal">
-                <Button
-                    android:id="@+id/btn_payment"
-                    android:layout_width="100dp"
-                    android:layout_height="44dp"
-                    android:paddingStart="16dp"
-                    android:paddingEnd="16dp"
-                    android:background="@drawable/bg_yellow"
-                    android:insetTop="0dp"
-                    android:insetBottom="0dp"
-                    android:text="Payment"
-                    android:textColor="@color/white"
-                    android:textSize="14sp"
-                    app:backgroundTint="@null" />
-            </LinearLayout>
+                android:layout_weight="1"
+                android:paddingTop="4dp"
+                android:gravity="end"
+                android:text="Checkout"
+                android:textColor="@color/white"/>
         </LinearLayout>
     </FrameLayout>
 </LinearLayout>

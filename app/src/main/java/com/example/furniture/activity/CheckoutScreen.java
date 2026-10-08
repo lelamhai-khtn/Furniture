@@ -1,38 +1,30 @@
 package com.example.furniture.activity;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.widget.LinearLayout;
 
 import androidx.activity.EdgeToEdge;
 import androidx.activity.SystemBarStyle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import androidx.core.content.ContextCompat;
 
 import com.example.furniture.R;
 
-public class DetailScreen extends AppCompatActivity {
+public class CheckoutScreen extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_detail_screen);
+        setContentView(R.layout.activity_checkout_screen);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, 0, systemBars.right, systemBars.bottom);
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
-        });
-
-        LinearLayout btnCheckout = findViewById(R.id.btn_checkout);
-        btnCheckout.setOnClickListener(v -> {
-            Intent intent = new Intent(this, CheckoutScreen.class);
-            startActivity(intent);
         });
 
         EdgeToEdge.enable(this,
