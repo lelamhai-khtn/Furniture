@@ -14,10 +14,10 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.furniture.R;
-import com.example.furniture.fragments.ARFragment;
 import com.example.furniture.fragments.CartFragment;
 import com.example.furniture.fragments.HomeFragment;
 import com.example.furniture.fragments.LocationFragment;
+import com.example.furniture.fragments.NotificationFragment;
 import com.example.furniture.fragments.ProfileFragment;
 import com.example.furniture.fragments.SearchFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -59,9 +59,9 @@ public class MainScreen extends AppCompatActivity {
                 loadFragment(new SearchFragment());
                 return true;
             }
-            if (id == R.id.bottom_ar)
+            if (id == R.id.bottom_notification)
             {
-                loadFragment(new ARFragment());
+                loadFragment(new NotificationFragment());
                 return true;
             }
             if (id == R.id.bottom_cart)

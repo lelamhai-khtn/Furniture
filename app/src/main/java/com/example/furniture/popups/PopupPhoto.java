@@ -21,6 +21,7 @@ import com.example.furniture.activity.ImageScreen;
 import com.example.furniture.module.GalleryPhotoAction;
 import com.example.furniture.module.IPhotoActionHandler;
 import com.example.furniture.module.TakePhotoAction;
+import com.example.furniture.observer.ManageEvent;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 public class PopupPhoto extends BottomSheetDialogFragment {
@@ -41,7 +42,7 @@ public class PopupPhoto extends BottomSheetDialogFragment {
             }
     );
 
-    // 1. KHAI BÁO CAMERA LAUNCHER TRƯỚC (Để tránh lỗi chưa khởi tạo)
+    // 1. DECLARE CAMERA LAUNCHER FIRST (To avoid uninitialized error)
     private final ActivityResultLauncher<Intent> cameraLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
@@ -49,32 +50,31 @@ public class PopupPhoto extends BottomSheetDialogFragment {
                     Intent intent = new Intent(requireContext(), ImageScreen.class);
                     intent.putExtra("captured_image_uri", photoURI.toString());
                     imageScreenLauncher.launch(intent);
-                    Toast.makeText(getContext(), "Đã chụp ảnh thành công!", Toast.LENGTH_SHORT).show();
                 } else {
                     dismiss();
                 }
             }
     );
 
-    // 2. KHAI BÁO REQUEST PERMISSION LAUNCHER SAU CAMERA
+    // 2. DECLARE REQUEST PERMISSION LAUNCHER AFTER CAMERA
     private final ActivityResultLauncher<String> requestPermissionLauncher = registerForActivityResult(
             new ActivityResultContracts.RequestPermission(),
             isGranted -> {
                 if (isGranted) {
                     TakePhotoAction takePhotoAction = new TakePhotoAction(
                             requireActivity(),
-                            null, // Đã có quyền, không cần launcher cấp quyền nữa
-                            cameraLauncher, // Gọi đến cameraLauncher đã định nghĩa ở trên
+                            null,
+                            cameraLauncher,
                             uri -> photoURI = uri
                     );
                     takePhotoAction.openCamera();
                 } else {
-                    Toast.makeText(getContext(), "Bạn cần cấp quyền Camera để chụp ảnh!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Camera permission is required to take photos!", Toast.LENGTH_SHORT).show();
                 }
             }
     );
 
-    // 3. KHAI BÁO GALLERY LAUNCHER
+    // 3. DECLARE GALLERY LAUNCHER
     private final ActivityResultLauncher<Intent> galleryLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
@@ -84,7 +84,6 @@ public class PopupPhoto extends BottomSheetDialogFragment {
                         Intent intent = new Intent(requireContext(), ImageScreen.class);
                         intent.putExtra("captured_image_uri", selectedImageUri.toString());
                         imageScreenLauncher.launch(intent);
-                        Toast.makeText(getContext(), "Đã chọn ảnh từ thư viện!", Toast.LENGTH_SHORT).show();
                     } else {
                         dismiss();
                     }
@@ -111,7 +110,6 @@ public class PopupPhoto extends BottomSheetDialogFragment {
 
         btnClose.setOnClickListener(v -> dismiss());
 
-        // Khởi tạo các Action tương ứng thông qua Interface
         IPhotoActionHandler takePhotoAction = new TakePhotoAction(requireActivity(), requestPermissionLauncher, cameraLauncher, uri -> photoURI = uri);
         IPhotoActionHandler galleryAction = new GalleryPhotoAction(galleryLauncher);
 
@@ -123,6 +121,11 @@ public class PopupPhoto extends BottomSheetDialogFragment {
             layoutChooseGallery.setOnClickListener(v -> galleryAction.execute());
         }
 
-
+        if( layoutDeletePhoto != null) {
+            layoutDeletePhoto.setOnClickListener(v -> {
+                ManageEvent.getInstance().notifyListeners(true);
+                dismiss();
+            });
+        }
     }
 }

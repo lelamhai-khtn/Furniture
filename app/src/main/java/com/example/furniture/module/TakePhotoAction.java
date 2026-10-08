@@ -57,7 +57,7 @@ public class TakePhotoAction implements IPhotoActionHandler {
             try {
                 photoFile = createImageFile();
             } catch (IOException ex) {
-                Toast.makeText(activity, "Lỗi tạo file ảnh", Toast.LENGTH_SHORT).show();
+                Toast.makeText(activity, "Failed to create image file", Toast.LENGTH_SHORT).show();
             }
 
             if (photoFile != null) {
@@ -75,7 +75,7 @@ public class TakePhotoAction implements IPhotoActionHandler {
                 }
             }
         } else {
-            Toast.makeText(activity, "Không tìm thấy ứng dụng Camera trên máy", Toast.LENGTH_SHORT).show();
+            Toast.makeText(activity, "No camera application found", Toast.LENGTH_SHORT).show();
         }
     }
 

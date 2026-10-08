@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -27,6 +28,7 @@ import java.io.IOException;
 public class ImageScreen extends AppCompatActivity {
     private CropImageView cropImageView;
     private Button btnCropAndSave;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +49,9 @@ public class ImageScreen extends AppCompatActivity {
         }
         cropImageView = findViewById(R.id.cropImageView);
         btnCropAndSave = findViewById(R.id.btn_crop_and_save);
+        ImageButton btnClose = findViewById(R.id.btn_close);
+
+        btnClose.setOnClickListener(v -> closeWithoutResult());
 
         Intent intent = getIntent();
         if (intent != null && intent.hasExtra("captured_image_uri")) {
@@ -78,9 +83,14 @@ public class ImageScreen extends AppCompatActivity {
                     setResult(RESULT_OK, resultIntent);
                     finish();
                 } catch (IOException e) {
-                    Toast.makeText(this, "Không thể lưu ảnh đã cắt!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Failed to save cropped image!", Toast.LENGTH_SHORT).show();
                 }
             }
         });
+    }
+
+    private void closeWithoutResult() {
+        setResult(RESULT_CANCELED);
+        finish();
     }
 }
