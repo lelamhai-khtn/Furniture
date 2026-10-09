@@ -95,55 +95,11 @@ public class HomeFragment extends Fragment {
         rvProduct = view.findViewById(R.id.rv_product);
         rvBestProduct = view.findViewById(R.id.rv_best_product);
 
-        // 1. Dùng requireActivity().findViewById vì bottomNavigation nằm ở Activity (MainScreen), không nằm trong View của Fragment
-        BottomNavigationView bottomNavigationView = requireActivity().findViewById(R.id.bottomNavigation);
-
-        if (bottomNavigationView != null) {
-            // 2. Lấy ID của item thứ 3 (hoặc R.id.bottom_ar, R.id.bottom_home, v.v.)
-            int itemId = bottomNavigationView.getMenu().getItem(3).getItemId();
-
-            // 3. Tạo Badge cho item đó
-            BadgeDrawable badge = bottomNavigationView.getOrCreateBadge(itemId);
-
-            // 4. Hiển thị số 3
-            badge.setNumber(3);
-
-            // 5. Đặt vị trí Badge sang góc BÊN TRÁI (TOP_START)
-            badge.setBadgeGravity(BadgeDrawable.TOP_END + 50);
-            int offsetInPixels = (int) (5 * requireContext().getResources().getDisplayMetrics().density);
-
-            badge.setVerticalOffset(offsetInPixels);   // Kéo xuống dưới 5dp (hướng vào tâm)
-            badge.setHorizontalOffset(offsetInPixels); // Kéo sang trái 5dp (hướng vào tâm)
-            // 6. Cấu hình màu cho Badge (Nền đỏ, chữ trắng)
-            badge.setBackgroundColor(ContextCompat.getColor(requireContext(), android.R.color.holo_red_dark));
-            badge.setBadgeTextColor(ContextCompat.getColor(requireContext(), android.R.color.white));
-
-            // 7. Hiển thị Badge
-            badge.setVisible(true);
-
-//            bottomNavigationView.setOnItemSelectedListener(item -> {
-//                // Kiểm tra xem item được click có phải là item thứ 3 (thông báo) không
-//                if (item.getItemId() == itemId) { // hoặc R.id.nav_notification
-//                    // Xoá badge đi khi người dùng đã đọc
-//                    bottomNavigationView.removeBadge(item.getItemId());
-//                }
-//                return true; // Trả về true để cho phép chuyển tab
-//            });
-        }
-
-
         category();
         product();
         BestProduct();
-        ABC(view);
     }
 
-    private void ABC(View view) {
-
-
-
-
-    }
 
     private void category() {
         categories = new ArrayList<>();

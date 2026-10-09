@@ -13,15 +13,6 @@
         android:icon="@drawable/icon_shopping_cart_24"
         android:title="Cart" />
     <item
-        android:id="@+id/bottom_notification"
-        android:icon="@drawable/icon_notifications_24"
-        android:title="Notification" />
-    <item
-        android:id="@+id/bottom_location"
-        android:icon="@drawable/icon_location_pin_24"
-        android:title="Location" />
-
-    <item
         android:id="@+id/bottom_profile"
         android:icon="@drawable/icon_person_24"
         android:title="Profile" />

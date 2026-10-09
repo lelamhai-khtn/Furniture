@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".fragments.HomeFragment">
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -17,61 +18,84 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:orientation="vertical">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="16dp"
                 android:layout_marginBottom="16dp"
-                android:orientation="horizontal">
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp">
+
                 <FrameLayout
                     android:layout_width="60dp"
                     android:layout_height="60dp">
+
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/circle_border" />
+
                     <ImageView
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_gravity="center"
                         android:adjustViewBounds="true"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/avatar"
                         android:background="@drawable/avatar_circle"
-                        android:clipToOutline="true"/>
+                        android:clipToOutline="true"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/avatar" />
                 </FrameLayout>
+
+                <!-- Phần Chữ ở giữa (dùng layout_weight="1" để chiếm hết khoảng trống, đẩy icon sang phải) -->
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_weight="1"
                     android:orientation="vertical">
+
                     <TextView
-                        android:text="Welcome to Shop!"
                         style="@style/Typography.Small"
-                        android:textColor="@color/Critical100"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:text="Welcome to Shop!"
+                        android:textColor="@color/Critical100" />
+
                     <TextView
                         style="@style/Systems.Title"
-                        android:text="Lê Lam Hải"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:text="Lê Lam Hải" />
                 </LinearLayout>
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="Notification"
+                        android:src="@drawable/icon_notifications_24"
+                        android:background="@null"
+                        />
+                </FrameLayout>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="32dp"
                 android:orientation="vertical"
                 android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:layout_marginBottom="32dp">
+                android:paddingRight="16dp">
 
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:cardCornerRadius="12dp"
-                    >
+                    app:cardCornerRadius="12dp">
 
                     <FrameLayout
                         android:layout_width="match_parent"
@@ -83,26 +107,26 @@
                             android:layout_height="wrap_content"
                             android:adjustViewBounds="true"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/bg_banner"/>
+                            android:src="@drawable/bg_banner" />
 
                         <TextView
                             style="@style/Systems.Title"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
+                            android:gravity="center_vertical|center_horizontal"
                             android:paddingLeft="16dp"
                             android:text="Best deal with us \n Discount \n 25%"
-                            android:gravity="center_vertical|center_horizontal"
                             android:textColor="@color/white" />
 
                         <ImageView
                             android:layout_width="130dp"
                             android:layout_height="wrap_content"
-                            android:adjustViewBounds="true"
-                            android:layout_marginRight="16dp"
-                            android:scaleType="centerCrop"
                             android:layout_gravity="end|center_vertical"
+                            android:layout_marginRight="16dp"
+                            android:adjustViewBounds="true"
                             android:background="@android:color/transparent"
-                            android:src="@drawable/chair"/>
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/chair" />
 
                     </FrameLayout>
                 </com.google.android.material.card.MaterialCardView>
@@ -111,8 +135,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginBottom="16dp">
+                android:layout_marginBottom="16dp"
+                android:orientation="vertical">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_category"
@@ -123,8 +147,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginBottom="32dp">
+                android:layout_marginBottom="32dp"
+                android:orientation="vertical">
 
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -136,14 +160,15 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginBottom="32dp">
+                android:layout_marginBottom="32dp"
+                android:orientation="vertical">
+
                 <TextView
+                    style="@style/Systems.Title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingLeft="16dp"
-                    style="@style/Systems.Title"
-                    android:text="Best saller"/>
+                    android:text="Best saller" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_best_product"
