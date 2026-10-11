@@ -1,206 +1,252 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="16dp"
     android:orientation="vertical"
     tools:context=".fragments.ProfileFragment">
 
-    <ScrollView
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/Systems.Title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Profile" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="36dp"
+        android:orientation="vertical"
+        android:paddingTop="8dp">
+
+        <FrameLayout
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:layout_gravity="center">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/circle_border" />
+
+            <ImageView
+                android:id="@+id/iv_avatar"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_gravity="center"
+                android:adjustViewBounds="true"
+                android:background="@drawable/avatar_circle"
+                android:clipToOutline="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/avatar" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/tvEmail"
+            style="@style/Systems.Description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="leelamhair@gmail.com"
+            android:textColor="@color/black" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_green"
+        android:orientation="vertical"
+        android:layout_marginBottom="64dp"
+        android:padding="16dp">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:orientation="vertical" >
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            >
+
+            <ImageView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <TextView
-                    style="@style/Systems.Title"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:text="Profile" />
-
-                <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/icon_logout_24"
-                    android:background="@null"
-                    android:contentDescription="Logout" />
-
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingTop="8dp"
-                android:layout_marginBottom="12dp">
-                <FrameLayout
-                    android:layout_width="130dp"
-                    android:layout_height="130dp"
-                    android:layout_gravity="center">
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/circle_border" />
-
-                    <ImageView
-                        android:id="@+id/iv_avatar"
-                        android:layout_width="120dp"
-                        android:layout_height="120dp"
-                        android:layout_gravity="center"
-                        android:adjustViewBounds="true"
-                        android:background="@drawable/avatar_circle"
-                        android:clipToOutline="true"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/avatar" />
-
-                    <ImageButton
-                        android:id="@+id/bi_photo"
-                        android:layout_width="36dp"
-                        android:layout_height="36dp"
-                        android:layout_gravity="bottom|end"
-                        android:layout_marginEnd="4dp"
-                        android:layout_marginBottom="4dp"
-                        android:background="@drawable/bg_green_circle"
-                        android:src="@drawable/icon_photo_camera_24"
-                        android:padding="8dp"
-                        android:elevation="4dp"
-                        android:contentDescription="Chỉnh sửa ảnh đại diện" />
-                </FrameLayout>
-
-                <TextView
-                    android:id="@+id/tvEmail"
-                    style="@style/Systems.Description"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:text="leelamhair@gmail.com"
-                    android:textColor="@color/black" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="24dp"
-                android:orientation="vertical">
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:hint="Full name"
-                    app:hintTextColor="@color/Primary100"
-                    app:boxStrokeColor="@color/input_border_color"
-                    app:boxCornerRadiusTopStart="12dp"
-                    app:boxCornerRadiusTopEnd="12dp"
-                    app:boxCornerRadiusBottomStart="12dp"
-                    app:boxCornerRadiusBottomEnd="12dp">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        style="@style/Systems.Input"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="textPersonName"/>
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:hint="Phone"
-                    app:hintTextColor="@color/Primary100"
-                    app:boxStrokeColor="@color/input_border_color"
-                    app:boxCornerRadiusTopStart="12dp"
-                    app:boxCornerRadiusTopEnd="12dp"
-                    app:boxCornerRadiusBottomStart="12dp"
-                    app:boxCornerRadiusBottomEnd="12dp">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        style="@style/Systems.Input"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="phone"/>
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:hint="Gender"
-                    app:hintTextColor="@color/Primary100"
-                    app:boxStrokeColor="@color/input_border_color"
-                    app:boxCornerRadiusTopStart="12dp"
-                    app:boxCornerRadiusTopEnd="12dp"
-                    app:boxCornerRadiusBottomStart="12dp"
-                    app:boxCornerRadiusBottomEnd="12dp">
-
-                    <AutoCompleteTextView
-                        android:id="@+id/tvGender"
-                        style="@style/Systems.Input"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="none"
-                        app:simpleItems="@array/gender_options"
-                        android:contentDescription="Choose"/>
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:hint="Address"
-                    app:hintTextColor="@color/Primary100"
-                    app:boxStrokeColor="@color/input_border_color"
-                    app:boxCornerRadiusTopStart="12dp"
-                    app:boxCornerRadiusTopEnd="12dp"
-                    app:boxCornerRadiusBottomStart="12dp"
-                    app:boxCornerRadiusBottomEnd="12dp">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        style="@style/Systems.Input"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="textMultiLine"
-                        android:gravity="top|start"
-                        android:minLines="2"
-                        android:maxLines="4"
-                        android:scrollbars="vertical" />
-                </com.google.android.material.textfield.TextInputLayout>
-            </LinearLayout>
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/icon_order_approve_24"
+                android:tint="@color/white" />
 
             <TextView
-                android:layout_width="match_parent"
+                style="@style/Systems.Name"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Lỗi"
-                style="@style/Systems.Errors"
-                android:paddingBottom="6dp"/>
-            <Button
-                style="@style/Systems.ButtonLogin"
-                android:id="@+id/btnSignUp"
-                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:paddingTop="4dp"
+                android:text="Order"
+                android:textColor="@color/white" />
+
+            <ImageView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_green"
-                app:backgroundTint="@null"
-                android:text="Edit"/>
+                android:src="@drawable/icon_chevron_right_24"
+                android:tint="@color/white" />
         </LinearLayout>
-    </ScrollView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/icon_person_24"
+                android:tint="@color/white" />
+
+            <TextView
+                style="@style/Systems.Name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingTop="4dp"
+                android:text="Person information"
+                android:textColor="@color/white" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_chevron_right_24"
+                android:tint="@color/white" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/icon_shopping_cart_24"
+                android:tint="@color/white" />
+
+            <TextView
+                style="@style/Systems.Name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingTop="4dp"
+                android:text="Shopping cart"
+                android:textColor="@color/white" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_chevron_right_24"
+                android:tint="@color/white" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/icon_favorite_24"
+                android:tint="@color/white" />
+
+            <TextView
+                style="@style/Systems.Name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingTop="4dp"
+                android:text="Favorite items"
+                android:textColor="@color/white" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_chevron_right_24"
+                android:tint="@color/white" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/icon_notifications_24"
+                android:tint="@color/white" />
+
+            <TextView
+                style="@style/Systems.Name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingTop="4dp"
+                android:text="Notifications"
+                android:textColor="@color/white" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_chevron_right_24"
+                android:tint="@color/white" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnSignUp"
+        style="@style/Systems.ButtonLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_green"
+        android:text="Sign out"
+        app:backgroundTint="@null" />
 </LinearLayout>

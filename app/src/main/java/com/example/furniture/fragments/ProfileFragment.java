@@ -22,9 +22,7 @@ import com.example.furniture.popups.PopupPhoto;
  * Use the {@link ProfileFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ProfileFragment extends Fragment implements IEventListener {
-
-    private ImageView iv_avatar;
+public class ProfileFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -60,17 +58,6 @@ public class ProfileFragment extends Fragment implements IEventListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ManageEvent.getInstance().addListener(this);
-        getParentFragmentManager().setFragmentResultListener(
-                "photo_crop_result",
-                this,
-                (requestKey, bundle) -> {
-                    String croppedImageUri = bundle.getString("cropped_image_uri");
-                    if (croppedImageUri != null && iv_avatar != null) {
-                        iv_avatar.setImageURI(android.net.Uri.parse(croppedImageUri));
-                    }
-                }
-        );
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -88,25 +75,5 @@ public class ProfileFragment extends Fragment implements IEventListener {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        iv_avatar = view.findViewById(R.id.iv_avatar);
-        ImageButton imageButton = view.findViewById(R.id.bi_photo);
-        imageButton.setOnClickListener(v -> {
-            PopupPhoto popupPhoto = new PopupPhoto();
-            popupPhoto.show(getParentFragmentManager(), "popup_photo");
-        });
-    }
-
-    @Override
-    public void onEvent(boolean success) {
-        if(success) {
-            iv_avatar.setImageResource(R.drawable.icon_person_off_120);
-        }
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        ManageEvent.getInstance().removeListener(this);
     }
 }

@@ -4,30 +4,20 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.FrameLayout;
 
 import androidx.activity.EdgeToEdge;
 import androidx.activity.SystemBarStyle;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentStatePagerAdapter;
-import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import com.bumptech.glide.request.transition.Transition;
 import com.example.furniture.R;
 import com.example.furniture.adapters.ViewPagerAdapter;
-import com.example.furniture.fragments.CartFragment;
-import com.example.furniture.fragments.HomeFragment;
-import com.example.furniture.fragments.LocationFragment;
-import com.example.furniture.fragments.NotificationFragment;
-import com.example.furniture.fragments.ProfileFragment;
-import com.example.furniture.fragments.SearchFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainScreen extends AppCompatActivity {
@@ -44,6 +34,15 @@ public class MainScreen extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, 0);
             return insets;
         });
+
+        EdgeToEdge.enable(this,
+                SystemBarStyle.light(Color.TRANSPARENT, Color.TRANSPARENT),
+                SystemBarStyle.dark(ContextCompat.getColor(this, R.color.white))
+        );
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            getWindow().setNavigationBarContrastEnforced(false);
+        }
+
 
         viewPager = findViewById(R.id.view_pager);
         bottomNavigationView = findViewById(R.id.bottom_navigation);

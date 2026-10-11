@@ -29,7 +29,7 @@ public class ViewScreen extends AppCompatActivity {
 
         EdgeToEdge.enable(this,
                 SystemBarStyle.light(Color.TRANSPARENT, Color.TRANSPARENT),
-                SystemBarStyle.dark(ContextCompat.getColor(this, R.color.Primary100))
+                SystemBarStyle.dark(ContextCompat.getColor(this, R.color.white))
         );
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             getWindow().setNavigationBarContrastEnforced(false);

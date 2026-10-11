@@ -14,6 +14,6 @@
         android:title="Cart" />
     <item
         android:id="@+id/bottom_profile"
-        android:icon="@drawable/icon_person_24"
+        android:icon="@drawable/icon_manage_accounts_24"
         android:title="Profile" />
 </menu>
