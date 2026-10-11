@@ -2,6 +2,8 @@ package com.example.furniture.popups;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -102,6 +104,10 @@ public class PopupPhoto extends BottomSheetDialogFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        View bottomSheet = (View) view.getParent();
+        bottomSheet.setBackgroundTintList(ColorStateList.valueOf(Color.WHITE));
+
 
         ImageButton btnClose = view.findViewById(R.id.btn_close);
         LinearLayout layoutTakePhoto = view.findViewById(R.id.layoutTakePhoto);

@@ -1,5 +1,7 @@
 package com.example.furniture.popups;
 
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,6 +9,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.example.furniture.R;
 import com.example.furniture.observer.ManageEvent;
@@ -56,5 +61,12 @@ public class PopupDelete extends BottomSheetDialogFragment {
         });
 
         return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        View bottomSheet = (View) view.getParent();
+        bottomSheet.setBackgroundTintList(ColorStateList.valueOf(Color.WHITE));
     }
 }

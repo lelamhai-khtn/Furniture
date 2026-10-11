@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:background="@drawable/bg_item_vertical"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp">
+
+        <ImageView
+            android:id="@+id/iv_image_product"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:src="@drawable/chair" />
+
+        <ImageButton
+            android:id="@+id/ib_favorite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_margin="10dp"
+            android:background="@null"
+            android:src="@drawable/icon_favorite_24" />
+    </FrameLayout>
+    <TextView
+        android:id="@+id/tv_name_product"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:maxLines="2"
+        android:minLines="2"
+        android:ellipsize="end"
+        style="@style/Systems.NameProduct"
+        android:text="Chair beautiful" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/tv_price_product"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:layout_weight="3"
+            style="@style/Systems.PriceProduct"
+            android:text="100$" />
+
+        <TextView
+            android:id="@+id/tv_old_price"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            style="@style/Systems.OldPriceProduct"
+            android:text="120$" />
+        <FrameLayout
+            android:layout_width="20dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_product_button">
+
+            <ImageButton
+                android:id="@+id/ib_cart"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                android:background="@null"
+                android:src="@drawable/icon_add_24"/>
+        </FrameLayout>
+    </LinearLayout>
+</LinearLayout>
