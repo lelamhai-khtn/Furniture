@@ -9,244 +9,289 @@
     tools:context=".fragments.ProfileFragment">
 
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:layout_height="match_parent">
 
-        <TextView
-            style="@style/Systems.Title"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="Profile" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="36dp"
-        android:orientation="vertical"
-        android:paddingTop="8dp">
-
-        <FrameLayout
-            android:layout_width="130dp"
-            android:layout_height="130dp"
-            android:layout_gravity="center">
-
-            <View
+            android:orientation="vertical">
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/circle_border" />
-
-            <ImageView
-                android:id="@+id/iv_avatar"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:layout_gravity="center"
-                android:adjustViewBounds="true"
-                android:background="@drawable/avatar_circle"
-                android:clipToOutline="true"
-                android:scaleType="centerCrop"
-                android:src="@drawable/avatar" />
-        </FrameLayout>
-
-        <TextView
-            android:id="@+id/tvEmail"
-            style="@style/Systems.Description"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="leelamhair@gmail.com"
-            android:textColor="@color/black" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bg_green"
-        android:orientation="vertical"
-        android:layout_marginBottom="64dp"
-        android:padding="16dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:focusable="true"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-
-            >
-
-            <ImageView
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:src="@drawable/icon_order_approve_24"
-                android:tint="@color/white" />
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
-            <TextView
-                style="@style/Systems.Name"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:paddingTop="4dp"
-                android:text="Order"
-                android:textColor="@color/white" />
+                <TextView
+                    style="@style/Systems.Title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Profile" />
+            </LinearLayout>
 
-            <ImageView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/icon_chevron_right_24"
-                android:tint="@color/white" />
+                android:layout_marginBottom="36dp"
+                android:orientation="vertical"
+                android:paddingTop="8dp">
+
+                <FrameLayout
+                    android:layout_width="130dp"
+                    android:layout_height="130dp"
+                    android:layout_gravity="center">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/circle_border" />
+
+                    <ImageView
+                        android:id="@+id/iv_avatar"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:layout_gravity="center"
+                        android:adjustViewBounds="true"
+                        android:background="@drawable/avatar_circle"
+                        android:clipToOutline="true"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/avatar" />
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/tvEmail"
+                    style="@style/Systems.Description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="leelamhair@gmail.com"
+                    android:textColor="@color/black" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_green"
+                android:orientation="vertical"
+                android:layout_marginBottom="64dp"
+                android:padding="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+
+                    >
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:src="@drawable/icon_order_approve_24"
+                        android:tint="@color/white" />
+
+                    <TextView
+                        style="@style/Systems.Name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingTop="4dp"
+                        android:text="Orders"
+                        android:textColor="@color/white" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/icon_chevron_right_24"
+                        android:tint="@color/white" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:src="@drawable/icon_person_24"
+                        android:tint="@color/white" />
+
+                    <TextView
+                        style="@style/Systems.Name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingTop="4dp"
+                        android:text="Personal information"
+                        android:textColor="@color/white" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/icon_chevron_right_24"
+                        android:tint="@color/white" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:src="@drawable/icon_shopping_cart_24"
+                        android:tint="@color/white" />
+
+                    <TextView
+                        style="@style/Systems.Name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingTop="4dp"
+                        android:text="My cart"
+                        android:textColor="@color/white" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/icon_chevron_right_24"
+                        android:tint="@color/white" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:src="@drawable/icon_favorite_24"
+                        android:tint="@color/white" />
+
+                    <TextView
+                        style="@style/Systems.Name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingTop="4dp"
+                        android:text="My favorite"
+                        android:textColor="@color/white" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/icon_chevron_right_24"
+                        android:tint="@color/white" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:src="@drawable/icon_notifications_24"
+                        android:tint="@color/white" />
+
+                    <TextView
+                        style="@style/Systems.Name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingTop="4dp"
+                        android:text="Notifications"
+                        android:textColor="@color/white" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/icon_chevron_right_24"
+                        android:tint="@color/white" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:src="@drawable/icon_location_pin_24"
+                        android:tint="@color/white" />
+
+                    <TextView
+                        style="@style/Systems.Name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingTop="4dp"
+                        android:text="Store location"
+                        android:textColor="@color/white" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/icon_chevron_right_24"
+                        android:tint="@color/white" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btnSignUp"
+                style="@style/Systems.ButtonLogin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_green"
+                android:text="Sign out"
+                app:backgroundTint="@null" />
         </LinearLayout>
+    </ScrollView>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:focusable="true"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:src="@drawable/icon_person_24"
-                android:tint="@color/white" />
-
-            <TextView
-                style="@style/Systems.Name"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:paddingTop="4dp"
-                android:text="Person information"
-                android:textColor="@color/white" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/icon_chevron_right_24"
-                android:tint="@color/white" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:focusable="true"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:src="@drawable/icon_shopping_cart_24"
-                android:tint="@color/white" />
-
-            <TextView
-                style="@style/Systems.Name"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:paddingTop="4dp"
-                android:text="Shopping cart"
-                android:textColor="@color/white" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/icon_chevron_right_24"
-                android:tint="@color/white" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:focusable="true"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:src="@drawable/icon_favorite_24"
-                android:tint="@color/white" />
-
-            <TextView
-                style="@style/Systems.Name"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:paddingTop="4dp"
-                android:text="Favorite items"
-                android:textColor="@color/white" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/icon_chevron_right_24"
-                android:tint="@color/white" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:focusable="true"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:src="@drawable/icon_notifications_24"
-                android:tint="@color/white" />
-
-            <TextView
-                style="@style/Systems.Name"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:paddingTop="4dp"
-                android:text="Notifications"
-                android:textColor="@color/white" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/icon_chevron_right_24"
-                android:tint="@color/white" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/btnSignUp"
-        style="@style/Systems.ButtonLogin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bg_green"
-        android:text="Sign out"
-        app:backgroundTint="@null" />
 </LinearLayout>
