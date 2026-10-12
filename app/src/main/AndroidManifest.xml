@@ -20,7 +20,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Furniture">
         <activity
-            android:name=".activity.PersonalScreen"
+            android:name=".activity.SignInScreen"
             android:exported="true"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize">
@@ -86,12 +86,17 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".activity.SignInScreen"
+            android:name=".activity.PersonalScreen"
             android:exported="false"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".activity.LocationScreen"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".activity.FavoriteScreen"
             android:exported="false"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />

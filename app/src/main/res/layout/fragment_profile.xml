@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp"
     android:orientation="vertical"
     tools:context=".fragments.ProfileFragment">
 
@@ -98,7 +99,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="8dp"
                         android:src="@drawable/icon_order_approve_24"
-                        android:tint="@color/white" />
+                        app:tint="@color/white" />
 
                     <TextView
                         style="@style/Systems.Name"
@@ -113,7 +114,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/icon_chevron_right_24"
-                        android:tint="@color/white" />
+                        app:tint="@color/white" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -131,7 +132,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="8dp"
                         android:src="@drawable/icon_person_24"
-                        android:tint="@color/white" />
+                        app:tint="@color/white" />
 
                     <TextView
                         style="@style/Systems.Name"
@@ -146,40 +147,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/icon_chevron_right_24"
-                        android:tint="@color/white" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:paddingTop="8dp"
-                    android:paddingBottom="8dp">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
-                        android:src="@drawable/icon_shopping_cart_24"
-                        android:tint="@color/white" />
-
-                    <TextView
-                        style="@style/Systems.Name"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:paddingTop="4dp"
-                        android:text="My cart"
-                        android:textColor="@color/white" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/icon_chevron_right_24"
-                        android:tint="@color/white" />
+                        app:tint="@color/white" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -197,7 +165,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="8dp"
                         android:src="@drawable/icon_favorite_24"
-                        android:tint="@color/white" />
+                        app:tint="@color/white" />
 
                     <TextView
                         style="@style/Systems.Name"
@@ -212,7 +180,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/icon_chevron_right_24"
-                        android:tint="@color/white" />
+                        app:tint="@color/white" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -230,7 +198,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="8dp"
                         android:src="@drawable/icon_notifications_24"
-                        android:tint="@color/white" />
+                        app:tint="@color/white" />
 
                     <TextView
                         style="@style/Systems.Name"
@@ -245,7 +213,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/icon_chevron_right_24"
-                        android:tint="@color/white" />
+                        app:tint="@color/white" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -263,7 +231,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="8dp"
                         android:src="@drawable/icon_location_pin_24"
-                        android:tint="@color/white" />
+                        app:tint="@color/white" />
 
                     <TextView
                         style="@style/Systems.Name"
@@ -278,7 +246,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/icon_chevron_right_24"
-                        android:tint="@color/white" />
+                        app:tint="@color/white" />
                 </LinearLayout>
             </LinearLayout>
 
