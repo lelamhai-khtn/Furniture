@@ -20,7 +20,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Furniture">
         <activity
-            android:name=".activity.LocationScreen"
+            android:name=".activity.PersonalScreen"
             android:exported="true"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize">
@@ -90,5 +90,11 @@
             android:exported="false"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".activity.LocationScreen"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
     </application>
+
 </manifest>
