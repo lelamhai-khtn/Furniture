@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingStart="16dp"
-    android:paddingEnd="16dp"
+
     android:orientation="vertical"
     tools:context=".fragments.ProfileFragment">
 
@@ -23,16 +22,9 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
-
-                <TextView
-                    style="@style/Systems.Title"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="Profile" />
+                <include
+                    android:id="@+id/header_fragment"
+                    layout="@layout/header_fragment" />
             </LinearLayout>
 
             <LinearLayout
@@ -79,6 +71,8 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_green"
                 android:orientation="vertical"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
                 android:layout_marginBottom="64dp"
                 android:padding="16dp">
 
@@ -255,6 +249,8 @@
                 style="@style/Systems.ButtonLogin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
                 android:background="@drawable/bg_green"
                 android:text="Sign out"
                 app:backgroundTint="@null" />

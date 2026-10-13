@@ -15,23 +15,24 @@
         app:contentInsetStartWithNavigation="0dp">
 
         <ImageButton
-            android:id="@+id/btn_close"
+            android:id="@+id/btn_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:minWidth="32dp"
             android:minHeight="32dp"
             android:layout_gravity="start"
-            android:src="@drawable/icon_close_24"
+            android:src="@drawable/icon_arrow_back_24"
             android:background="@null"
             android:scaleType="fitCenter"
-            android:contentDescription="@string/app_name" />
+            android:contentDescription="Close" />
 
         <TextView
-            style="@style/Systems.Title"
+            style="@style/Systems.Header"
+            android:id="@+id/tv_title_header"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="Edit Image"
+            android:text="Title"
             />
     </androidx.appcompat.widget.Toolbar>
 </com.google.android.material.appbar.AppBarLayout>

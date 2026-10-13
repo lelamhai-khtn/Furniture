@@ -14,26 +14,12 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
+
             android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <TextView
-                    style="@style/Systems.Title"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="Profile" />
-            </LinearLayout>
+            <include
+                android:id="@+id/header"
+                layout="@layout/header_back_title" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -90,6 +76,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
                 android:layout_marginBottom="24dp"
                 android:orientation="vertical">
 
@@ -185,6 +173,8 @@
                 style="@style/Systems.Errors"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
                 android:paddingBottom="6dp"
                 android:text="Lỗi" />
 
@@ -193,6 +183,8 @@
                 style="@style/Systems.ButtonLogin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
                 android:background="@drawable/bg_green"
                 android:text="Edit"
                 app:backgroundTint="@null" />

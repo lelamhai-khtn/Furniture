@@ -7,18 +7,15 @@
     android:layout_height="match_parent"
     android:background="@color/black"
     tools:context=".activity.ImageScreen">
-
-    <!-- App Bar -->
     <include
-        android:id="@+id/app_bar_image"
-        layout="@layout/app_bar_image" />
+        android:id="@+id/header"
+        layout="@layout/header_close_title" />
 
-    <!-- CropImageView lấp đầy phần còn lại -->
     <com.canhub.cropper.CropImageView
         android:id="@+id/cropImageView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/app_bar_image"
+        android:layout_below="@+id/header"
         android:background="@color/white"
         app:cropShape="oval"
         app:cropFixAspectRatio="true"
@@ -29,9 +26,7 @@
         app:cropBorderCornerLength="0dp"
         app:cropTouchRadius="1dp"
         />
-    <!-- Đã xóa dòng: android:layout_above="@+id/layout_bottom" -->
 
-    <!-- Nút Save sẽ nổi (float) lên trên phần dưới cùng của CropImageView -->
     <LinearLayout
         android:id="@+id/layout_bottom"
         android:layout_width="match_parent"

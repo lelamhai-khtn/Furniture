@@ -124,6 +124,14 @@
     </style>
 
     <!-- Home -->
+    <style name="Systems.Header">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/BlackText</item>
+        <item name="fontFamily">@font/poppins_semi_bold</item>
+        <item name="android:fontFamily">@font/poppins_semi_bold</item>
+        <item name="lineHeight">28sp</item>
+    </style>
+
     <style name="Systems.Title">
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">@color/BlackText</item>
