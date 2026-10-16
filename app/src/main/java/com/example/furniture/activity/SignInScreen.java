@@ -20,6 +20,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.furniture.R;
+import com.example.furniture.api.GoogleAuthApi;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -28,9 +29,17 @@ import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class SignInScreen extends AppCompatActivity {
+    private static final String API_BASE_URL = "http://192.168.1.15:7279/";
     private GoogleSignInClient mGoogleSignInClient;
     private ActivityResultLauncher<Intent> googleSignInLauncher;
+    private GoogleAuthApi googleAuthApi;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,6 +100,12 @@ public class SignInScreen extends AppCompatActivity {
                         .requestEmail()
                         .build();
         mGoogleSignInClient = GoogleSignIn.getClient(this, signInOptions);
+
+        googleAuthApi = new Retrofit.Builder()
+                .baseUrl(API_BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+                .create(GoogleAuthApi.class);
     }
 
     private void signIn() {
@@ -117,19 +132,43 @@ public class SignInScreen extends AppCompatActivity {
                 return;
             }
 
-            Log.d("GoogleAuth", "Google ID token received");
-            Toast.makeText(
-                    this,
-                    "Đăng nhập Google thành công: " + account.getEmail(),
-                    Toast.LENGTH_SHORT
-            ).show();
-
-            // Gửi idToken này lên ASP.NET Core API tại đây.
-            // sendTokenToApi(idToken);
+            sendIdTokenToServer(idToken, account.getEmail());
         } catch (ApiException e) {
             Log.e("GoogleAuth", "Google sign-in failed, statusCode=" + e.getStatusCode(), e);
             showGoogleError("Đăng nhập Google thất bại (" + e.getStatusCode() + ")");
         }
+    }
+
+    private void sendIdTokenToServer(String idToken, String email) {
+        googleAuthApi.login(new GoogleAuthApi.GoogleLoginRequest(idToken))
+                .enqueue(new Callback<Void>() {
+                    @Override
+                    public void onResponse(Call<Void> call, Response<Void> response) {
+                        if (response.isSuccessful()) {
+                            Log.d("GoogleAuth", "Server accepted Google ID token");
+                            Toast.makeText(
+                                    SignInScreen.this,
+                                    "Đăng nhập thành công: " + email,
+                                    Toast.LENGTH_SHORT
+                            ).show();
+                            return;
+                        }
+
+                        Log.e("GoogleAuth", "Server rejected ID token. HTTP "
+                                + response.code());
+                        showGoogleError("Server từ chối đăng nhập (HTTP "
+                                + response.code() + ")");
+                    }
+
+                    @Override
+                    public void onFailure(Call<Void> call, Throwable t) {
+                        Log.e("GoogleAuth", "Cannot connect to server", t);
+                        String message = t.getMessage() == null
+                                ? t.getClass().getSimpleName()
+                                : t.getMessage();
+                        showGoogleError("Không kết nối được server: " + message);
+                    }
+                });
     }
 
     private void showGoogleError(String message) {
