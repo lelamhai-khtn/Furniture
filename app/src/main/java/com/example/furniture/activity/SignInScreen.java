@@ -15,6 +15,7 @@ import com.google.android.material.textfield.TextInputEditText;
 
 import com.example.furniture.BaseActivity;
 import com.example.furniture.R;
+import com.example.furniture.api.ApiClient;
 import com.example.furniture.api.GoogleAuthApi;
 import com.example.furniture.models.AuthResponse;
 import com.example.furniture.utils.AuthSessionStore;
@@ -30,11 +31,8 @@ import com.google.android.gms.tasks.Task;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class SignInScreen extends BaseActivity {
-    private static final String API_BASE_URL = "http://192.168.1.11:7279/";
     private GoogleSignInClient mGoogleSignInClient;
     private ActivityResultLauncher<Intent> googleSignInLauncher;
     private GoogleAuthApi googleAuthApi;
@@ -129,11 +127,7 @@ public class SignInScreen extends BaseActivity {
     }
 
     private void initializeGoogleAuthApi() {
-        googleAuthApi = new Retrofit.Builder()
-                .baseUrl(API_BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
-                .create(GoogleAuthApi.class);
+        googleAuthApi = ApiClient.getAuthApi();
     }
 
     private void signIn() {

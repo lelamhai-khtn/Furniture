@@ -55,6 +55,7 @@
                 app:boxCornerRadiusBottomEnd="12dp">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etFullName"
                     style="@style/Systems.Input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -75,6 +76,7 @@
                 app:boxCornerRadiusBottomEnd="12dp">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etEmail"
                     style="@style/Systems.Input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -98,6 +100,7 @@
                 app:passwordToggleEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etPassword"
                     style="@style/Systems.Input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -121,6 +124,7 @@
                 app:passwordToggleEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etConfirmPassword"
                     style="@style/Systems.Input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -129,9 +133,11 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
+                android:id="@+id/tv_error"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Lỗi"
+                android:text=""
+                android:visibility="gone"
                 style="@style/Systems.Errors"
                 android:paddingBottom="6dp"/>
 
