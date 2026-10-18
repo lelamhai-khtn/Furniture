@@ -13,14 +13,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.furniture.R;
 import com.example.furniture.adapters.CategoryAdapter;
 import com.example.furniture.adapters.ProductsAdapter;
 import com.example.furniture.models.CategoryModel;
 import com.example.furniture.models.ProductModel;
+import com.example.furniture.models.AuthResponse;
+import com.example.furniture.utils.AuthSessionStore;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -94,10 +99,35 @@ public class HomeFragment extends Fragment {
         rvCategory = view.findViewById(R.id.rv_category);
         rvProduct = view.findViewById(R.id.rv_product);
         rvBestProduct = view.findViewById(R.id.rv_best_product);
+        bindUserInfo(view);
 
         category();
         product();
         BestProduct();
+    }
+
+    private void bindUserInfo(View view) {
+        ImageView avatarView = view.findViewById(R.id.iv_avatar);
+        TextView usernameView = view.findViewById(R.id.tv_username);
+
+        AuthResponse session = new AuthSessionStore(requireContext()).get();
+        if (session == null || session.getUser() == null) {
+            return;
+        }
+
+        AuthResponse.User user = session.getUser();
+        if (user.getFullName() != null && !user.getFullName().trim().isEmpty()) {
+            usernameView.setText(user.getFullName());
+        }
+        String avatarUrl = user.getAvatar();
+        if (avatarUrl != null && !avatarUrl.trim().isEmpty()) {
+            Glide.with(this)
+                    .load(avatarUrl)
+                    .placeholder(R.drawable.avatar)
+                    .error(R.drawable.avatar)
+                    .circleCrop()
+                    .into(avatarView);
+        }
     }
 
 
