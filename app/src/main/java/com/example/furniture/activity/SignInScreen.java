@@ -308,6 +308,10 @@ public class SignInScreen extends BaseActivity {
         }
 
         emailInput.setText(rememberedEmail);
+        String rememberedPassword = appPreferences.getPassword();
+        if (rememberedPassword != null) {
+            passwordInput.setText(rememberedPassword);
+        }
         rememberMe.setChecked(true);
     }
 
@@ -317,11 +321,22 @@ public class SignInScreen extends BaseActivity {
         if (!email.isEmpty()) {
             appPreferences.saveEmail(email);
         }
+
+        String password = passwordInput.getText() == null
+                ? "" : passwordInput.getText().toString();
+        if (!password.isEmpty()) {
+            appPreferences.savePassword(password);
+        }
     }
 
     private void updateRememberedEmail(String email) {
         if (rememberMe.isChecked()) {
             appPreferences.saveEmail(email);
+            String password = passwordInput.getText() == null
+                    ? "" : passwordInput.getText().toString();
+            if (!password.isEmpty()) {
+                appPreferences.savePassword(password);
+            }
         } else {
             clearRememberedEmail();
         }

@@ -61,7 +61,7 @@
                         style="@style/Typography.Small"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Welcome to Shop!"
+                        android:text="Hello, Welcome 👋"
                         android:textColor="@color/Critical100" />
 
                     <TextView
@@ -92,47 +92,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="32dp"
                 android:orientation="vertical"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp">
-
-                <com.google.android.material.card.MaterialCardView
+                >
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_sale"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:cardCornerRadius="12dp">
-
-                    <FrameLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:cardCornerRadius="12dp">
-
-                        <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:adjustViewBounds="true"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/bg_banner" />
-
-                        <TextView
-                            style="@style/Systems.Title"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:gravity="center_vertical|center_horizontal"
-                            android:paddingLeft="16dp"
-                            android:text="Best deal with us \n Discount \n 25%"
-                            android:textColor="@color/white" />
-
-                        <ImageView
-                            android:layout_width="130dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="end|center_vertical"
-                            android:layout_marginRight="16dp"
-                            android:adjustViewBounds="true"
-                            android:background="@android:color/transparent"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/chair" />
-
-                    </FrameLayout>
-                </com.google.android.material.card.MaterialCardView>
+                    android:layout_height="wrap_content" />
             </LinearLayout>
 
             <LinearLayout
@@ -170,8 +134,8 @@
                     style="@style/Systems.Title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="16dp"
-                    android:text="Best saller" />
+                    android:layout_marginStart="16dp"
+                    android:text="Hot" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_best_product"

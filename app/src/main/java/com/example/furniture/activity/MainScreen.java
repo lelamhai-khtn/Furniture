@@ -1,49 +1,27 @@
 package com.example.furniture.activity;
 
-import android.graphics.Color;
-import android.os.Build;
-import android.os.Bundle;
 import android.view.MenuItem;
 
-import androidx.activity.EdgeToEdge;
-import androidx.activity.SystemBarStyle;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.example.furniture.BaseActivity;
 import com.example.furniture.R;
 import com.example.furniture.adapters.ViewPagerAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class MainScreen extends AppCompatActivity {
+public class MainScreen extends BaseActivity {
     ViewPager viewPager;
     BottomNavigationView bottomNavigationView;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_main_screen);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, 0);
-            return insets;
-        });
+    protected int getLayoutResourceId() {
+        return R.layout.activity_main_screen;
+    }
 
-        EdgeToEdge.enable(this,
-                SystemBarStyle.light(Color.TRANSPARENT, Color.TRANSPARENT),
-                SystemBarStyle.dark(ContextCompat.getColor(this, R.color.white))
-        );
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            getWindow().setNavigationBarContrastEnforced(false);
-        }
-
-
+    @Override
+    protected void init() {
         viewPager = findViewById(R.id.view_pager);
         bottomNavigationView = findViewById(R.id.bottom_navigation);
 
@@ -96,5 +74,15 @@ public class MainScreen extends AppCompatActivity {
                 return true;
             }
         });
+    }
+
+    @Override
+    protected void setTitle() {
+        // The title is rendered by the layout.
+    }
+
+    @Override
+    protected void data() {
+        // Main screen data is loaded by its fragments.
     }
 }

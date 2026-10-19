@@ -8,6 +8,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -19,6 +20,7 @@ import android.widget.TextView;
 import com.example.furniture.R;
 import com.example.furniture.adapters.CategoryAdapter;
 import com.example.furniture.adapters.ProductsAdapter;
+import com.example.furniture.adapters.SaleAdapter;
 import com.example.furniture.models.CategoryModel;
 import com.example.furniture.models.ProductModel;
 import com.example.furniture.models.AuthResponse;
@@ -43,8 +45,9 @@ public class HomeFragment extends Fragment {
 
     private RecyclerView rvProduct;
     private RecyclerView rvBestProduct;
-    private List<ProductModel> products;
+    private RecyclerView rvSale;
     private ProductsAdapter productAdapter;
+    private SaleAdapter saleAdapter;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -96,15 +99,19 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        rvSale = view.findViewById(R.id.rv_sale);
         rvCategory = view.findViewById(R.id.rv_category);
         rvProduct = view.findViewById(R.id.rv_product);
         rvBestProduct = view.findViewById(R.id.rv_best_product);
         bindUserInfo(view);
 
+        sale();
         category();
         product();
         BestProduct();
     }
+
+
 
     private void bindUserInfo(View view) {
         ImageView avatarView = view.findViewById(R.id.iv_avatar);
@@ -128,6 +135,61 @@ public class HomeFragment extends Fragment {
                     .circleCrop()
                     .into(avatarView);
         }
+    }
+
+    private void sale() {
+        List<ProductModel> products = new ArrayList<>();
+        products.add(new ProductModel(
+                1,
+                "iPhone 15 Pro Max",
+                "Discount 25%.",
+                100,
+                120,
+                "https://images.unsplash.com/photo-1595225476474-87563907a212?q=80&w=800&auto=format&fit=crop"
+        ));
+
+        products.add(new ProductModel(
+                2,
+                "Samsung Galaxy S24 Ultra",
+                "Discount 25%.",
+                100,
+                120,
+                "https://drive.google.com/uc?export=view&id=1t3JeV1XONuAKGyYLZYAywFuZQ26B-iSo"
+        ));
+
+        products.add(new ProductModel(
+                3,
+                "MacBook Air M2",
+                "Discount 25%.",
+                100,
+                120,
+                "https://drive.google.com/uc?export=view&id=1t3JeV1XONuAKGyYLZYAywFuZQ26B-iSo"
+        ));
+
+        products.add(new ProductModel(
+                4,
+                "Tai nghe Sony WH-1000XM5",
+                "Discount 25%.",
+                100,
+                120,
+                "https://drive.google.com/uc?export=view&id=1t3JeV1XONuAKGyYLZYAywFuZQ26B-iSo"
+        ));
+
+        products.add(new ProductModel(
+                5,
+                "Bàn phím cơ Keychron K2",
+                "Discount 25%.",
+                100,
+                120,
+                "https://drive.google.com/uc?export=view&id=1t3JeV1XONuAKGyYLZYAywFuZQ26B-iSo"
+        ));
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        rvSale.setLayoutManager(layoutManager);
+        new PagerSnapHelper().attachToRecyclerView(rvSale);
+
+        saleAdapter = new SaleAdapter(products);
+        rvSale.setAdapter(saleAdapter);
     }
 
 
