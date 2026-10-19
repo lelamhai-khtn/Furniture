@@ -1,12 +1,29 @@
 package com.example.furniture.models;
 
+import com.google.gson.annotations.SerializedName;
+
 public class CategoryModel {
+    private int categoryId;
+    private Integer parentId;
+    @SerializedName("categoryName")
     private String name;
+    @SerializedName("imageUrl")
     private String urlImage;
+
+    public CategoryModel() {
+    }
 
     public CategoryModel(String name, String urlImage) {
         this.name = name;
         this.urlImage = urlImage;
+    }
+
+    public int getCategoryId() {
+        return categoryId;
+    }
+
+    public Integer getParentId() {
+        return parentId;
     }
 
     public String getName() {
