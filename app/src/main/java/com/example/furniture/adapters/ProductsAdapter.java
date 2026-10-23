@@ -37,7 +37,6 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Produc
     @Override
     public void onBindViewHolder(@NonNull ProductVerticalViewHolder holder, int position) {
         ProductModel item = products.get(position);
-        boolean stateFavorite = false;
         if (item == null) {
             return;
         }
@@ -59,17 +58,6 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Produc
 
         holder.tv_old_price_product.setPaintFlags(holder.tv_old_price_product.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         holder.tv_old_price_product.setText(String.valueOf(item.getOldPrice()) + "$");
-
-        holder.ib_favorite.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!stateFavorite) {
-                    holder.ib_favorite.setImageResource(R.drawable.icon_favorite_fill_24);
-                } else {
-                    holder.ib_favorite.setImageResource(R.drawable.icon_favorite_24);
-                }
-            }
-        });
 
         View.OnClickListener clickListener = new View.OnClickListener() {
             @Override
