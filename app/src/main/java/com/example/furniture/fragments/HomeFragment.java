@@ -145,57 +145,43 @@ public class HomeFragment extends Fragment {
 
     private void sale() {
         List<ProductModel> products = new ArrayList<>();
-        products.add(new ProductModel(
-                1,
-                "iPhone 15 Pro Max",
-                "Discount 25%.",
-                100,
-                120,
-                "https://images.unsplash.com/photo-1595225476474-87563907a212?q=80&w=800&auto=format&fit=crop"
-        ));
-
-        products.add(new ProductModel(
-                2,
-                "Samsung Galaxy S24 Ultra",
-                "Discount 25%.",
-                100,
-                120,
-                "https://drive.google.com/uc?export=view&id=1t3JeV1XONuAKGyYLZYAywFuZQ26B-iSo"
-        ));
-
-        products.add(new ProductModel(
-                3,
-                "MacBook Air M2",
-                "Discount 25%.",
-                100,
-                120,
-                "https://drive.google.com/uc?export=view&id=1t3JeV1XONuAKGyYLZYAywFuZQ26B-iSo"
-        ));
-
-        products.add(new ProductModel(
-                4,
-                "Tai nghe Sony WH-1000XM5",
-                "Discount 25%.",
-                100,
-                120,
-                "https://drive.google.com/uc?export=view&id=1t3JeV1XONuAKGyYLZYAywFuZQ26B-iSo"
-        ));
-
-        products.add(new ProductModel(
-                5,
-                "Bàn phím cơ Keychron K2",
-                "Discount 25%.",
-                100,
-                120,
-                "https://drive.google.com/uc?export=view&id=1t3JeV1XONuAKGyYLZYAywFuZQ26B-iSo"
-        ));
-
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         rvSale.setLayoutManager(layoutManager);
-        new PagerSnapHelper().attachToRecyclerView(rvSale);
+        if (rvSale.getOnFlingListener() == null) {
+            new PagerSnapHelper().attachToRecyclerView(rvSale);
+        }
 
         saleAdapter = new SaleAdapter(products);
         rvSale.setAdapter(saleAdapter);
+
+        ApiClient.getProductsApi().getTopDiscounts(3).enqueue(new Callback<List<ProductModel>>() {
+            @Override
+            public void onResponse(@NonNull Call<List<ProductModel>> call,
+                                   @NonNull Response<List<ProductModel>> response) {
+                if (!isAdded()) {
+                    return;
+                }
+                if (response.isSuccessful() && response.body() != null) {
+                    products.clear();
+                    products.addAll(response.body());
+                    saleAdapter.notifyDataSetChanged();
+                } else {
+                    Toast.makeText(requireContext(),
+                            "Không thể tải sản phẩm khuyến mãi",
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<List<ProductModel>> call, @NonNull Throwable t) {
+                if (!isAdded()) {
+                    return;
+                }
+                Toast.makeText(requireContext(),
+                        "Không thể kết nối để tải sản phẩm khuyến mãi",
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 

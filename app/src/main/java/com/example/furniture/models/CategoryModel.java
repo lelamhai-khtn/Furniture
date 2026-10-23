@@ -4,7 +4,6 @@ import com.google.gson.annotations.SerializedName;
 
 public class CategoryModel {
     private int categoryId;
-    private Integer parentId;
     @SerializedName("categoryName")
     private String name;
     @SerializedName("imageUrl")
@@ -20,10 +19,6 @@ public class CategoryModel {
 
     public int getCategoryId() {
         return categoryId;
-    }
-
-    public Integer getParentId() {
-        return parentId;
     }
 
     public String getName() {

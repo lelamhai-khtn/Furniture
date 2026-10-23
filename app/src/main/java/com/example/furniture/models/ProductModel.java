@@ -1,14 +1,32 @@
 package com.example.furniture.models;
+
+import com.google.gson.annotations.SerializedName;
+
 public class ProductModel {
+    @SerializedName(value = "productId", alternate = {"Id", "id"})
     private int Id;
+
+    @SerializedName(value = "productName", alternate = {"Name", "name"})
     private String Name;
+
+    @SerializedName(value = "description", alternate = {"Description"})
     private String Description;
+
+    @SerializedName(value = "discountPrice", alternate = {"Price", "price"})
     private double Price;
+
+    @SerializedName(value = "originalPrice", alternate = {"OldPrice", "oldPrice"})
     private double OldPrice;
+
+    @SerializedName(value = "imageUrl", alternate = {"Image", "image"})
     private String Image;
+
+    @SerializedName("discountPercent")
+    private double discountPercent;
 
     public ProductModel() {
     }
+
     public ProductModel(int Id, String Name, String Description, double Price, double OldPrice, String Image) {
         this.Id = Id;
         this.Name = Name;
@@ -17,6 +35,17 @@ public class ProductModel {
         this.OldPrice = OldPrice;
         this.Image = Image;
     }
+
+    public ProductModel(int Id, String Name, String Description, double Price, double OldPrice, String Image, double discountPercent) {
+        this.Id = Id;
+        this.Name = Name;
+        this.Description = Description;
+        this.Price = Price;
+        this.OldPrice = OldPrice;
+        this.Image = Image;
+        this.discountPercent = discountPercent;
+    }
+
     public int getId() {
         return Id;
     }
@@ -63,5 +92,13 @@ public class ProductModel {
 
     public void setImage(String Image) {
         this.Image = Image;
+    }
+
+    public double getDiscountPercent() {
+        return discountPercent;
+    }
+
+    public void setDiscountPercent(double discountPercent) {
+        this.discountPercent = discountPercent;
     }
 }
