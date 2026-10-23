@@ -9,6 +9,7 @@ public final class ApiClient {
     public static final String AUTH_GOOGLE_ENDPOINT = "api/Auth/google";
     public static final String AUTH_REGISTER_ENDPOINT = "api/Auth/register";
     public static final String CATEGORIES_ENDPOINT = "api/Categories";
+    public static final String PRODUCTS_ENDPOINT = "api/Products";
     public static final String PRODUCTS_TOP_DISCOUNTS_ENDPOINT = "api/Products/top-discounts";
 
     private static final Retrofit RETROFIT = new Retrofit.Builder()

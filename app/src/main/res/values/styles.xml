@@ -156,11 +156,11 @@
     </style>
 
     <style name="Systems.PriceProduct">
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/Primary3</item>
         <item name="fontFamily">@font/poppins_bold</item>
         <item name="android:fontFamily">@font/poppins_bold</item>
-        <item name="lineHeight">28sp</item>
+        <item name="lineHeight">20sp</item>
     </style>
 
     <style name="Systems.OldPriceProduct">

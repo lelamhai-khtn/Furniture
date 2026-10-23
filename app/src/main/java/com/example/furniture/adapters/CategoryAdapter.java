@@ -1,12 +1,10 @@
 package com.example.furniture.adapters;
 
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,12 +15,26 @@ import com.example.furniture.models.CategoryModel;
 
 import java.util.List;
 
-public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>{
+public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder> {
+
+    public interface OnCategoryClickListener {
+        void onCategoryClick(CategoryModel category);
+    }
+
     private List<CategoryModel> categories;
     private int selectedPosition = 0;
-    public CategoryAdapter(List<CategoryModel> model)
-    {
+    private OnCategoryClickListener listener;
+
+    public CategoryAdapter(List<CategoryModel> model) {
         this.categories = model;
+    }
+
+    public void setOnCategoryClickListener(OnCategoryClickListener listener) {
+        this.listener = listener;
+    }
+
+    public int getSelectedPosition() {
+        return selectedPosition;
     }
 
     @NonNull
@@ -35,8 +47,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     @Override
     public void onBindViewHolder(@NonNull CategoryViewHolder holder, int position) {
         CategoryModel item = categories.get(position);
-        if(item == null)
-        {
+        if (item == null) {
             return;
         }
 
@@ -52,21 +63,29 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
         } else {
             holder.itemView.setBackgroundResource(R.drawable.card_unselect_categories);
         }
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                int adapterPosition = holder.getAdapterPosition();
+                if (adapterPosition == RecyclerView.NO_POSITION) {
+                    return;
+                }
                 int previousPosition = selectedPosition;
-                selectedPosition = holder.getAdapterPosition();
+                selectedPosition = adapterPosition;
                 notifyItemChanged(previousPosition);
                 notifyItemChanged(selectedPosition);
+
+                if (listener != null) {
+                    listener.onCategoryClick(categories.get(selectedPosition));
+                }
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        if(categories != null)
-        {
+        if (categories != null) {
             return categories.size();
         }
         return 0;
@@ -75,6 +94,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     class CategoryViewHolder extends RecyclerView.ViewHolder {
         private ImageView iv_image;
         private TextView tv_name;
+
         public CategoryViewHolder(@NonNull View itemView) {
             super(itemView);
             iv_image = itemView.findViewById(R.id.iv_item_category);

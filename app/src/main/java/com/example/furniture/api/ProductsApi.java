@@ -11,4 +11,7 @@ import retrofit2.http.Query;
 public interface ProductsApi {
     @GET(ApiClient.PRODUCTS_TOP_DISCOUNTS_ENDPOINT)
     Call<List<ProductModel>> getTopDiscounts(@Query("limit") int limit);
+
+    @GET(ApiClient.PRODUCTS_ENDPOINT)
+    Call<List<ProductModel>> getProductsByCategory(@Query("categoryId") Integer categoryId);
 }

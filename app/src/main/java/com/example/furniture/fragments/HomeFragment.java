@@ -4,9 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
@@ -27,8 +25,6 @@ import com.example.furniture.models.CategoryModel;
 import com.example.furniture.models.ProductModel;
 import com.example.furniture.models.AuthResponse;
 import com.example.furniture.utils.AuthSessionStore;
-import com.google.android.material.badge.BadgeDrawable;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
@@ -38,11 +34,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link HomeFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class HomeFragment extends Fragment {
 
     private RecyclerView rvCategory;
@@ -52,15 +43,14 @@ public class HomeFragment extends Fragment {
     private RecyclerView rvProduct;
     private RecyclerView rvBestProduct;
     private RecyclerView rvSale;
+
+    private List<ProductModel> products;
     private ProductsAdapter productAdapter;
     private SaleAdapter saleAdapter;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
@@ -68,15 +58,6 @@ public class HomeFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment HomeFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static HomeFragment newInstance(String param1, String param2) {
         HomeFragment fragment = new HomeFragment();
         Bundle args = new Bundle();
@@ -98,7 +79,6 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false);
     }
 
@@ -112,12 +92,10 @@ public class HomeFragment extends Fragment {
         bindUserInfo(view);
 
         sale();
-        category();
         product();
+        category();
         BestProduct();
     }
-
-
 
     private void bindUserInfo(View view) {
         ImageView avatarView = view.findViewById(R.id.iv_avatar);
@@ -144,14 +122,14 @@ public class HomeFragment extends Fragment {
     }
 
     private void sale() {
-        List<ProductModel> products = new ArrayList<>();
+        List<ProductModel> saleProducts = new ArrayList<>();
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         rvSale.setLayoutManager(layoutManager);
         if (rvSale.getOnFlingListener() == null) {
             new PagerSnapHelper().attachToRecyclerView(rvSale);
         }
 
-        saleAdapter = new SaleAdapter(products);
+        saleAdapter = new SaleAdapter(saleProducts);
         rvSale.setAdapter(saleAdapter);
 
         ApiClient.getProductsApi().getTopDiscounts(3).enqueue(new Callback<List<ProductModel>>() {
@@ -162,8 +140,8 @@ public class HomeFragment extends Fragment {
                     return;
                 }
                 if (response.isSuccessful() && response.body() != null) {
-                    products.clear();
-                    products.addAll(response.body());
+                    saleProducts.clear();
+                    saleProducts.addAll(response.body());
                     saleAdapter.notifyDataSetChanged();
                 } else {
                     Toast.makeText(requireContext(),
@@ -184,13 +162,20 @@ public class HomeFragment extends Fragment {
         });
     }
 
-
     private void category() {
         categories = new ArrayList<>();
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         rvCategory.setLayoutManager(layoutManager);
 
         categoryAdapter = new CategoryAdapter(categories);
+        categoryAdapter.setOnCategoryClickListener(new CategoryAdapter.OnCategoryClickListener() {
+            @Override
+            public void onCategoryClick(CategoryModel categoryModel) {
+                if (categoryModel != null) {
+                    loadProductsByCategory(categoryModel.getCategoryId());
+                }
+            }
+        });
         rvCategory.setAdapter(categoryAdapter);
 
         ApiClient.getCategoriesApi().getCategories().enqueue(new Callback<List<CategoryModel>>() {
@@ -204,6 +189,15 @@ public class HomeFragment extends Fragment {
                     categories.clear();
                     categories.addAll(response.body());
                     categoryAdapter.notifyDataSetChanged();
+
+                    if (!categories.isEmpty()) {
+                        int selectedPos = categoryAdapter.getSelectedPosition();
+                        if (selectedPos >= 0 && selectedPos < categories.size()) {
+                            loadProductsByCategory(categories.get(selectedPos).getCategoryId());
+                        } else {
+                            loadProductsByCategory(categories.get(0).getCategoryId());
+                        }
+                    }
                 } else {
                     Toast.makeText(requireContext(),
                             "Không thể tải danh mục sản phẩm",
@@ -222,54 +216,9 @@ public class HomeFragment extends Fragment {
             }
         });
     }
+
     private void product() {
-
-        List<ProductModel> products = new ArrayList<>();
-        products.add(new ProductModel(
-                1,
-                "iPhone 15 Pro Max",
-                "Điện thoại cao cấp của Apple với chip A17 Pro, camera 48MP.",
-                100,
-                120,
-                "https://images.unsplash.com/photo-1595225476474-87563907a212?q=80&w=800&auto=format&fit=crop"
-        ));
-
-        products.add(new ProductModel(
-                2,
-                "Samsung Galaxy S24 Ultra",
-                "Flagship của Samsung tích hợp Galaxy AI, bút S-Pen.",
-                100,
-                120,
-                "https://drive.google.com/uc?export=view&id=1t3JeV1XONuAKGyYLZYAywFuZQ26B-iSo"
-        ));
-
-        products.add(new ProductModel(
-                3,
-                "MacBook Air M2",
-                "Laptop mỏng nhẹ, pin trâu, phù hợp cho dân văn phòng.",
-                100,
-                120,
-                "https://drive.google.com/uc?export=view&id=1t3JeV1XONuAKGyYLZYAywFuZQ26B-iSo"
-        ));
-
-        products.add(new ProductModel(
-                4,
-                "Tai nghe Sony WH-1000XM5",
-                "Tai nghe chụp tai chống ồn chủ động tốt nhất phân khúc.",
-                100,
-                120,
-                "https://drive.google.com/uc?export=view&id=1t3JeV1XONuAKGyYLZYAywFuZQ26B-iSo"
-        ));
-
-        products.add(new ProductModel(
-                5,
-                "Bàn phím cơ Keychron K2",
-                "Bàn phím cơ không dây layout 75%, switch Gateron.",
-                100,
-                120,
-                "https://drive.google.com/uc?export=view&id=1t3JeV1XONuAKGyYLZYAywFuZQ26B-iSo"
-        ));
-
+        products = new ArrayList<>();
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         rvProduct.setLayoutManager(layoutManager);
 
@@ -277,10 +226,40 @@ public class HomeFragment extends Fragment {
         rvProduct.setAdapter(productAdapter);
     }
 
-    private void BestProduct() {
+    private void loadProductsByCategory(int categoryId) {
+        ApiClient.getProductsApi().getProductsByCategory(categoryId).enqueue(new Callback<List<ProductModel>>() {
+            @Override
+            public void onResponse(@NonNull Call<List<ProductModel>> call,
+                                   @NonNull Response<List<ProductModel>> response) {
+                if (!isAdded()) {
+                    return;
+                }
+                if (response.isSuccessful() && response.body() != null) {
+                    products.clear();
+                    products.addAll(response.body());
+                    productAdapter.notifyDataSetChanged();
+                } else {
+                    Toast.makeText(requireContext(),
+                            "Không thể tải sản phẩm",
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
 
-        List<ProductModel> products = new ArrayList<>();
-        products.add(new ProductModel(
+            @Override
+            public void onFailure(@NonNull Call<List<ProductModel>> call, @NonNull Throwable t) {
+                if (!isAdded()) {
+                    return;
+                }
+                Toast.makeText(requireContext(),
+                        "Không thể kết nối để tải sản phẩm",
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void BestProduct() {
+        List<ProductModel> bestProducts = new ArrayList<>();
+        bestProducts.add(new ProductModel(
                 1,
                 "iPhone 15 Pro Max",
                 "Điện thoại cao cấp của Apple với chip A17 Pro, camera 48MP.",
@@ -289,7 +268,7 @@ public class HomeFragment extends Fragment {
                 "https://images.unsplash.com/photo-1595225476474-87563907a212?q=80&w=800&auto=format&fit=crop"
         ));
 
-        products.add(new ProductModel(
+        bestProducts.add(new ProductModel(
                 2,
                 "Samsung Galaxy S24 Ultra",
                 "Flagship của Samsung tích hợp Galaxy AI, bút S-Pen.",
@@ -298,7 +277,7 @@ public class HomeFragment extends Fragment {
                 "https://drive.google.com/uc?export=view&id=1t3JeV1XONuAKGyYLZYAywFuZQ26B-iSo"
         ));
 
-        products.add(new ProductModel(
+        bestProducts.add(new ProductModel(
                 3,
                 "MacBook Air M2",
                 "Laptop mỏng nhẹ, pin trâu, phù hợp cho dân văn phòng.",
@@ -307,7 +286,7 @@ public class HomeFragment extends Fragment {
                 "https://drive.google.com/uc?export=view&id=1t3JeV1XONuAKGyYLZYAywFuZQ26B-iSo"
         ));
 
-        products.add(new ProductModel(
+        bestProducts.add(new ProductModel(
                 4,
                 "Tai nghe Sony WH-1000XM5",
                 "Tai nghe chụp tai chống ồn chủ động tốt nhất phân khúc.",
@@ -316,7 +295,7 @@ public class HomeFragment extends Fragment {
                 "https://drive.google.com/uc?export=view&id=1t3JeV1XONuAKGyYLZYAywFuZQ26B-iSo"
         ));
 
-        products.add(new ProductModel(
+        bestProducts.add(new ProductModel(
                 5,
                 "Bàn phím cơ Keychron K2",
                 "Bàn phím cơ không dây layout 75%, switch Gateron.",
@@ -328,7 +307,7 @@ public class HomeFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         rvBestProduct.setLayoutManager(layoutManager);
 
-        productAdapter = new ProductsAdapter(products);
-        rvBestProduct.setAdapter(productAdapter);
+        ProductsAdapter bestProductAdapter = new ProductsAdapter(bestProducts);
+        rvBestProduct.setAdapter(bestProductAdapter);
     }
 }

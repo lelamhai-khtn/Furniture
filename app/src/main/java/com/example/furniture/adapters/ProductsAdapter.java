@@ -22,8 +22,8 @@ import java.util.List;
 
 public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ProductVerticalViewHolder> {
     private List<ProductModel> products;
-    public ProductsAdapter(List<ProductModel> list)
-    {
+
+    public ProductsAdapter(List<ProductModel> list) {
         this.products = list;
     }
 
@@ -38,18 +38,24 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Produc
     public void onBindViewHolder(@NonNull ProductVerticalViewHolder holder, int position) {
         ProductModel item = products.get(position);
         boolean stateFavorite = false;
-        if(item == null)
-        {
+        if (item == null) {
             return;
         }
 
-        Glide.with(holder.itemView.getContext())
-                .load(R.drawable.chair)
-                .into(holder.iv_image_product);
+        if (item.getImage() != null && !item.getImage().trim().isEmpty()) {
+            Glide.with(holder.itemView.getContext())
+                    .load(item.getImage())
+                    .placeholder(R.drawable.chair)
+                    .error(R.drawable.chair)
+                    .into(holder.iv_image_product);
+        } else {
+            Glide.with(holder.itemView.getContext())
+                    .load(R.drawable.chair)
+                    .into(holder.iv_image_product);
+        }
 
         holder.tv_name_product.setText(item.getName());
-        holder.tv_price_product.setText(String.valueOf(item.getPrice()));
-
+        holder.tv_price_product.setText(String.valueOf(item.getPrice()) + "$");
 
         holder.tv_old_price_product.setPaintFlags(holder.tv_old_price_product.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         holder.tv_old_price_product.setText(String.valueOf(item.getOldPrice()) + "$");
@@ -65,45 +71,36 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Produc
             }
         });
 
-        holder.iv_image_product.setOnClickListener(new View.OnClickListener() {
+        View.OnClickListener clickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Context context = v.getContext();
                 Intent intent = new Intent(context, DetailScreen.class);
-                intent.putExtra("product_id", 1);
+                intent.putExtra("product_id", item.getId());
                 context.startActivity(intent);
             }
-        });
+        };
 
-        holder.tv_name_product.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Context context = v.getContext();
-                Intent intent = new Intent(context, DetailScreen.class);
-                intent.putExtra("product_id", 1);
-                context.startActivity(intent);
-            }
-        });
+        holder.iv_image_product.setOnClickListener(clickListener);
+        holder.tv_name_product.setOnClickListener(clickListener);
     }
 
     @Override
     public int getItemCount() {
-        if(products != null)
-        {
+        if (products != null) {
             return products.size();
         }
         return 0;
     }
 
-    class ProductVerticalViewHolder extends RecyclerView.ViewHolder
-    {
+    class ProductVerticalViewHolder extends RecyclerView.ViewHolder {
         private ImageView iv_image_product;
         private ImageButton ib_favorite;
         private TextView tv_name_product;
         private TextView tv_price_product;
-
         private TextView tv_old_price_product;
         private ImageButton ib_cart;
+
         public ProductVerticalViewHolder(@NonNull View itemView) {
             super(itemView);
             iv_image_product = itemView.findViewById(R.id.iv_image_product);
