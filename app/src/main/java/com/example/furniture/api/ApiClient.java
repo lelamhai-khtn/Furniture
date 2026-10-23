@@ -11,6 +11,7 @@ public final class ApiClient {
     public static final String CATEGORIES_ENDPOINT = "api/Categories";
     public static final String PRODUCTS_ENDPOINT = "api/Products";
     public static final String PRODUCTS_TOP_DISCOUNTS_ENDPOINT = "api/Products/top-discounts";
+    public static final String PRODUCTS_NEWEST_ENDPOINT = "api/Products/newest";
 
     private static final Retrofit RETROFIT = new Retrofit.Builder()
             .baseUrl(BASE_URL)

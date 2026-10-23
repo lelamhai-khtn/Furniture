@@ -14,4 +14,7 @@ public interface ProductsApi {
 
     @GET(ApiClient.PRODUCTS_ENDPOINT)
     Call<List<ProductModel>> getProductsByCategory(@Query("categoryId") Integer categoryId);
+
+    @GET(ApiClient.PRODUCTS_NEWEST_ENDPOINT)
+    Call<List<ProductModel>> getNewestProducts(@Query("limit") int limit);
 }

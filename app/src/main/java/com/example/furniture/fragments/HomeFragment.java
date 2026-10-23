@@ -41,7 +41,7 @@ public class HomeFragment extends Fragment {
     private CategoryAdapter categoryAdapter;
 
     private RecyclerView rvProduct;
-    private RecyclerView rvBestProduct;
+    private RecyclerView rvNewestProduct;
     private RecyclerView rvSale;
 
     private List<ProductModel> products;
@@ -88,13 +88,13 @@ public class HomeFragment extends Fragment {
         rvSale = view.findViewById(R.id.rv_sale);
         rvCategory = view.findViewById(R.id.rv_category);
         rvProduct = view.findViewById(R.id.rv_product);
-        rvBestProduct = view.findViewById(R.id.rv_best_product);
+        rvNewestProduct = view.findViewById(R.id.rv_newest_product);
         bindUserInfo(view);
 
         sale();
         product();
         category();
-        BestProduct();
+        newestProduct();
     }
 
     private void bindUserInfo(View view) {
@@ -257,57 +257,41 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    private void BestProduct() {
-        List<ProductModel> bestProducts = new ArrayList<>();
-        bestProducts.add(new ProductModel(
-                1,
-                "iPhone 15 Pro Max",
-                "Điện thoại cao cấp của Apple với chip A17 Pro, camera 48MP.",
-                100,
-                120,
-                "https://images.unsplash.com/photo-1595225476474-87563907a212?q=80&w=800&auto=format&fit=crop"
-        ));
-
-        bestProducts.add(new ProductModel(
-                2,
-                "Samsung Galaxy S24 Ultra",
-                "Flagship của Samsung tích hợp Galaxy AI, bút S-Pen.",
-                100,
-                120,
-                "https://drive.google.com/uc?export=view&id=1t3JeV1XONuAKGyYLZYAywFuZQ26B-iSo"
-        ));
-
-        bestProducts.add(new ProductModel(
-                3,
-                "MacBook Air M2",
-                "Laptop mỏng nhẹ, pin trâu, phù hợp cho dân văn phòng.",
-                100,
-                120,
-                "https://drive.google.com/uc?export=view&id=1t3JeV1XONuAKGyYLZYAywFuZQ26B-iSo"
-        ));
-
-        bestProducts.add(new ProductModel(
-                4,
-                "Tai nghe Sony WH-1000XM5",
-                "Tai nghe chụp tai chống ồn chủ động tốt nhất phân khúc.",
-                100,
-                120,
-                "https://drive.google.com/uc?export=view&id=1t3JeV1XONuAKGyYLZYAywFuZQ26B-iSo"
-        ));
-
-        bestProducts.add(new ProductModel(
-                5,
-                "Bàn phím cơ Keychron K2",
-                "Bàn phím cơ không dây layout 75%, switch Gateron.",
-                100,
-                120,
-                "https://drive.google.com/uc?export=view&id=1t3JeV1XONuAKGyYLZYAywFuZQ26B-iSo"
-        ));
-
+    private void newestProduct() {
+        List<ProductModel> newestProducts = new ArrayList<>();
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-        rvBestProduct.setLayoutManager(layoutManager);
+        rvNewestProduct.setLayoutManager(layoutManager);
 
-        ProductsAdapter bestProductAdapter = new ProductsAdapter(bestProducts);
-        rvBestProduct.setAdapter(bestProductAdapter);
+        ProductsAdapter newestProductAdapter = new ProductsAdapter(newestProducts);
+        rvNewestProduct.setAdapter(newestProductAdapter);
+
+        ApiClient.getProductsApi().getNewestProducts(5).enqueue(new Callback<List<ProductModel>>() {
+            @Override
+            public void onResponse(@NonNull Call<List<ProductModel>> call,
+                                   @NonNull Response<List<ProductModel>> response) {
+                if (!isAdded()) {
+                    return;
+                }
+                if (response.isSuccessful() && response.body() != null) {
+                    newestProducts.clear();
+                    newestProducts.addAll(response.body());
+                    newestProductAdapter.notifyDataSetChanged();
+                } else {
+                    Toast.makeText(requireContext(),
+                            "Không thể tải sản phẩm mới nhất",
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<List<ProductModel>> call, @NonNull Throwable t) {
+                if (!isAdded()) {
+                    return;
+                }
+                Toast.makeText(requireContext(),
+                        "Không thể kết nối để tải sản phẩm mới nhất",
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
