@@ -15,6 +15,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.furniture.api.ApiClient;
 import com.example.furniture.dialogs.DialogOffWifi;
 
 public abstract class BaseActivity extends AppCompatActivity {
@@ -27,6 +28,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ApiClient.init(this);
         setContentView(getLayoutResourceId());
         init();
         setTitle();

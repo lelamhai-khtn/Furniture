@@ -1,10 +1,18 @@
 package com.example.furniture.api;
 
+import android.content.Context;
+
+import com.example.furniture.models.AuthResponse;
+import com.example.furniture.utils.AuthSessionStore;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public final class ApiClient {
-    public static final String BASE_URL = "http://192.168.1.14:7279/";
+    public static final String BASE_URL = "http://192.168.1.5:7279/";
     public static final String AUTH_LOGIN_ENDPOINT = "api/Auth/login";
     public static final String AUTH_GOOGLE_ENDPOINT = "api/Auth/google";
     public static final String AUTH_REGISTER_ENDPOINT = "api/Auth/register";
@@ -13,8 +21,38 @@ public final class ApiClient {
     public static final String PRODUCTS_TOP_DISCOUNTS_ENDPOINT = "api/Products/top-discounts";
     public static final String PRODUCTS_NEWEST_ENDPOINT = "api/Products/newest";
 
+    private static Context appContext;
+
+    public static void init(Context context) {
+        if (context != null) {
+            appContext = context.getApplicationContext();
+        }
+    }
+
+    private static final OkHttpClient OK_HTTP_CLIENT = new OkHttpClient.Builder()
+            .addInterceptor(chain -> {
+                Request originalRequest = chain.request();
+                String path = originalRequest.url().encodedPath();
+
+                if (isAuthEndpoint(path)) {
+                    return chain.proceed(originalRequest);
+                }
+
+                String token = getToken();
+                if (token != null && !token.isEmpty()) {
+                    Request authenticatedRequest = originalRequest.newBuilder()
+                            .header("Authorization", "Bearer " + token)
+                            .build();
+                    return chain.proceed(authenticatedRequest);
+                }
+
+                return chain.proceed(originalRequest);
+            })
+            .build();
+
     private static final Retrofit RETROFIT = new Retrofit.Builder()
             .baseUrl(BASE_URL)
+            .client(OK_HTTP_CLIENT)
             .addConverterFactory(GsonConverterFactory.create())
             .build();
 
@@ -24,6 +62,24 @@ public final class ApiClient {
 
     private ApiClient() {
         // Utility class.
+    }
+
+    private static boolean isAuthEndpoint(String path) {
+        return path.endsWith(AUTH_LOGIN_ENDPOINT) ||
+                path.endsWith(AUTH_GOOGLE_ENDPOINT) ||
+                path.endsWith(AUTH_REGISTER_ENDPOINT);
+    }
+
+    private static String getToken() {
+        if (appContext == null) {
+            return null;
+        }
+        AuthSessionStore sessionStore = new AuthSessionStore(appContext);
+        AuthResponse session = sessionStore.get();
+        if (session != null && session.getAccessToken() != null) {
+            return session.getAccessToken();
+        }
+        return null;
     }
 
     public static GoogleAuthApi getAuthApi() {
@@ -38,3 +94,4 @@ public final class ApiClient {
         return PRODUCTS_API;
     }
 }
+
