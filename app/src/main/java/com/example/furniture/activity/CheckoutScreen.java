@@ -16,14 +16,22 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.furniture.R;
 import com.example.furniture.adapters.CartAdapter;
-import com.example.furniture.models.ProductModel;
+import com.example.furniture.api.ApiClient;
+import com.example.furniture.models.CartItemModel;
+import com.example.furniture.models.CartModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class CheckoutScreen extends AppCompatActivity {
     private RecyclerView rvCart;
     private CartAdapter cartAdapter;
+    private List<CartItemModel> cartItemsList = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,60 +52,31 @@ public class CheckoutScreen extends AppCompatActivity {
         }
 
         rvCart = findViewById(R.id.rv_card);
-        Card();
+        setupRecyclerView();
+        loadCartFromApi();
     }
 
-    private void Card() {
-        List<ProductModel> products = new ArrayList<>();
-        products.add(new ProductModel(
-                1,
-                "iPhone 15 Pro Max",
-                "Điện thoại cao cấp của Apple với chip A17 Pro, camera 48MP.",
-                100,
-                120,
-                "https://images.unsplash.com/photo-1595225476474-87563907a212?q=80&w=800&auto=format&fit=crop"
-        ));
-
-        products.add(new ProductModel(
-                2,
-                "Samsung Galaxy S24 Ultra",
-                "Flagship của Samsung tích hợp Galaxy AI, bút S-Pen.",
-                100,
-                120,
-                "https://drive.google.com/uc?export=view&id=1t3JeV1XONuAKGyYLZYAywFuZQ26B-iSo"
-        ));
-
-        products.add(new ProductModel(
-                3,
-                "MacBook Air M2",
-                "Laptop mỏng nhẹ, pin trâu, phù hợp cho dân văn phòng.",
-                100,
-                120,
-                "https://drive.google.com/uc?export=view&id=1t3JeV1XONuAKGyYLZYAywFuZQ26B-iSo"
-        ));
-
-        products.add(new ProductModel(
-                4,
-                "Tai nghe Sony WH-1000XM5",
-                "Tai nghe chụp tai chống ồn chủ động tốt nhất phân khúc.",
-                100,
-                120,
-                "https://drive.google.com/uc?export=view&id=1t3JeV1XONuAKGyYLZYAywFuZQ26B-iSo"
-        ));
-
-        products.add(new ProductModel(
-                5,
-                "Bàn phím cơ Keychron K2",
-                "Bàn phím cơ không dây layout 75%, switch Gateron.",
-                100,
-                120,
-                "https://drive.google.com/uc?export=view&id=1t3JeV1XONuAKGyYLZYAywFuZQ26B-iSo"
-        ));
-
+    private void setupRecyclerView() {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         rvCart.setLayoutManager(layoutManager);
-
-        cartAdapter = new CartAdapter(products);
+        cartAdapter = new CartAdapter(cartItemsList);
         rvCart.setAdapter(cartAdapter);
+    }
+
+    private void loadCartFromApi() {
+        ApiClient.getCartApi().getCart().enqueue(new Callback<CartModel>() {
+            @Override
+            public void onResponse(Call<CartModel> call, Response<CartModel> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    cartItemsList = response.body().getItems();
+                    cartAdapter.setItems(cartItemsList);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CartModel> call, Throwable t) {
+                // Keep default or empty
+            }
+        });
     }
 }

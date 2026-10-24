@@ -1,5 +1,6 @@
 package com.example.furniture.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,66 +12,42 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.furniture.R;
+import com.example.furniture.activity.CheckoutScreen;
 import com.example.furniture.adapters.CartAdapter;
-import com.example.furniture.models.ProductModel;
+import com.example.furniture.api.ApiClient;
+import com.example.furniture.models.CartItemModel;
+import com.example.furniture.models.CartModel;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link CartFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class CartFragment extends Fragment {
     private RecyclerView rvCart;
+    private TextView tvPrice;
+    private View bottomScreen;
     private CartAdapter cartAdapter;
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private List<CartItemModel> cartItemsList = new ArrayList<>();
 
     public CartFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment CartFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static CartFragment newInstance(String param1, String param2) {
-        CartFragment fragment = new CartFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+        return new CartFragment();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_cart, container, false);
     }
 
@@ -78,59 +55,84 @@ public class CartFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         rvCart = view.findViewById(R.id.rv_card);
-        Card();
+        tvPrice = view.findViewById(R.id.tv_price);
+        bottomScreen = view.findViewById(R.id.bottom_screen);
+
+        TextView tvTitleHeader = view.findViewById(R.id.tv_title_header);
+        if (tvTitleHeader != null) {
+            tvTitleHeader.setText("My Cart");
+        }
+
+        if (bottomScreen != null) {
+            bottomScreen.setOnClickListener(v -> {
+                if (cartItemsList == null || cartItemsList.isEmpty()) {
+                    Toast.makeText(getContext(), "Giỏ hàng của bạn đang trống", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                Intent intent = new Intent(getContext(), CheckoutScreen.class);
+                startActivity(intent);
+            });
+        }
+
+        setupRecyclerView();
+        loadCartFromApi();
     }
-    private void Card() {
-        List<ProductModel> products = new ArrayList<>();
-        products.add(new ProductModel(
-                1,
-                "iPhone 15 Pro Max",
-                "Điện thoại cao cấp của Apple với chip A17 Pro, camera 48MP.",
-                100,
-                120,
-                "https://images.unsplash.com/photo-1595225476474-87563907a212?q=80&w=800&auto=format&fit=crop"
-        ));
 
-        products.add(new ProductModel(
-                2,
-                "Samsung Galaxy S24 Ultra",
-                "Flagship của Samsung tích hợp Galaxy AI, bút S-Pen.",
-                100,
-                120,
-                "https://drive.google.com/uc?export=view&id=1t3JeV1XONuAKGyYLZYAywFuZQ26B-iSo"
-        ));
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadCartFromApi();
+    }
 
-        products.add(new ProductModel(
-                3,
-                "MacBook Air M2",
-                "Laptop mỏng nhẹ, pin trâu, phù hợp cho dân văn phòng.",
-                100,
-                120,
-                "https://drive.google.com/uc?export=view&id=1t3JeV1XONuAKGyYLZYAywFuZQ26B-iSo"
-        ));
-
-        products.add(new ProductModel(
-                4,
-                "Tai nghe Sony WH-1000XM5",
-                "Tai nghe chụp tai chống ồn chủ động tốt nhất phân khúc.",
-                100,
-                120,
-                "https://drive.google.com/uc?export=view&id=1t3JeV1XONuAKGyYLZYAywFuZQ26B-iSo"
-        ));
-
-        products.add(new ProductModel(
-                5,
-                "Bàn phím cơ Keychron K2",
-                "Bàn phím cơ không dây layout 75%, switch Gateron.",
-                100,
-                120,
-                "https://drive.google.com/uc?export=view&id=1t3JeV1XONuAKGyYLZYAywFuZQ26B-iSo"
-        ));
-
+    private void setupRecyclerView() {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         rvCart.setLayoutManager(layoutManager);
-
-        cartAdapter = new CartAdapter(products);
+        cartAdapter = new CartAdapter(cartItemsList, this::calculateTotalPrice);
         rvCart.setAdapter(cartAdapter);
+    }
+
+    private void loadCartFromApi() {
+        ApiClient.getCartApi().getCart().enqueue(new Callback<CartModel>() {
+            @Override
+            public void onResponse(@NonNull Call<CartModel> call, @NonNull Response<CartModel> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    CartModel cart = response.body();
+                    cartItemsList = cart.getItems();
+                    cartAdapter.setItems(cartItemsList);
+                    if (cart.getTotalAmount() > 0) {
+                        tvPrice.setText(String.format(Locale.US, "%.0f", cart.getTotalAmount()));
+                    } else {
+                        calculateTotalPrice();
+                    }
+                } else if (response.code() == 401) {
+                    if (isAdded()) {
+                        Toast.makeText(getContext(), "Vui lòng đăng nhập để xem giỏ hàng", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    if (isAdded()) {
+                        Toast.makeText(getContext(), "Không thể tải giỏ hàng (" + response.code() + ")", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<CartModel> call, @NonNull Throwable t) {
+                if (isAdded()) {
+                    Toast.makeText(getContext(), "Không thể kết nối đến máy chủ", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    private void calculateTotalPrice() {
+        double total = 0;
+        if (cartItemsList != null) {
+            for (CartItemModel item : cartItemsList) {
+                total += item.getPrice() * item.getQuantity();
+            }
+        }
+        if (tvPrice != null) {
+            tvPrice.setText(String.format(Locale.US, "%.0f", total));
+        }
     }
 }

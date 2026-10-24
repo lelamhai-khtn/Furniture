@@ -20,6 +20,8 @@ public final class ApiClient {
     public static final String PRODUCTS_ENDPOINT = "api/Products";
     public static final String PRODUCTS_TOP_DISCOUNTS_ENDPOINT = "api/Products/top-discounts";
     public static final String PRODUCTS_NEWEST_ENDPOINT = "api/Products/newest";
+    public static final String CART_ITEMS_ENDPOINT = "api/cart/items";
+    public static final String CART_ENDPOINT = "api/Cart";
 
     private static Context appContext;
 
@@ -59,6 +61,7 @@ public final class ApiClient {
     private static final GoogleAuthApi AUTH_API = RETROFIT.create(GoogleAuthApi.class);
     private static final CategoriesApi CATEGORIES_API = RETROFIT.create(CategoriesApi.class);
     private static final ProductsApi PRODUCTS_API = RETROFIT.create(ProductsApi.class);
+    private static final CartApi CART_API = RETROFIT.create(CartApi.class);
 
     private ApiClient() {
         // Utility class.
@@ -92,6 +95,10 @@ public final class ApiClient {
 
     public static ProductsApi getProductsApi() {
         return PRODUCTS_API;
+    }
+
+    public static CartApi getCartApi() {
+        return CART_API;
     }
 }
 

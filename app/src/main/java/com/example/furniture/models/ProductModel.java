@@ -24,6 +24,9 @@ public class ProductModel {
     @SerializedName("discountPercent")
     private double discountPercent;
 
+    @SerializedName(value = "variantId", alternate = {"VariantId"})
+    private Integer variantId;
+
     public ProductModel() {
     }
 
@@ -100,5 +103,17 @@ public class ProductModel {
 
     public void setDiscountPercent(double discountPercent) {
         this.discountPercent = discountPercent;
+    }
+
+    public Integer getVariantId() {
+        return variantId;
+    }
+
+    public void setVariantId(Integer variantId) {
+        this.variantId = variantId;
+    }
+
+    public int getEffectiveVariantId() {
+        return variantId != null ? variantId : Id;
     }
 }

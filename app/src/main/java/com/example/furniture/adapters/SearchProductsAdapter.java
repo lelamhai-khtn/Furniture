@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,9 +17,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.furniture.R;
 import com.example.furniture.activity.DetailScreen;
+import com.example.furniture.api.ApiClient;
+import com.example.furniture.models.AddToCartRequest;
+import com.example.furniture.models.CartResponse;
 import com.example.furniture.models.ProductModel;
 
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class SearchProductsAdapter extends RecyclerView.Adapter<SearchProductsAdapter.SearchProductVerticalViewHolder> {
     private List<ProductModel> products;
@@ -83,6 +91,36 @@ public class SearchProductsAdapter extends RecyclerView.Adapter<SearchProductsAd
                 intent.putExtra("product_id", 1);
                 context.startActivity(intent);
             }
+        });
+
+        holder.ib_cart.setOnClickListener(v -> {
+            int variantId = item.getEffectiveVariantId();
+            v.setEnabled(false);
+            ApiClient.getCartApi().addToCart(new AddToCartRequest(variantId, 1))
+                    .enqueue(new Callback<CartResponse>() {
+                        @Override
+                        public void onResponse(@NonNull Call<CartResponse> call, @NonNull Response<CartResponse> response) {
+                            v.setEnabled(true);
+                            Context context = v.getContext();
+                            if (response.isSuccessful() && response.body() != null) {
+                                String message = response.body().getMessage();
+                                Toast.makeText(context,
+                                        message != null ? message : "Đã thêm vào giỏ hàng thành công",
+                                        Toast.LENGTH_SHORT).show();
+                            } else if (response.code() == 401) {
+                                Toast.makeText(context, "Vui lòng đăng nhập để thêm vào giỏ hàng", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(context, "Thêm vào giỏ hàng thất bại (" + response.code() + ")", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(@NonNull Call<CartResponse> call, @NonNull Throwable t) {
+                            v.setEnabled(true);
+                            Context context = v.getContext();
+                            Toast.makeText(context, "Không thể kết nối đến máy chủ", Toast.LENGTH_SHORT).show();
+                        }
+                    });
         });
     }
 

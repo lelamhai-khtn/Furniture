@@ -8,14 +8,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.bumptech.glide.Glide;
 import com.example.furniture.R;
 import com.example.furniture.observer.ManageEvent;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+
+import java.util.Locale;
 
 public class PopupDelete extends BottomSheetDialogFragment {
     private String productName;
@@ -32,17 +36,26 @@ public class PopupDelete extends BottomSheetDialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.popup_delete, container, false);
 
+        ImageView ivProduct = view.findViewById(R.id.iv_product);
         TextView tvName = view.findViewById(R.id.tv_product_name);
         TextView tvPrice = view.findViewById(R.id.tv_product_price);
         ImageButton btnClose = view.findViewById(R.id.btn_close);
         Button btnCancel = view.findViewById(R.id.btn_cancel);
         Button btnRemove = view.findViewById(R.id.btn_remove);
 
-        if ( productImage != null && productName != null && productPrice >= 0) {
-            String name = productName;
-            String price = String.valueOf(productPrice);
-            tvName.setText(name);
-            tvPrice.setText(price);
+        if (productName != null) {
+            tvName.setText(productName);
+        }
+        if (productPrice >= 0) {
+            String priceText = String.format(Locale.US, "$%.0f", productPrice);
+            tvPrice.setText(priceText);
+        }
+        if (productImage != null && !productImage.trim().isEmpty() && ivProduct != null) {
+            Glide.with(this)
+                    .load(productImage)
+                    .placeholder(R.drawable.chair)
+                    .error(R.drawable.chair)
+                    .into(ivProduct);
         }
 
         btnClose.setOnClickListener(v -> {
