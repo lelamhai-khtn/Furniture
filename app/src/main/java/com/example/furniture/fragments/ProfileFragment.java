@@ -10,19 +10,14 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.example.furniture.R;
 import com.example.furniture.activity.FavoriteScreen;
+import com.example.furniture.activity.LocationScreen;
 import com.example.furniture.activity.NotificationScreen;
 import com.example.furniture.activity.OrderScreen;
 import com.example.furniture.activity.PersonalScreen;
-import com.example.furniture.activity.StoreLocationScreen;
-import com.example.furniture.observer.IEventListener;
-import com.example.furniture.observer.ManageEvent;
-import com.example.furniture.popups.PopupPhoto;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -109,7 +104,7 @@ public class ProfileFragment extends Fragment {
         });
 
         layoutStoreLocation.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), StoreLocationScreen.class);
+            Intent intent = new Intent(getActivity(), LocationScreen.class);
             startActivity(intent);
         });
     }

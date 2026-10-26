@@ -62,7 +62,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     protected void applyWindowInsets(View view, Insets systemBars) {
-        view.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+        view.setPadding(systemBars.left, 0, systemBars.right, 0);
     }
 
     private void showNoConnectionDialogIfNeeded() {
