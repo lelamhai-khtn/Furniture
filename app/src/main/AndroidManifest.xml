@@ -13,14 +13,14 @@
 
     <application
         android:allowBackup="true"
-        android:usesCleartextTraffic="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Furniture">
+        android:theme="@style/Theme.Furniture"
+        android:usesCleartextTraffic="true">
         <activity
             android:name=".activity.SignInScreen"
             android:exported="true"
@@ -101,6 +101,22 @@
             android:name=".activity.FavoriteScreen"
             android:exported="false"
             android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".activity.OrderScreen"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".activity.NotificationScreen"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".activity.ForgotPasswordScreen"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".activity.StoreLocationScreen"
+            android:exported="false"
             android:windowSoftInputMode="adjustResize" />
     </application>
 

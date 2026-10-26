@@ -1,8 +1,10 @@
 package com.example.furniture.activity;
 
 import android.view.MenuItem;
+import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.core.graphics.Insets;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
@@ -84,5 +86,10 @@ public class MainScreen extends BaseActivity {
     @Override
     protected void data() {
         // Main screen data is loaded by its fragments.
+    }
+
+    @Override
+    protected void applyWindowInsets(View view, Insets systemBars) {
+        view.setPadding(systemBars.left, systemBars.top, systemBars.right, 0);
     }
 }

@@ -11,6 +11,8 @@ import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.core.graphics.Insets;
+
 import com.google.android.material.textfield.TextInputEditText;
 
 import com.example.furniture.BaseActivity;
@@ -39,10 +41,13 @@ public class SignInScreen extends BaseActivity {
     private DialogLoading loadingDialog;
     private AuthSessionStore authSessionStore;
     private AppPreferences appPreferences;
+    private Button btnSignIn;
     private TextInputEditText emailInput;
     private TextInputEditText passwordInput;
     private CheckBox rememberMe;
     private TextView tvError;
+    private TextView tvForgotPassword;
+    private TextView tvSignUp;
 
     @Override
     protected int getLayoutResourceId() {
@@ -56,10 +61,13 @@ public class SignInScreen extends BaseActivity {
         loadingDialog = new DialogLoading(this);
         authSessionStore = new AuthSessionStore(this);
         appPreferences = new AppPreferences(this);
+        btnSignIn = findViewById(R.id.btnSignIn);
         emailInput = findViewById(R.id.etEmail);
         passwordInput = findViewById(R.id.etPassword);
         rememberMe = findViewById(R.id.cbRemember);
         tvError = findViewById(R.id.tv_error);
+        tvForgotPassword = findViewById(R.id.tv_forgot_password);
+        tvSignUp = findViewById(R.id.tvSignUp);
         loadRememberedEmail();
         registerGoogleSignInLauncher();
         initializeClickListeners();
@@ -74,19 +82,23 @@ public class SignInScreen extends BaseActivity {
     protected void data() {
         // Sign-in data is loaded after a successful authentication.
     }
-
+    @Override
+    protected void applyWindowInsets(View view, Insets systemBars) {
+        view.setPadding(systemBars.left, 0, systemBars.right, 0);
+    }
     private void initializeClickListeners() {
-        TextView tvSignUp = findViewById(R.id.tvSignUp);
         tvSignUp.setOnClickListener(v -> {
             Intent intent = new Intent(this, SignUpScreen.class);
             startActivity(intent);
         });
 
-        Button btnSignIn = findViewById(R.id.btnSignIn);
+        tvForgotPassword.setOnClickListener(v -> {
+            Intent intent = new Intent(this, ForgotPasswordScreen.class);
+            startActivity(intent);
+        });
+
         btnSignIn.setOnClickListener(v -> signInWithEmailAndPassword());
-
         findViewById(R.id.btnSignInGoogle).setOnClickListener(v -> signIn());
-
         rememberMe.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
                 saveRememberedEmail();

@@ -8,6 +8,8 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.core.graphics.Insets;
+
 import java.io.IOException;
 
 import com.example.furniture.api.ApiClient;
@@ -59,6 +61,11 @@ public class SignUpScreen extends BaseActivity {
     @Override
     protected void data() {
         // Sign-up data is handled after form submission.
+    }
+
+    @Override
+    protected void applyWindowInsets(View view, Insets systemBars) {
+        view.setPadding(systemBars.left, 0, systemBars.right, 0);
     }
 
     private void register() {

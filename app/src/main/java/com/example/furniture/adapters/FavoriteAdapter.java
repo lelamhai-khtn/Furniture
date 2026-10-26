@@ -22,33 +22,58 @@ import java.util.List;
 
 public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder> {
     private List<ProductModel> products;
-    public FavoriteAdapter(List<ProductModel> list)
-    {
+
+    public FavoriteAdapter(List<ProductModel> list) {
         this.products = list;
     }
+
     @NonNull
     @Override
     public FavoriteViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_search_product, parent, false);
-        return new FavoriteAdapter.FavoriteViewHolder(view);
+        return new FavoriteViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull FavoriteViewHolder holder, int position) {
         ProductModel item = products.get(position);
         boolean stateFavorite = false;
-        if(item == null)
-        {
+        if (item == null) {
             return;
         }
 
-        Glide.with(holder.itemView.getContext())
-                .load(R.drawable.chair)
-                .into(holder.iv_image_product);
+        if (item.getImage() != null && !item.getImage().trim().isEmpty()) {
+            Glide.with(holder.itemView.getContext())
+                    .load(item.getImage())
+                    .placeholder(R.drawable.chair)
+                    .error(R.drawable.chair)
+                    .into(holder.iv_image_product);
+        } else {
+            Glide.with(holder.itemView.getContext())
+                    .load(R.drawable.chair)
+                    .into(holder.iv_image_product);
+        }
 
         holder.tv_name_product.setText(item.getName());
-        holder.tv_price_product.setText(String.valueOf(item.getPrice()));
-        holder.tv_old_price_product.setPaintFlags(holder.tv_old_price_product.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+
+        if (item.getPrice() >= 1000) {
+            holder.tv_price_product.setText(String.format(java.util.Locale.US, "%,.0fđ", item.getPrice()));
+        } else {
+            holder.tv_price_product.setText("$" + String.valueOf(item.getPrice()));
+        }
+
+        if (item.getOldPrice() > item.getPrice() && item.getOldPrice() > 0) {
+            holder.tv_old_price_product.setVisibility(View.VISIBLE);
+            holder.tv_old_price_product.setPaintFlags(holder.tv_old_price_product.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+            if (item.getOldPrice() >= 1000) {
+                holder.tv_old_price_product.setText(String.format(java.util.Locale.US, "%,.0fđ", item.getOldPrice()));
+            } else {
+                holder.tv_old_price_product.setText("$" + String.valueOf(item.getOldPrice()));
+            }
+        } else {
+            holder.tv_old_price_product.setVisibility(View.GONE);
+        }
+
         holder.ib_favorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,31 +85,20 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
             }
         });
 
-        holder.iv_image_product.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Context context = v.getContext();
-                Intent intent = new Intent(context, DetailScreen.class);
-                intent.putExtra("product_id", 1);
-                context.startActivity(intent);
-            }
-        });
+        View.OnClickListener clickListener = v -> {
+            Context context = v.getContext();
+            Intent intent = new Intent(context, DetailScreen.class);
+            intent.putExtra("product_id", item.getId());
+            context.startActivity(intent);
+        };
 
-        holder.tv_name_product.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Context context = v.getContext();
-                Intent intent = new Intent(context, DetailScreen.class);
-                intent.putExtra("product_id", 1);
-                context.startActivity(intent);
-            }
-        });
+        holder.iv_image_product.setOnClickListener(clickListener);
+        holder.tv_name_product.setOnClickListener(clickListener);
     }
 
     @Override
     public int getItemCount() {
-        if(products != null)
-        {
+        if (products != null) {
             return products.size();
         }
         return 0;
@@ -105,6 +119,5 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
             tv_old_price_product = itemView.findViewById(R.id.tv_old_price);
             ib_favorite = itemView.findViewById(R.id.ib_favorite);
         }
-
     }
 }

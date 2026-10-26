@@ -44,15 +44,16 @@
             android:paddingLeft="10dp"
             android:layout_weight="3"
             style="@style/Systems.PriceProduct"
-            android:text="100$" />
+            android:text="$100" />
 
         <TextView
             android:id="@+id/tv_old_price"
+            style="@style/Systems.OldPriceProduct"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="3"
-            style="@style/Systems.OldPriceProduct"
-            android:text="120$" />
+            android:text="$120"
+            android:textAlignment="center" />
         <FrameLayout
             android:layout_width="20dp"
             android:layout_height="40dp"

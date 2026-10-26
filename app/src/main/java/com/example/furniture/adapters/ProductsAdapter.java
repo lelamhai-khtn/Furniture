@@ -62,10 +62,24 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Produc
         }
 
         holder.tv_name_product.setText(item.getName());
-        holder.tv_price_product.setText(String.valueOf(item.getPrice()) + "$");
 
-        holder.tv_old_price_product.setPaintFlags(holder.tv_old_price_product.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-        holder.tv_old_price_product.setText(String.valueOf(item.getOldPrice()) + "$");
+        if (item.getPrice() >= 1000) {
+            holder.tv_price_product.setText(String.format(java.util.Locale.US, "%,.0fđ", item.getPrice()));
+        } else {
+            holder.tv_price_product.setText("$" + String.valueOf(item.getPrice()));
+        }
+
+        if (item.getOldPrice() > item.getPrice() && item.getOldPrice() > 0) {
+            holder.tv_old_price_product.setVisibility(View.VISIBLE);
+            holder.tv_old_price_product.setPaintFlags(holder.tv_old_price_product.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+            if (item.getOldPrice() >= 1000) {
+                holder.tv_old_price_product.setText(String.format(java.util.Locale.US, "%,.0fđ", item.getOldPrice()));
+            } else {
+                holder.tv_old_price_product.setText("$" + String.valueOf(item.getOldPrice()));
+            }
+        } else {
+            holder.tv_old_price_product.setVisibility(View.GONE);
+        }
 
         View.OnClickListener clickListener = new View.OnClickListener() {
             @Override

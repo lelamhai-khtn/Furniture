@@ -51,16 +51,37 @@ public class SearchProductsAdapter extends RecyclerView.Adapter<SearchProductsAd
             return;
         }
 
-        Glide.with(holder.itemView.getContext())
-                .load(R.drawable.chair)
-                .into(holder.iv_image_product);
+        if (item.getImage() != null && !item.getImage().trim().isEmpty()) {
+            Glide.with(holder.itemView.getContext())
+                    .load(item.getImage())
+                    .placeholder(R.drawable.chair)
+                    .error(R.drawable.chair)
+                    .into(holder.iv_image_product);
+        } else {
+            Glide.with(holder.itemView.getContext())
+                    .load(R.drawable.chair)
+                    .into(holder.iv_image_product);
+        }
 
         holder.tv_name_product.setText(item.getName());
-        holder.tv_price_product.setText(String.valueOf(item.getPrice()));
 
+        if (item.getPrice() >= 1000) {
+            holder.tv_price_product.setText(String.format(java.util.Locale.US, "%,.0fđ", item.getPrice()));
+        } else {
+            holder.tv_price_product.setText("$" + String.valueOf(item.getPrice()));
+        }
 
-        holder.tv_old_price_product.setPaintFlags(holder.tv_old_price_product.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-        holder.tv_old_price_product.setText(String.valueOf(item.getOldPrice()) + "$");
+        if (item.getOldPrice() > item.getPrice() && item.getOldPrice() > 0) {
+            holder.tv_old_price_product.setVisibility(View.VISIBLE);
+            holder.tv_old_price_product.setPaintFlags(holder.tv_old_price_product.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+            if (item.getOldPrice() >= 1000) {
+                holder.tv_old_price_product.setText(String.format(java.util.Locale.US, "%,.0fđ", item.getOldPrice()));
+            } else {
+                holder.tv_old_price_product.setText("$" + String.valueOf(item.getOldPrice()));
+            }
+        } else {
+            holder.tv_old_price_product.setVisibility(View.GONE);
+        }
 
         holder.ib_favorite.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,25 +94,15 @@ public class SearchProductsAdapter extends RecyclerView.Adapter<SearchProductsAd
             }
         });
 
-        holder.iv_image_product.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Context context = v.getContext();
-                Intent intent = new Intent(context, DetailScreen.class);
-                intent.putExtra("product_id", 1);
-                context.startActivity(intent);
-            }
-        });
+        View.OnClickListener clickListener = v -> {
+            Context context = v.getContext();
+            Intent intent = new Intent(context, DetailScreen.class);
+            intent.putExtra("product_id", item.getId());
+            context.startActivity(intent);
+        };
 
-        holder.tv_name_product.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Context context = v.getContext();
-                Intent intent = new Intent(context, DetailScreen.class);
-                intent.putExtra("product_id", 1);
-                context.startActivity(intent);
-            }
-        });
+        holder.iv_image_product.setOnClickListener(clickListener);
+        holder.tv_name_product.setOnClickListener(clickListener);
 
         holder.ib_cart.setOnClickListener(v -> {
             int variantId = item.getEffectiveVariantId();

@@ -55,10 +55,14 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (rootView != null) {
             ViewCompat.setOnApplyWindowInsetsListener(rootView, (v, insets) -> {
                 Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-                v.setPadding(systemBars.left, systemBars.top, systemBars.right, 0);
+                applyWindowInsets(v, systemBars);
                 return insets;
             });
         }
+    }
+
+    protected void applyWindowInsets(View view, Insets systemBars) {
+        view.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
     }
 
     private void showNoConnectionDialogIfNeeded() {

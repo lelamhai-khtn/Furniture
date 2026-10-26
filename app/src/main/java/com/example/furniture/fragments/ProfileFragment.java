@@ -1,5 +1,6 @@
 package com.example.furniture.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,8 +12,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.example.furniture.R;
+import com.example.furniture.activity.FavoriteScreen;
+import com.example.furniture.activity.NotificationScreen;
+import com.example.furniture.activity.OrderScreen;
+import com.example.furniture.activity.PersonalScreen;
+import com.example.furniture.activity.StoreLocationScreen;
 import com.example.furniture.observer.IEventListener;
 import com.example.furniture.observer.ManageEvent;
 import com.example.furniture.popups.PopupPhoto;
@@ -75,5 +82,35 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        LinearLayout layoutOrders = view.findViewById(R.id.layout_orders);
+        LinearLayout layoutPersonal = view.findViewById(R.id.layout_personal_info);
+        LinearLayout layoutFavorite = view.findViewById(R.id.layout_favorite);
+        LinearLayout layoutNotifications = view.findViewById(R.id.layout_notifications);
+        LinearLayout layoutStoreLocation = view.findViewById(R.id.layout_store_location);
+
+        layoutOrders.setOnClickListener(v -> {
+             Intent intent = new Intent(getActivity(), OrderScreen.class);
+             startActivity(intent);
+        });
+
+        layoutPersonal.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), PersonalScreen.class);
+            startActivity(intent);
+        });
+
+        layoutFavorite.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), FavoriteScreen.class);
+            startActivity(intent);
+        });
+
+        layoutNotifications.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), NotificationScreen.class);
+            startActivity(intent);
+        });
+
+        layoutStoreLocation.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), StoreLocationScreen.class);
+            startActivity(intent);
+        });
     }
 }

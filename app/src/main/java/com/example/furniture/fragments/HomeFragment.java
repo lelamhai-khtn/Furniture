@@ -92,8 +92,8 @@ public class HomeFragment extends Fragment {
         bindUserInfo(view);
 
         sale();
-        product();
         category();
+        product();
         newestProduct();
     }
 
