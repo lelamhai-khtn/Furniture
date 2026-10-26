@@ -20,7 +20,7 @@ public final class ApiClient {
     public static final String PRODUCTS_ENDPOINT = "api/Products";
     public static final String PRODUCTS_TOP_DISCOUNTS_ENDPOINT = "api/Products/top-discounts";
     public static final String PRODUCTS_NEWEST_ENDPOINT = "api/Products/newest";
-    public static final String CART_ITEMS_ENDPOINT = "api/cart/items";
+    public static final String CART_ITEMS_ENDPOINT = "api/Cart/items";
     public static final String CART_ENDPOINT = "api/Cart";
 
     private static Context appContext;

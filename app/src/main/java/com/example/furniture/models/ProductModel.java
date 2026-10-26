@@ -2,20 +2,15 @@ package com.example.furniture.models;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
-
 public class ProductModel {
     @SerializedName(value = "productId", alternate = {"Id", "id", "ProductId"})
-    private int Id;
-
-    @SerializedName(value = "variantId", alternate = {"VariantId"})
-    private Integer variantId;
+    private int productId;
 
     @SerializedName(value = "productName", alternate = {"Name", "name", "ProductName"})
-    private String Name;
+    private String productName;
 
     @SerializedName(value = "description", alternate = {"Description"})
-    private String Description;
+    private String description;
 
     @SerializedName(value = "categoryId", alternate = {"CategoryId"})
     private Integer categoryId;
@@ -24,94 +19,95 @@ public class ProductModel {
     private String categoryName;
 
     @SerializedName(value = "imageUrl", alternate = {"Image", "image", "ImageUrl"})
-    private String Image;
+    private String imageUrl;
 
     @SerializedName(value = "discountPercent", alternate = {"DiscountPercent"})
     private double discountPercent;
 
     @SerializedName(value = "originalPrice", alternate = {"OldPrice", "oldPrice", "OriginalPrice"})
-    private double OldPrice;
+    private double originalPrice;
 
     @SerializedName(value = "discountPrice", alternate = {"Price", "price", "DiscountPrice"})
-    private double Price;
+    private double discountPrice;
+
+    @SerializedName(value = "color", alternate = {"Color"})
+    private String color;
+
+    @SerializedName(value = "upholsteryMaterial", alternate = {"UpholsteryMaterial"})
+    private String upholsteryMaterial;
+
+    @SerializedName(value = "stockQuantity", alternate = {"StockQuantity"})
+    private int stockQuantity;
 
     @SerializedName(value = "baseMaterial", alternate = {"BaseMaterial"})
     private String baseMaterial;
 
-    @SerializedName(value = "variantsCount", alternate = {"VariantsCount"})
-    private Integer variantsCount;
+    @SerializedName(value = "createdAt", alternate = {"CreatedAt"})
+    private String createdAt;
 
-    @SerializedName(value = "variants", alternate = {"Variants"})
-    private List<ProductVariant> variants;
+    @SerializedName(value = "dimensions", alternate = {"Dimensions"})
+    private ProductDimensions dimensions;
 
     public ProductModel() {
     }
 
-    public ProductModel(int Id, String Name, String Description, double Price, double OldPrice, String Image) {
-        this.Id = Id;
-        this.Name = Name;
-        this.Description = Description;
-        this.Price = Price;
-        this.OldPrice = OldPrice;
-        this.Image = Image;
+    public ProductModel(int productId, String productName, String description, double discountPrice, double originalPrice, String imageUrl) {
+        this.productId = productId;
+        this.productName = productName;
+        this.description = description;
+        this.discountPrice = discountPrice;
+        this.originalPrice = originalPrice;
+        this.imageUrl = imageUrl;
     }
 
-    public ProductModel(int Id, String Name, String Description, double Price, double OldPrice, String Image, double discountPercent) {
-        this.Id = Id;
-        this.Name = Name;
-        this.Description = Description;
-        this.Price = Price;
-        this.OldPrice = OldPrice;
-        this.Image = Image;
+    public ProductModel(int productId, String productName, String description, double discountPrice, double originalPrice, String imageUrl, double discountPercent) {
+        this.productId = productId;
+        this.productName = productName;
+        this.description = description;
+        this.discountPrice = discountPrice;
+        this.originalPrice = originalPrice;
+        this.imageUrl = imageUrl;
         this.discountPercent = discountPercent;
     }
 
     public int getId() {
-        return Id;
+        return productId;
     }
 
-    public void setId(int Id) {
-        this.Id = Id;
+    public void setId(int id) {
+        this.productId = id;
     }
 
     public int getProductId() {
-        return Id;
+        return productId;
     }
 
     public void setProductId(int productId) {
-        this.Id = productId;
-    }
-
-    public Integer getVariantId() {
-        return variantId;
-    }
-
-    public void setVariantId(Integer variantId) {
-        this.variantId = variantId;
+        this.productId = productId;
     }
 
     public String getName() {
-        return Name;
+        return productName;
     }
 
-    public void setName(String Name) {
-        this.Name = Name;
+    public void setName(String name) {
+        this.productName = name;
     }
 
     public String getProductName() {
-        return Name;
+        return productName;
     }
 
     public void setProductName(String productName) {
-        this.Name = productName;
+        this.productName = productName;
     }
 
     public String getDescription() {
-        return Description;
+        return description;
     }
 
-    public void setDescription(String Description) {
-        this.Description = Description;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Integer getCategoryId() {
@@ -130,52 +126,20 @@ public class ProductModel {
         this.categoryName = categoryName;
     }
 
-    public double getPrice() {
-        return Price;
-    }
-
-    public void setPrice(double Price) {
-        this.Price = Price;
-    }
-
-    public double getDiscountPrice() {
-        return Price;
-    }
-
-    public void setDiscountPrice(double discountPrice) {
-        this.Price = discountPrice;
-    }
-
-    public double getOldPrice() {
-        return OldPrice;
-    }
-
-    public void setOldPrice(double OldPrice) {
-        this.OldPrice = OldPrice;
-    }
-
-    public double getOriginalPrice() {
-        return OldPrice;
-    }
-
-    public void setOriginalPrice(double originalPrice) {
-        this.OldPrice = originalPrice;
-    }
-
     public String getImage() {
-        return Image;
+        return imageUrl;
     }
 
-    public void setImage(String Image) {
-        this.Image = Image;
+    public void setImage(String image) {
+        this.imageUrl = image;
     }
 
     public String getImageUrl() {
-        return Image;
+        return imageUrl;
     }
 
     public void setImageUrl(String imageUrl) {
-        this.Image = imageUrl;
+        this.imageUrl = imageUrl;
     }
 
     public double getDiscountPercent() {
@@ -186,6 +150,62 @@ public class ProductModel {
         this.discountPercent = discountPercent;
     }
 
+    public double getOldPrice() {
+        return originalPrice;
+    }
+
+    public void setOldPrice(double oldPrice) {
+        this.originalPrice = oldPrice;
+    }
+
+    public double getOriginalPrice() {
+        return originalPrice;
+    }
+
+    public void setOriginalPrice(double originalPrice) {
+        this.originalPrice = originalPrice;
+    }
+
+    public double getPrice() {
+        return discountPrice;
+    }
+
+    public void setPrice(double price) {
+        this.discountPrice = price;
+    }
+
+    public double getDiscountPrice() {
+        return discountPrice;
+    }
+
+    public void setDiscountPrice(double discountPrice) {
+        this.discountPrice = discountPrice;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public String getUpholsteryMaterial() {
+        return upholsteryMaterial;
+    }
+
+    public void setUpholsteryMaterial(String upholsteryMaterial) {
+        this.upholsteryMaterial = upholsteryMaterial;
+    }
+
+    public int getStockQuantity() {
+        return stockQuantity;
+    }
+
+    public void setStockQuantity(int stockQuantity) {
+        this.stockQuantity = stockQuantity;
+    }
+
     public String getBaseMaterial() {
         return baseMaterial;
     }
@@ -194,137 +214,79 @@ public class ProductModel {
         this.baseMaterial = baseMaterial;
     }
 
-    public Integer getVariantsCount() {
-        return variantsCount;
+    public String getCreatedAt() {
+        return createdAt;
     }
 
-    public void setVariantsCount(Integer variantsCount) {
-        this.variantsCount = variantsCount;
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
     }
 
-    public List<ProductVariant> getVariants() {
-        return variants;
+    public ProductDimensions getDimensions() {
+        return dimensions;
     }
 
-    public void setVariants(List<ProductVariant> variants) {
-        this.variants = variants;
+    public void setDimensions(ProductDimensions dimensions) {
+        this.dimensions = dimensions;
     }
 
     public int getEffectiveVariantId() {
-        if (variantId != null && variantId > 0) {
-            return variantId;
-        }
-        if (variants != null && !variants.isEmpty()) {
-            for (ProductVariant v : variants) {
-                if (v != null && v.getVariantId() > 0) {
-                    return v.getVariantId();
-                }
-            }
-        }
-        return Id;
+        return productId;
     }
 
-    public static class ProductVariant {
-        @SerializedName(value = "variantId", alternate = {"VariantId", "id", "Id"})
-        private int variantId;
+    public static class ProductDimensions {
+        @SerializedName(value = "lengthCm", alternate = {"LengthCm"})
+        private double lengthCm;
 
-        @SerializedName(value = "color", alternate = {"Color"})
-        private String color;
+        @SerializedName(value = "widthCm", alternate = {"WidthCm"})
+        private double widthCm;
 
-        @SerializedName(value = "upholsteryMaterial", alternate = {"UpholsteryMaterial"})
-        private String upholsteryMaterial;
+        @SerializedName(value = "heightCm", alternate = {"HeightCm"})
+        private double heightCm;
 
-        @SerializedName(value = "price", alternate = {"Price", "originalPrice", "OriginalPrice"})
-        private double price;
+        @SerializedName(value = "weightKg", alternate = {"WeightKg"})
+        private double weightKg;
 
-        @SerializedName(value = "discountPrice", alternate = {"DiscountPrice"})
-        private double discountPrice;
-
-        @SerializedName(value = "discountPercent", alternate = {"DiscountPercent"})
-        private double discountPercent;
-
-        @SerializedName(value = "isOnSale", alternate = {"IsOnSale"})
-        private boolean isOnSale;
-
-        @SerializedName(value = "stockQuantity", alternate = {"StockQuantity"})
-        private int stockQuantity;
-
-        @SerializedName(value = "imageUrl", alternate = {"Image", "image", "ImageUrl"})
-        private String imageUrl;
-
-        public ProductVariant() {
+        public ProductDimensions() {
         }
 
-        public int getVariantId() {
-            return variantId;
+        public ProductDimensions(double lengthCm, double widthCm, double heightCm, double weightKg) {
+            this.lengthCm = lengthCm;
+            this.widthCm = widthCm;
+            this.heightCm = heightCm;
+            this.weightKg = weightKg;
         }
 
-        public void setVariantId(int variantId) {
-            this.variantId = variantId;
+        public double getLengthCm() {
+            return lengthCm;
         }
 
-        public String getColor() {
-            return color;
+        public void setLengthCm(double lengthCm) {
+            this.lengthCm = lengthCm;
         }
 
-        public void setColor(String color) {
-            this.color = color;
+        public double getWidthCm() {
+            return widthCm;
         }
 
-        public String getUpholsteryMaterial() {
-            return upholsteryMaterial;
+        public void setWidthCm(double widthCm) {
+            this.widthCm = widthCm;
         }
 
-        public void setUpholsteryMaterial(String upholsteryMaterial) {
-            this.upholsteryMaterial = upholsteryMaterial;
+        public double getHeightCm() {
+            return heightCm;
         }
 
-        public double getPrice() {
-            return price;
+        public void setHeightCm(double heightCm) {
+            this.heightCm = heightCm;
         }
 
-        public void setPrice(double price) {
-            this.price = price;
+        public double getWeightKg() {
+            return weightKg;
         }
 
-        public double getDiscountPrice() {
-            return discountPrice;
-        }
-
-        public void setDiscountPrice(double discountPrice) {
-            this.discountPrice = discountPrice;
-        }
-
-        public double getDiscountPercent() {
-            return discountPercent;
-        }
-
-        public void setDiscountPercent(double discountPercent) {
-            this.discountPercent = discountPercent;
-        }
-
-        public boolean isOnSale() {
-            return isOnSale;
-        }
-
-        public void setOnSale(boolean onSale) {
-            isOnSale = onSale;
-        }
-
-        public int getStockQuantity() {
-            return stockQuantity;
-        }
-
-        public void setStockQuantity(int stockQuantity) {
-            this.stockQuantity = stockQuantity;
-        }
-
-        public String getImageUrl() {
-            return imageUrl;
-        }
-
-        public void setImageUrl(String imageUrl) {
-            this.imageUrl = imageUrl;
+        public void setWeightKg(double weightKg) {
+            this.weightKg = weightKg;
         }
     }
 }

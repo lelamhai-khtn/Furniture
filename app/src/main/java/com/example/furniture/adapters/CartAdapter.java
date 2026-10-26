@@ -91,7 +91,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CardViewHolder
         View.OnClickListener viewItemClickListener = v -> {
             Context context = v.getContext();
             Intent intent = new Intent(context, ViewScreen.class);
-            intent.putExtra("product_id", item.getVariantId());
+            intent.putExtra("product_id", item.getProductId());
             context.startActivity(intent);
         };
 
@@ -124,7 +124,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CardViewHolder
         holder.btn_minus.setEnabled(false);
         holder.btn_plus.setEnabled(false);
 
-        ApiClient.getCartApi().updateQuantity(item.getCartItemId(), new UpdateCartQuantityRequest(newQuantity))
+        ApiClient.getCartApi().updateQuantity(item.getCartId(), new UpdateCartQuantityRequest(newQuantity))
                 .enqueue(new Callback<UpdateCartQuantityResponse>() {
                     @Override
                     public void onResponse(@NonNull Call<UpdateCartQuantityResponse> call, @NonNull Response<UpdateCartQuantityResponse> response) {
@@ -166,7 +166,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CardViewHolder
         if (success && selectedPosition >= 0 && selectedPosition < items.size()) {
             int pos = selectedPosition;
             CartItemModel item = items.get(pos);
-            ApiClient.getCartApi().deleteCartItem(item.getCartItemId())
+            ApiClient.getCartApi().deleteCartItem(item.getCartId())
                     .enqueue(new Callback<CartResponse>() {
                         @Override
                         public void onResponse(@NonNull Call<CartResponse> call, @NonNull Response<CartResponse> response) {

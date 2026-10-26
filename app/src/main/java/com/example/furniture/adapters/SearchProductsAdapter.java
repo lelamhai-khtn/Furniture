@@ -105,9 +105,9 @@ public class SearchProductsAdapter extends RecyclerView.Adapter<SearchProductsAd
         holder.tv_name_product.setOnClickListener(clickListener);
 
         holder.ib_cart.setOnClickListener(v -> {
-            int variantId = item.getEffectiveVariantId();
+            int productId = item.getId();
             v.setEnabled(false);
-            ApiClient.getCartApi().addToCart(new AddToCartRequest(variantId, 1))
+            ApiClient.getCartApi().addToCart(new AddToCartRequest(productId, 1))
                     .enqueue(new Callback<CartResponse>() {
                         @Override
                         public void onResponse(@NonNull Call<CartResponse> call, @NonNull Response<CartResponse> response) {

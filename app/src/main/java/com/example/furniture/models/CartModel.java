@@ -6,11 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CartModel {
-    @SerializedName(value = "cartId", alternate = {"id", "Id", "CartId"})
-    private int cartId;
-
     @SerializedName(value = "userId", alternate = {"UserId"})
     private int userId;
+
+    @SerializedName(value = "cartId", alternate = {"id", "Id", "CartId"})
+    private int cartId;
 
     @SerializedName(value = "updatedAt", alternate = {"UpdatedAt"})
     private String updatedAt;
@@ -27,20 +27,20 @@ public class CartModel {
     public CartModel() {
     }
 
-    public int getCartId() {
-        return cartId;
-    }
-
-    public void setCartId(int cartId) {
-        this.cartId = cartId;
-    }
-
     public int getUserId() {
         return userId;
     }
 
     public void setUserId(int userId) {
         this.userId = userId;
+    }
+
+    public int getCartId() {
+        return cartId;
+    }
+
+    public void setCartId(int cartId) {
+        this.cartId = cartId;
     }
 
     public String getUpdatedAt() {

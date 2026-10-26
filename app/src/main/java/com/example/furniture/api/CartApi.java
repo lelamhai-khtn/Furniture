@@ -21,12 +21,12 @@ public interface CartApi {
     @GET(ApiClient.CART_ENDPOINT)
     Call<CartModel> getCart();
 
-    @PUT("api/cart/items/{cartItemId}")
+    @PUT("api/Cart/items/{cartItemId}")
     Call<UpdateCartQuantityResponse> updateQuantity(
             @Path("cartItemId") int cartItemId,
             @Body UpdateCartQuantityRequest request
     );
 
-    @DELETE("api/cart/items/{cartItemId}")
+    @DELETE("api/Cart/items/{cartItemId}")
     Call<CartResponse> deleteCartItem(@Path("cartItemId") int cartItemId);
 }

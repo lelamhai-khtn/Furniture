@@ -1,20 +1,28 @@
 package com.example.furniture.models;
 
+import com.google.gson.annotations.SerializedName;
+
 public class AddToCartRequest {
-    private int variantId;
+    @SerializedName(value = "productId", alternate = {"ProductId"})
+    private int productId;
+
+    @SerializedName(value = "quantity", alternate = {"Quantity"})
     private int quantity;
 
-    public AddToCartRequest(int variantId, int quantity) {
-        this.variantId = variantId;
+    public AddToCartRequest() {
+    }
+
+    public AddToCartRequest(int productId, int quantity) {
+        this.productId = productId;
         this.quantity = quantity;
     }
 
-    public int getVariantId() {
-        return variantId;
+    public int getProductId() {
+        return productId;
     }
 
-    public void setVariantId(int variantId) {
-        this.variantId = variantId;
+    public void setProductId(int productId) {
+        this.productId = productId;
     }
 
     public int getQuantity() {

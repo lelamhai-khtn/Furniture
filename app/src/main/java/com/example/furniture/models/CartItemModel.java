@@ -3,14 +3,11 @@ package com.example.furniture.models;
 import com.google.gson.annotations.SerializedName;
 
 public class CartItemModel {
-    @SerializedName(value = "cartItemId", alternate = {"id", "Id", "CartItemId"})
-    private int cartItemId;
-
-    @SerializedName(value = "cartId", alternate = {"CartId"})
+    @SerializedName(value = "cartId", alternate = {"cartItemId", "id", "Id", "CartId", "CartItemId"})
     private int cartId;
 
-    @SerializedName(value = "variantId", alternate = {"VariantId"})
-    private int variantId;
+    @SerializedName(value = "productId", alternate = {"ProductId"})
+    private int productId;
 
     @SerializedName(value = "quantity", alternate = {"Quantity"})
     private int quantity = 1;
@@ -24,18 +21,7 @@ public class CartItemModel {
     @SerializedName(value = "product", alternate = {"Product"})
     private ProductDetails product;
 
-    @SerializedName(value = "variant", alternate = {"Variant"})
-    private VariantDetails variant;
-
     public CartItemModel() {
-    }
-
-    public int getCartItemId() {
-        return cartItemId;
-    }
-
-    public void setCartItemId(int cartItemId) {
-        this.cartItemId = cartItemId;
     }
 
     public int getCartId() {
@@ -46,18 +32,18 @@ public class CartItemModel {
         this.cartId = cartId;
     }
 
-    public int getVariantId() {
-        if (variantId > 0) {
-            return variantId;
+    public int getProductId() {
+        if (productId > 0) {
+            return productId;
         }
-        if (variant != null && variant.getVariantId() > 0) {
-            return variant.getVariantId();
+        if (product != null && product.getProductId() > 0) {
+            return product.getProductId();
         }
-        return variantId;
+        return productId;
     }
 
-    public void setVariantId(int variantId) {
-        this.variantId = variantId;
+    public void setProductId(int productId) {
+        this.productId = productId;
     }
 
     public int getQuantity() {
@@ -72,11 +58,11 @@ public class CartItemModel {
         if (unitPrice > 0) {
             return unitPrice;
         }
-        if (variant != null && variant.getDiscountPrice() > 0) {
-            return variant.getDiscountPrice();
+        if (product != null && product.getDiscountPrice() != null && product.getDiscountPrice() > 0) {
+            return product.getDiscountPrice();
         }
-        if (variant != null && variant.getPrice() > 0) {
-            return variant.getPrice();
+        if (product != null && product.getPrice() > 0) {
+            return product.getPrice();
         }
         return unitPrice;
     }
@@ -98,15 +84,18 @@ public class CartItemModel {
     }
 
     public String getProductName() {
+        if (product == null) {
+            return "Sản phẩm";
+        }
         StringBuilder name = new StringBuilder();
-        if (product != null && product.getProductName() != null && !product.getProductName().trim().isEmpty()) {
+        if (product.getProductName() != null && !product.getProductName().trim().isEmpty()) {
             name.append(product.getProductName());
         }
-        if (variant != null && variant.getColor() != null && !variant.getColor().trim().isEmpty()) {
+        if (product.getColor() != null && !product.getColor().trim().isEmpty()) {
             if (name.length() > 0) {
-                name.append(" (").append(variant.getColor()).append(")");
+                name.append(" (").append(product.getColor()).append(")");
             } else {
-                name.append(variant.getColor());
+                name.append(product.getColor());
             }
         }
         return name.length() > 0 ? name.toString() : "Sản phẩm";
@@ -127,14 +116,6 @@ public class CartItemModel {
         this.product = product;
     }
 
-    public VariantDetails getVariant() {
-        return variant;
-    }
-
-    public void setVariant(VariantDetails variant) {
-        this.variant = variant;
-    }
-
     public static class ProductDetails {
         @SerializedName(value = "productId", alternate = {"id", "Id", "ProductId"})
         private int productId;
@@ -145,29 +126,11 @@ public class CartItemModel {
         @SerializedName(value = "description", alternate = {"Description"})
         private String description;
 
-        @SerializedName(value = "imageUrl", alternate = {"image", "Image", "ImageUrl"})
-        private String imageUrl;
+        @SerializedName(value = "price", alternate = {"Price", "originalPrice", "OriginalPrice"})
+        private double price;
 
-        public int getProductId() {
-            return productId;
-        }
-
-        public String getProductName() {
-            return productName;
-        }
-
-        public String getDescription() {
-            return description;
-        }
-
-        public String getImageUrl() {
-            return imageUrl;
-        }
-    }
-
-    public static class VariantDetails {
-        @SerializedName(value = "variantId", alternate = {"id", "Id", "VariantId"})
-        private int variantId;
+        @SerializedName(value = "discountPrice", alternate = {"DiscountPrice"})
+        private Double discountPrice;
 
         @SerializedName(value = "color", alternate = {"Color"})
         private String color;
@@ -175,51 +138,85 @@ public class CartItemModel {
         @SerializedName(value = "upholsteryMaterial", alternate = {"UpholsteryMaterial"})
         private String upholsteryMaterial;
 
-        @SerializedName(value = "price", alternate = {"Price"})
-        private double price;
-
-        @SerializedName(value = "discountPrice", alternate = {"DiscountPrice"})
-        private double discountPrice;
-
-        @SerializedName(value = "discountPercent", alternate = {"DiscountPercent"})
-        private double discountPercent;
-
-        @SerializedName(value = "isOnSale", alternate = {"IsOnSale"})
-        private boolean isOnSale;
-
         @SerializedName(value = "stockQuantity", alternate = {"StockQuantity"})
         private int stockQuantity;
 
-        public int getVariantId() {
-            return variantId;
+        @SerializedName(value = "imageUrl", alternate = {"image", "Image", "ImageUrl"})
+        private String imageUrl;
+
+        public ProductDetails() {
         }
 
-        public String getColor() {
-            return color;
+        public int getProductId() {
+            return productId;
         }
 
-        public String getUpholsteryMaterial() {
-            return upholsteryMaterial;
+        public void setProductId(int productId) {
+            this.productId = productId;
+        }
+
+        public String getProductName() {
+            return productName;
+        }
+
+        public void setProductName(String productName) {
+            this.productName = productName;
+        }
+
+        public String getDescription() {
+            return description;
+        }
+
+        public void setDescription(String description) {
+            this.description = description;
         }
 
         public double getPrice() {
             return price;
         }
 
-        public double getDiscountPrice() {
+        public void setPrice(double price) {
+            this.price = price;
+        }
+
+        public Double getDiscountPrice() {
             return discountPrice;
         }
 
-        public double getDiscountPercent() {
-            return discountPercent;
+        public void setDiscountPrice(Double discountPrice) {
+            this.discountPrice = discountPrice;
         }
 
-        public boolean isOnSale() {
-            return isOnSale;
+        public String getColor() {
+            return color;
+        }
+
+        public void setColor(String color) {
+            this.color = color;
+        }
+
+        public String getUpholsteryMaterial() {
+            return upholsteryMaterial;
+        }
+
+        public void setUpholsteryMaterial(String upholsteryMaterial) {
+            this.upholsteryMaterial = upholsteryMaterial;
         }
 
         public int getStockQuantity() {
             return stockQuantity;
+        }
+
+        public void setStockQuantity(int stockQuantity) {
+            this.stockQuantity = stockQuantity;
+        }
+
+        public String getImageUrl() {
+            return imageUrl;
+        }
+
+        public void setImageUrl(String imageUrl) {
+            this.imageUrl = imageUrl;
         }
     }
 }
