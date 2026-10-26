@@ -6,80 +6,68 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.furniture.R;
-import com.example.furniture.adapters.ProductsAdapter;
 import com.example.furniture.adapters.SearchProductsAdapter;
+import com.example.furniture.api.ApiClient;
 import com.example.furniture.models.ProductModel;
 import com.example.furniture.popups.PopupFilter;
-import com.example.furniture.popups.PopupPhoto;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link SearchFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class SearchFragment extends Fragment {
 
     private RecyclerView rvProduct;
     private SearchProductsAdapter productAdapter;
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
+    private final List<ProductModel> productList = new ArrayList<>();
+    private EditText etSearch;
+    private ImageButton ibSearch;
     private ImageButton ib_filter;
+
+    private View layoutCategoryChip;
+    private TextView tvCategoryChipText;
+    private ImageButton btnClearCategory;
+
+    private View layoutPriceChip;
+    private TextView tvPriceChipText;
+    private ImageButton btnClearPrice;
+
+    private Integer selectedCategoryId = null;
+    private Double minPrice = null;
+    private Double maxPrice = null;
+    private String selectedCategoryName = "All";
 
     public SearchFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment SearchFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static SearchFragment newInstance(String param1, String param2) {
         SearchFragment fragment = new SearchFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_search, container, false);
     }
 
@@ -88,66 +76,130 @@ public class SearchFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         ib_filter = view.findViewById(R.id.ib_filter);
         ib_filter.setOnClickListener(v -> {
-            PopupFilter popupPhoto = new PopupFilter();
-            popupPhoto.show(getParentFragmentManager(), "popup_filter");
+            PopupFilter popupFilter = new PopupFilter();
+            popupFilter.show(getParentFragmentManager(), "popup_filter");
         });
 
+        etSearch = view.findViewById(R.id.etSearch);
+        ibSearch = view.findViewById(R.id.ib_search);
         rvProduct = view.findViewById(R.id.rv_search_product);
-        product();
-    }
 
-    private void product() {
+        layoutCategoryChip = view.findViewById(R.id.layoutCategoryChip);
+        tvCategoryChipText = view.findViewById(R.id.tvCategoryChipText);
+        btnClearCategory = view.findViewById(R.id.btnClearCategory);
 
-        List<ProductModel> products = new ArrayList<>();
-        products.add(new ProductModel(
-                1,
-                "iPhone 15 Pro Max",
-                "Điện thoại cao cấp của Apple với chip A17 Pro, camera 48MP.",
-                100,
-                120,
-                "https://images.unsplash.com/photo-1595225476474-87563907a212?q=80&w=800&auto=format&fit=crop"
-        ));
-
-        products.add(new ProductModel(
-                2,
-                "Samsung Galaxy S24 Ultra",
-                "Flagship của Samsung tích hợp Galaxy AI, bút S-Pen.",
-                100,
-                120,
-                "https://drive.google.com/uc?export=view&id=1t3JeV1XONuAKGyYLZYAywFuZQ26B-iSo"
-        ));
-
-        products.add(new ProductModel(
-                3,
-                "MacBook Air M2",
-                "Laptop mỏng nhẹ, pin trâu, phù hợp cho dân văn phòng.",
-                100,
-                120,
-                "https://drive.google.com/uc?export=view&id=1t3JeV1XONuAKGyYLZYAywFuZQ26B-iSo"
-        ));
-
-        products.add(new ProductModel(
-                4,
-                "Tai nghe Sony WH-1000XM5",
-                "Tai nghe chụp tai chống ồn chủ động tốt nhất phân khúc.",
-                100,
-                120,
-                "https://drive.google.com/uc?export=view&id=1t3JeV1XONuAKGyYLZYAywFuZQ26B-iSo"
-        ));
-
-        products.add(new ProductModel(
-                5,
-                "Bàn phím cơ Keychron K2",
-                "Bàn phím cơ không dây layout 75%, switch Gateron.",
-                100,
-                120,
-                "https://drive.google.com/uc?export=view&id=1t3JeV1XONuAKGyYLZYAywFuZQ26B-iSo"
-        ));
+        layoutPriceChip = view.findViewById(R.id.layoutPriceChip);
+        tvPriceChipText = view.findViewById(R.id.tvPriceChipText);
+        btnClearPrice = view.findViewById(R.id.btnClearPrice);
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
         rvProduct.setLayoutManager(gridLayoutManager);
 
-        productAdapter = new SearchProductsAdapter(products);
+        productAdapter = new SearchProductsAdapter(productList);
         rvProduct.setAdapter(productAdapter);
+
+        ibSearch.setOnClickListener(v -> performSearch());
+        etSearch.setOnEditorActionListener((v, actionId, event) -> {
+            performSearch();
+            return true;
+        });
+
+        etSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                performSearch();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+
+        btnClearCategory.setOnClickListener(v -> {
+            selectedCategoryId = null;
+            selectedCategoryName = "All";
+            updateFilterChipUI();
+            performSearch();
+        });
+
+        btnClearPrice.setOnClickListener(v -> {
+            minPrice = null;
+            maxPrice = null;
+            updateFilterChipUI();
+            performSearch();
+        });
+
+        getParentFragmentManager().setFragmentResultListener("filter_result", this, (requestKey, bundle) -> {
+            int catId = bundle.getInt("categoryId", 0);
+            String catName = bundle.getString("categoryName", "All");
+            double min = bundle.getDouble("minPrice", 0);
+            double max = bundle.getDouble("maxPrice", 10000);
+
+            selectedCategoryId = (catId > 0) ? catId : null;
+            selectedCategoryName = catName != null ? catName : "All";
+            minPrice = (min > 0) ? min : null;
+            maxPrice = (max < 10000) ? max : null;
+
+            updateFilterChipUI();
+            performSearch();
+        });
+
+        updateFilterChipUI();
+        performSearch();
+    }
+
+    private void updateFilterChipUI() {
+        // Category Chip
+        if (selectedCategoryId != null && selectedCategoryId > 0 && !"All".equalsIgnoreCase(selectedCategoryName)) {
+            layoutCategoryChip.setVisibility(View.VISIBLE);
+            tvCategoryChipText.setText(selectedCategoryName);
+        } else {
+            layoutCategoryChip.setVisibility(View.GONE);
+        }
+
+        // Price Chip
+        boolean isPriceFiltered = (minPrice != null && minPrice > 0.0) || (maxPrice != null && maxPrice < 10000.0);
+        if (isPriceFiltered) {
+            layoutPriceChip.setVisibility(View.VISIBLE);
+            double min = minPrice != null ? minPrice : 0;
+            double max = maxPrice != null ? maxPrice : 10000;
+            String priceText = String.format(Locale.US, "$%.0f - $%.0f", min, max);
+            tvPriceChipText.setText(priceText);
+        } else {
+            layoutPriceChip.setVisibility(View.GONE);
+        }
+    }
+
+    private void performSearch() {
+        String query = etSearch != null && etSearch.getText() != null ? etSearch.getText().toString().trim() : "";
+        String name = query.isEmpty() ? null : query;
+
+        ApiClient.getProductsApi().searchProducts(name, selectedCategoryId, minPrice, maxPrice).enqueue(new Callback<List<ProductModel>>() {
+            @Override
+            public void onResponse(@NonNull Call<List<ProductModel>> call, @NonNull Response<List<ProductModel>> response) {
+                if (!isAdded()) {
+                    return;
+                }
+                if (response.isSuccessful() && response.body() != null) {
+                    productList.clear();
+                    productList.addAll(response.body());
+                    productAdapter.notifyDataSetChanged();
+                } else {
+                    Toast.makeText(requireContext(), "Không thể tìm kiếm sản phẩm", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<List<ProductModel>> call, @NonNull Throwable t) {
+                if (!isAdded()) {
+                    return;
+                }
+                Toast.makeText(requireContext(), "Không thể kết nối đến máy chủ", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

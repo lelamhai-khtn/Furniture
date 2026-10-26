@@ -83,17 +83,6 @@ public class SearchProductsAdapter extends RecyclerView.Adapter<SearchProductsAd
             holder.tv_old_price_product.setVisibility(View.GONE);
         }
 
-        holder.ib_favorite.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!stateFavorite) {
-                    holder.ib_favorite.setImageResource(R.drawable.icon_favorite_fill_24);
-                } else {
-                    holder.ib_favorite.setImageResource(R.drawable.icon_favorite_24);
-                }
-            }
-        });
-
         View.OnClickListener clickListener = v -> {
             Context context = v.getContext();
             Intent intent = new Intent(context, DetailScreen.class);
@@ -147,7 +136,6 @@ public class SearchProductsAdapter extends RecyclerView.Adapter<SearchProductsAd
     class SearchProductVerticalViewHolder extends RecyclerView.ViewHolder
     {
         private ImageView iv_image_product;
-        private ImageButton ib_favorite;
         private TextView tv_name_product;
         private TextView tv_price_product;
 
@@ -156,7 +144,6 @@ public class SearchProductsAdapter extends RecyclerView.Adapter<SearchProductsAd
         public SearchProductVerticalViewHolder(@NonNull View itemView) {
             super(itemView);
             iv_image_product = itemView.findViewById(R.id.iv_image_product);
-            ib_favorite = itemView.findViewById(R.id.ib_favorite);
             tv_name_product = itemView.findViewById(R.id.tv_name_product);
             tv_price_product = itemView.findViewById(R.id.tv_price_product);
             tv_old_price_product = itemView.findViewById(R.id.tv_old_price);

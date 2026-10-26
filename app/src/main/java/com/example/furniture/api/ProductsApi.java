@@ -24,4 +24,12 @@ public interface ProductsApi {
 
     @GET(ApiClient.PRODUCTS_ENDPOINT + "/{id}")
     Call<ProductModel> getProductById(@Path("id") int id);
+
+    @GET("api/Products/search")
+    Call<List<ProductModel>> searchProducts(
+            @Query("name") String name,
+            @Query("categoryId") Integer categoryId,
+            @Query("minPrice") Double minPrice,
+            @Query("maxPrice") Double maxPrice
+    );
 }

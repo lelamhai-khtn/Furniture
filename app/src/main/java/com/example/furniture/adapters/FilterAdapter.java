@@ -17,11 +17,18 @@ import java.util.List;
 
 public class FilterAdapter extends RecyclerView.Adapter<FilterAdapter.FilterViewHolder>{
     private List<CategoryModel> categories;
-    private int selectedPosition = 0;
+    private int selectedPosition = RecyclerView.NO_POSITION;
 
     public FilterAdapter(List<CategoryModel> model)
     {
         this.categories = model;
+    }
+
+    public CategoryModel getSelectedCategory() {
+        if (categories != null && selectedPosition >= 0 && selectedPosition < categories.size()) {
+            return categories.get(selectedPosition);
+        }
+        return null;
     }
 
     @NonNull
@@ -41,10 +48,14 @@ public class FilterAdapter extends RecyclerView.Adapter<FilterAdapter.FilterView
 
         holder.tv_name.setText(item.getName());
 
-        Glide.with(holder.itemView.getContext())
-                .load(item.getUrlImage())
-                .placeholder(android.R.color.darker_gray)
-                .into(holder.iv_image);
+        if (item.getName() != null && item.getName().equalsIgnoreCase("All")) {
+            holder.iv_image.setImageResource(R.drawable.icon_all_64);
+        } else {
+            Glide.with(holder.itemView.getContext())
+                    .load(item.getUrlImage())
+                    .placeholder(android.R.color.darker_gray)
+                    .into(holder.iv_image);
+        }
 
         if (selectedPosition == position) {
             holder.itemView.setBackgroundResource(R.drawable.card_selected_categories);
@@ -56,7 +67,9 @@ public class FilterAdapter extends RecyclerView.Adapter<FilterAdapter.FilterView
             public void onClick(View v) {
                 int previousPosition = selectedPosition;
                 selectedPosition = holder.getAdapterPosition();
-                notifyItemChanged(previousPosition);
+                if (previousPosition != RecyclerView.NO_POSITION) {
+                    notifyItemChanged(previousPosition);
+                }
                 notifyItemChanged(selectedPosition);
             }
         });

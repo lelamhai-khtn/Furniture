@@ -17,8 +17,18 @@ public class CategoryModel {
         this.urlImage = urlImage;
     }
 
+    public CategoryModel(int categoryId, String name, String urlImage) {
+        this.categoryId = categoryId;
+        this.name = name;
+        this.urlImage = urlImage;
+    }
+
     public int getCategoryId() {
         return categoryId;
+    }
+
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
     }
 
     public String getName() {

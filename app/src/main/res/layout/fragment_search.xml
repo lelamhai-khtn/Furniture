@@ -10,8 +10,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
         android:orientation="vertical" >
         <include
             android:id="@+id/header_fragment"
@@ -19,11 +17,12 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             android:background="@drawable/bg_search"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:paddingStart="4dp"
-            android:paddingEnd="4dp">
+            >
 
             <ImageButton
                 android:id="@+id/ib_search"
@@ -60,10 +59,87 @@
                 android:contentDescription="Filter" />
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp">
+
+            <!-- Category Chip -->
+            <LinearLayout
+                android:id="@+id/layoutCategoryChip"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/card_selected_categories"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingStart="12dp"
+                android:paddingEnd="8dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/tvCategoryChipText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Living Room"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+
+                <ImageButton
+                    android:id="@+id/btnClearCategory"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginStart="8dp"
+                    android:background="@null"
+                    android:src="@drawable/icon_close_circle_24"
+                    app:tint="@color/Red"
+                    app:backgroundTint="@color/Red"
+                    android:contentDescription="Clear Category" />
+            </LinearLayout>
+
+            <!-- Price Chip -->
+            <LinearLayout
+                android:id="@+id/layoutPriceChip"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:background="@drawable/card_selected_categories"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingStart="12dp"
+                android:paddingEnd="8dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/tvPriceChipText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="$0 - $10000"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+
+                <ImageButton
+                    android:id="@+id/btnClearPrice"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginStart="8dp"
+                    android:background="@null"
+                    android:src="@drawable/icon_close_circle_24"
+                    app:tint="@color/Red"
+                    app:backgroundTint="@color/Red"
+                    android:contentDescription="Clear Price" />
+            </LinearLayout>
+        </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_search_product"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            />
     </LinearLayout>
 </LinearLayout>
