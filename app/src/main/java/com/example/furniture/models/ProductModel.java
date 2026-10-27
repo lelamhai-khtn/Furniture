@@ -45,6 +45,9 @@ public class ProductModel {
     @SerializedName(value = "createdAt", alternate = {"CreatedAt"})
     private String createdAt;
 
+    @SerializedName(value = "isWishlisted", alternate = {"IsWishlisted", "isFavorite", "IsFavorite", "favorite", "Favorite"})
+    private boolean isWishlisted;
+
     @SerializedName(value = "dimensions", alternate = {"Dimensions"})
     private ProductDimensions dimensions;
 
@@ -220,6 +223,14 @@ public class ProductModel {
 
     public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public boolean isWishlisted() {
+        return isWishlisted;
+    }
+
+    public void setWishlisted(boolean wishlisted) {
+        isWishlisted = wishlisted;
     }
 
     public ProductDimensions getDimensions() {
