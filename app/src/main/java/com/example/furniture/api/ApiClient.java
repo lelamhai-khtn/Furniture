@@ -64,6 +64,7 @@ public final class ApiClient {
     private static final CartApi CART_API = RETROFIT.create(CartApi.class);
     private static final WishlistApi WISHLIST_API = RETROFIT.create(WishlistApi.class);
     private static final UserApi USER_API = RETROFIT.create(UserApi.class);
+    private static final NotificationApi NOTIFICATION_API = RETROFIT.create(NotificationApi.class);
 
     private ApiClient() {
         // Utility class.
@@ -109,5 +110,9 @@ public final class ApiClient {
 
     public static UserApi getUserApi() {
         return USER_API;
+    }
+
+    public static NotificationApi getNotificationApi() {
+        return NOTIFICATION_API;
     }
 }
