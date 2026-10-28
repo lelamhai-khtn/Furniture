@@ -65,6 +65,10 @@ public class AuthResponse {
             return avatar;
         }
 
+        public void setAvatar(String avatar) {
+            this.avatar = avatar;
+        }
+
         public String getCreatedAt() {
             return createdAt;
         }

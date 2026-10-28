@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".activity.PersonalScreen">
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -14,7 +15,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             android:orientation="vertical">
 
             <include
@@ -69,7 +69,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:text="leelamhair@gmail.com"
                     android:textColor="@color/black" />
             </LinearLayout>
 
@@ -95,6 +94,7 @@
                     app:hintTextColor="@color/Primary100">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etFullName"
                         style="@style/Systems.Input"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -115,6 +115,7 @@
                     app:hintTextColor="@color/Primary100">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etPhone"
                         style="@style/Systems.Input"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -158,6 +159,7 @@
                     app:hintTextColor="@color/Primary100">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etAddress"
                         style="@style/Systems.Input"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -170,13 +172,14 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/tvError"
                 style="@style/Systems.Errors"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:paddingBottom="6dp"
-                android:text="Lỗi" />
+                android:visibility="gone" />
 
             <Button
                 android:id="@+id/btnSignUp"

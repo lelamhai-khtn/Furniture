@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <ImageButton
+        android:id="@+id/btn_close"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:scaleType="fitCenter"
+        android:layout_gravity="end"
+        app:tint="@color/Neutral100"
+        android:background="@null"
+        android:src="@drawable/icon_close_circle_24"
+        android:contentDescription="Close" />
+
+    <TextView
+        style="@style/Systems.Title"
+        android:id="@+id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="Xác nhận"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        style="@style/Systems.Description"
+        android:id="@+id/tv_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:text="Bạn muốn sử dụng làm avatar không?"
+        android:textColor="@color/Neutral100"
+        android:textSize="16sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_yes"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/Primary100"
+            android:text="Yes"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/btn_no"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/Neutral30"
+            android:text="No"
+            android:textColor="@color/white" />
+    </LinearLayout>
+</LinearLayout>
