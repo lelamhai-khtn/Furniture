@@ -1,5 +1,6 @@
 package com.example.furniture.models;
 
+import com.example.furniture.api.ApiClient;
 import com.google.gson.annotations.SerializedName;
 
 public class ProductModel {
@@ -130,6 +131,9 @@ public class ProductModel {
     }
 
     public String getImage() {
+        if (imageUrl != null && imageUrl.startsWith("/")) {
+            return ApiClient.BASE_URL.replaceAll("/$", "") + imageUrl;
+        }
         return imageUrl;
     }
 
@@ -138,7 +142,7 @@ public class ProductModel {
     }
 
     public String getImageUrl() {
-        return imageUrl;
+        return getImage();
     }
 
     public void setImageUrl(String imageUrl) {
