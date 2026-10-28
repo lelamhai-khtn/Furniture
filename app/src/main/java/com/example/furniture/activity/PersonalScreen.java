@@ -17,7 +17,7 @@ import com.example.furniture.api.ApiClient;
 import com.example.furniture.models.UserProfileResponse;
 import com.example.furniture.observer.IEventListener;
 import com.example.furniture.observer.ManageEvent;
-import com.example.furniture.popups.PopupA;
+import com.example.furniture.popups.PopupPhoto;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -70,8 +70,8 @@ public class PersonalScreen extends BaseActivity implements IEventListener {
         ImageButton imageButton = findViewById(R.id.bi_photo);
         if (imageButton != null) {
             imageButton.setOnClickListener(v -> {
-                PopupA popupA = new PopupA();
-                popupA.show(getSupportFragmentManager(), "popup_a");
+                PopupPhoto popupPhoto = new PopupPhoto();
+                popupPhoto.show(getSupportFragmentManager(), "popup_photo");
             });
 
             imageButton.setOnLongClickListener(v -> {

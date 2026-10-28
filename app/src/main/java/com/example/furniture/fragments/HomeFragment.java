@@ -1,5 +1,6 @@
 package com.example.furniture.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -24,6 +25,7 @@ import com.example.furniture.api.ApiClient;
 import com.example.furniture.models.CategoryModel;
 import com.example.furniture.models.ProductModel;
 import com.example.furniture.models.AuthResponse;
+import com.example.furniture.models.UserProfileResponse;
 import com.example.furniture.utils.AuthSessionStore;
 import com.bumptech.glide.Glide;
 
@@ -99,8 +101,44 @@ public class HomeFragment extends Fragment {
 
     private void bindUserInfo(View view) {
         ImageView avatarView = view.findViewById(R.id.iv_avatar);
-        TextView usernameView = view.findViewById(R.id.tv_username);
+        TextView usernameView = view.findViewById(R.id.tv_fullname);
 
+        ApiClient.getUserApi().getUserProfile().enqueue(new Callback<UserProfileResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<UserProfileResponse> call, @NonNull Response<UserProfileResponse> response) {
+                if (!isAdded()) {
+                    return;
+                }
+                if (response.isSuccessful() && response.body() != null) {
+                    UserProfileResponse profile = response.body();
+                    if (profile.getFullName() != null && !profile.getFullName().trim().isEmpty()) {
+                        usernameView.setText(profile.getFullName());
+                    }
+                    String avatarUrl = profile.getAvatar();
+                    if (avatarUrl != null && !avatarUrl.trim().isEmpty()) {
+                        Glide.with(HomeFragment.this)
+                                .load(avatarUrl)
+                                .placeholder(R.drawable.avatar)
+                                .error(R.drawable.avatar)
+                                .circleCrop()
+                                .into(avatarView);
+                    }
+                } else {
+                    fallbackToSession(avatarView, usernameView);
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<UserProfileResponse> call, @NonNull Throwable t) {
+                if (!isAdded()) {
+                    return;
+                }
+                fallbackToSession(avatarView, usernameView);
+            }
+        });
+    }
+
+    private void fallbackToSession(ImageView avatarView, TextView usernameView) {
         AuthResponse session = new AuthSessionStore(requireContext()).get();
         if (session == null || session.getUser() == null) {
             return;

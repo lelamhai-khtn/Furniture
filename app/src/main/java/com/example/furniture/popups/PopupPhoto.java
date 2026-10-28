@@ -40,7 +40,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class PopupA extends BottomSheetDialogFragment {
+public class PopupPhoto extends BottomSheetDialogFragment {
     private Uri photoURI;
 
     private final ActivityResultLauncher<Intent> editImageScreenLauncher = registerForActivityResult(
@@ -101,7 +101,7 @@ public class PopupA extends BottomSheetDialogFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.popup_a, container, false);
+        return inflater.inflate(R.layout.popup_photo, container, false);
     }
 
     @Override
