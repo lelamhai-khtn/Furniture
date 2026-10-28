@@ -38,8 +38,7 @@ public class DetailScreen extends BaseActivity {
     private TextView tvMaterialProduct;
     private TextView tvStockProduct;
     private TextView tvDimensionsProduct;
-    private ImageButton ibAddCard;
-    private LinearLayout btnCheckout;
+    private LinearLayout btnAddCart;
 
     private int productId = -1;
 
@@ -60,45 +59,42 @@ public class DetailScreen extends BaseActivity {
         tvMaterialProduct = findViewById(R.id.tv_material_product);
         tvStockProduct = findViewById(R.id.tv_stock_product);
         tvDimensionsProduct = findViewById(R.id.tv_dimensions_product);
-        ibAddCard = findViewById(R.id.ib_add_card);
-        btnCheckout = findViewById(R.id.btn_checkout);
+        btnAddCart = findViewById(R.id.btn_add_cart);
 
         if (getIntent() != null) {
             productId = getIntent().getIntExtra("product_id", getIntent().getIntExtra("productId", -1));
         }
 
-        if (btnCheckout != null) {
-            btnCheckout.setOnClickListener(v -> {
-                Intent intent = new Intent(this, CheckoutScreen.class);
-                startActivity(intent);
-            });
-        }
-
-        if (ibAddCard != null) {
-            ibAddCard.setOnClickListener(v -> {
+        if (btnAddCart != null) {
+            btnAddCart.setOnClickListener(v -> {
                 if (productId > 0) {
-                    ibAddCard.setEnabled(false);
+                    btnAddCart.setEnabled(false);
                     ApiClient.getCartApi().addToCart(new AddToCartRequest(productId, 1))
                             .enqueue(new Callback<CartResponse>() {
                                 @Override
                                 public void onResponse(@NonNull Call<CartResponse> call, @NonNull Response<CartResponse> response) {
-                                    ibAddCard.setEnabled(true);
+                                    btnAddCart.setEnabled(true);
                                     if (response.isSuccessful() && response.body() != null) {
                                         String msg = response.body().getMessage();
                                         Toast.makeText(DetailScreen.this, msg != null ? msg : "Đã thêm vào giỏ hàng", Toast.LENGTH_SHORT).show();
                                     } else if (response.code() == 401) {
                                         Toast.makeText(DetailScreen.this, "Vui lòng đăng nhập để thêm vào giỏ hàng", Toast.LENGTH_SHORT).show();
-                                    } else {
-                                        Toast.makeText(DetailScreen.this, "Thêm vào giỏ hàng thất bại (" + response.code() + ")", Toast.LENGTH_SHORT).show();
                                     }
+                                    Intent intent = new Intent(DetailScreen.this, CartScreen.class);
+                                    startActivity(intent);
                                 }
 
                                 @Override
                                 public void onFailure(@NonNull Call<CartResponse> call, @NonNull Throwable t) {
-                                    ibAddCard.setEnabled(true);
+                                    btnAddCart.setEnabled(true);
                                     Toast.makeText(DetailScreen.this, "Không thể kết nối đến máy chủ", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(DetailScreen.this, CartScreen.class);
+                                    startActivity(intent);
                                 }
                             });
+                } else {
+                    Intent intent = new Intent(DetailScreen.this, CartScreen.class);
+                    startActivity(intent);
                 }
             });
         }

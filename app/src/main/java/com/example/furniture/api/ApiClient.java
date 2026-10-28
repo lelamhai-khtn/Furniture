@@ -12,7 +12,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public final class ApiClient {
-    public static final String BASE_URL = "http://192.168.1.10:7279/";
+    public static final String BASE_URL = "http://192.168.1.11:7279/";
     public static final String AUTH_LOGIN_ENDPOINT = "api/Auth/login";
     public static final String AUTH_GOOGLE_ENDPOINT = "api/Auth/google";
     public static final String AUTH_REGISTER_ENDPOINT = "api/Auth/register";

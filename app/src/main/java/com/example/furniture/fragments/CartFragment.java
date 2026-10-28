@@ -16,7 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.furniture.R;
-import com.example.furniture.activity.CheckoutScreen;
+import com.example.furniture.activity.CartScreen;
 import com.example.furniture.adapters.CartAdapter;
 import com.example.furniture.api.ApiClient;
 import com.example.furniture.models.CartItemModel;
@@ -69,7 +69,7 @@ public class CartFragment extends Fragment {
                     Toast.makeText(getContext(), "Giỏ hàng của bạn đang trống", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                Intent intent = new Intent(getContext(), CheckoutScreen.class);
+                Intent intent = new Intent(getContext(), CartScreen.class);
                 startActivity(intent);
             });
         }

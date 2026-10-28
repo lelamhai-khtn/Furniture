@@ -1,38 +1,220 @@
 package com.example.furniture.activity;
 
-import android.graphics.Color;
-import android.os.Build;
-import android.os.Bundle;
+import android.graphics.Paint;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
-import androidx.activity.SystemBarStyle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
+import androidx.annotation.NonNull;
 import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
+import com.bumptech.glide.Glide;
+import com.example.furniture.BaseActivity;
 import com.example.furniture.R;
+import com.example.furniture.api.ApiClient;
+import com.example.furniture.models.CartResponse;
+import com.example.furniture.models.ProductModel;
 
-public class ViewScreen extends AppCompatActivity {
+import java.util.Locale;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class ViewScreen extends BaseActivity {
+
+    private ImageView imageView;
+    private TextView tvNameProduct;
+    private TextView tvPriceProduct;
+    private TextView tvOldPriceProduct;
+    private TextView tvDescriptionProduct;
+    private TextView tvCategoryProduct;
+    private TextView tvColorProduct;
+    private TextView tvMaterialProduct;
+    private TextView tvStockProduct;
+    private TextView tvDimensionsProduct;
+
+    private int productId = -1;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_view_screen);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, 0, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+    protected int getLayoutResourceId() {
+        return R.layout.activity_view_screen;
+    }
 
-        EdgeToEdge.enable(this,
-                SystemBarStyle.light(Color.TRANSPARENT, Color.TRANSPARENT),
-                SystemBarStyle.dark(ContextCompat.getColor(this, R.color.white))
-        );
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            getWindow().setNavigationBarContrastEnforced(false);
+    @Override
+    protected void init() {
+        imageView = findViewById(R.id.imageView);
+        tvNameProduct = findViewById(R.id.tv_name_product);
+        tvPriceProduct = findViewById(R.id.tv_price_product);
+        tvOldPriceProduct = findViewById(R.id.tv_old_price_product);
+        tvDescriptionProduct = findViewById(R.id.tv_description_product);
+        tvCategoryProduct = findViewById(R.id.tv_category_product);
+        tvColorProduct = findViewById(R.id.tv_color_product);
+        tvMaterialProduct = findViewById(R.id.tv_material_product);
+        tvStockProduct = findViewById(R.id.tv_stock_product);
+        tvDimensionsProduct = findViewById(R.id.tv_dimensions_product);
+
+        if (getIntent() != null) {
+            productId = getIntent().getIntExtra("product_id", getIntent().getIntExtra("productId", -1));
         }
+    }
+
+    @Override
+    protected void setTitle() {
+        TextView tvTitle = findViewById(R.id.tv_title_header);
+        if (tvTitle != null) {
+            tvTitle.setText("Product Details");
+        }
+        ImageButton btnBack = findViewById(R.id.btn_back);
+        if (btnBack != null) {
+            btnBack.setOnClickListener(v -> finish());
+        }
+    }
+
+    @Override
+    protected void data() {
+        if (productId > 0) {
+            ApiClient.getProductsApi().getProductById(productId).enqueue(new Callback<ProductModel>() {
+                @Override
+                public void onResponse(@NonNull Call<ProductModel> call, @NonNull Response<ProductModel> response) {
+                    if (!isFinishing() && response.isSuccessful() && response.body() != null) {
+                        bindProductData(response.body());
+                    }
+                }
+
+                @Override
+                public void onFailure(@NonNull Call<ProductModel> call, @NonNull Throwable t) {
+                    if (!isFinishing()) {
+                        Toast.makeText(ViewScreen.this, "Không thể tải chi tiết sản phẩm", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        }
+    }
+
+    private void bindProductData(ProductModel product) {
+        if (product == null) return;
+
+        if (tvNameProduct != null) {
+            tvNameProduct.setText(product.getName() != null ? product.getName() : "");
+        }
+
+        if (tvDescriptionProduct != null) {
+            tvDescriptionProduct.setText(product.getDescription() != null ? product.getDescription() : "");
+        }
+
+        if (tvCategoryProduct != null) {
+            tvCategoryProduct.setText("Category: " + (product.getCategoryName() != null ? product.getCategoryName() : "N/A"));
+        }
+
+        if (tvColorProduct != null) {
+            tvColorProduct.setText("Color: " + (product.getColor() != null ? product.getColor() : "N/A"));
+        }
+
+        if (tvMaterialProduct != null) {
+            String base = product.getBaseMaterial() != null ? product.getBaseMaterial() : "";
+            String uph = product.getUpholsteryMaterial() != null ? product.getUpholsteryMaterial() : "";
+            String material = base;
+            if (!uph.isEmpty()) {
+                material = material.isEmpty() ? uph : material + " / " + uph;
+            }
+            tvMaterialProduct.setText("Material: " + (material.isEmpty() ? "N/A" : material));
+        }
+
+        if (tvStockProduct != null) {
+            tvStockProduct.setText("Stock: " + product.getStockQuantity() + " available");
+        }
+
+        if (tvDimensionsProduct != null) {
+            if (product.getDimensions() != null) {
+                ProductModel.ProductDimensions dim = product.getDimensions();
+                String dimText = String.format(Locale.US, "Dimensions: %.0f x %.0f x %.0f cm (%.1f kg)",
+                        dim.getLengthCm(), dim.getWidthCm(), dim.getHeightCm(), dim.getWeightKg());
+                tvDimensionsProduct.setText(dimText);
+            } else {
+                tvDimensionsProduct.setText("Dimensions: N/A");
+            }
+        }
+
+        double price = product.getPrice();
+        double oldPrice = product.getOldPrice();
+
+        if (tvPriceProduct != null) {
+            if (price >= 1000) {
+                tvPriceProduct.setText(String.format(Locale.US, "%,.0fđ", price));
+            } else {
+                tvPriceProduct.setText(String.format(Locale.US, "$%.0f", price));
+            }
+        }
+
+        if (tvOldPriceProduct != null) {
+            if (oldPrice > price && oldPrice > 0) {
+                tvOldPriceProduct.setVisibility(View.VISIBLE);
+                tvOldPriceProduct.setPaintFlags(tvOldPriceProduct.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                if (oldPrice >= 1000) {
+                    tvOldPriceProduct.setText(String.format(Locale.US, "%,.0fđ", oldPrice));
+                } else {
+                    tvOldPriceProduct.setText(String.format(Locale.US, "$%.0f", oldPrice));
+                }
+            } else {
+                tvOldPriceProduct.setVisibility(View.GONE);
+            }
+        }
+
+        if (imageView != null && product.getImage() != null && !product.getImage().trim().isEmpty()) {
+            Glide.with(this)
+                    .load(product.getImage())
+                    .placeholder(R.drawable.chair)
+                    .error(R.drawable.chair)
+                    .into(imageView);
+        }
+
+        ImageButton ibFavorite = findViewById(R.id.ib_favorite);
+        if (ibFavorite != null) {
+            boolean[] isFav = {product.isWishlisted()};
+            updateFavoriteIcon(ibFavorite, isFav[0]);
+            ibFavorite.setOnClickListener(v -> {
+                if (productId > 0) {
+                    ibFavorite.setEnabled(false);
+                    ApiClient.getWishlistApi().toggleWishlist(productId).enqueue(new Callback<CartResponse>() {
+                        @Override
+                        public void onResponse(@NonNull Call<CartResponse> call, @NonNull Response<CartResponse> response) {
+                            ibFavorite.setEnabled(true);
+                            if (response.isSuccessful()) {
+                                isFav[0] = !isFav[0];
+                                updateFavoriteIcon(ibFavorite, isFav[0]);
+                                String msg = response.body() != null && response.body().getMessage() != null ? response.body().getMessage() : (isFav[0] ? "Đã thêm vào yêu thích" : "Đã xóa khỏi yêu thích");
+                                Toast.makeText(ViewScreen.this, msg, Toast.LENGTH_SHORT).show();
+                            } else if (response.code() == 401) {
+                                Toast.makeText(ViewScreen.this, "Vui lòng đăng nhập để sử dụng tính năng này", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(ViewScreen.this, "Thực hiện thất bại (" + response.code() + ")", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(@NonNull Call<CartResponse> call, @NonNull Throwable t) {
+                            ibFavorite.setEnabled(true);
+                            Toast.makeText(ViewScreen.this, "Không thể kết nối đến máy chủ", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+            });
+        }
+    }
+
+    private void updateFavoriteIcon(ImageButton ib, boolean isFav) {
+        if (isFav) {
+            ib.setImageResource(R.drawable.icon_favorite_fill_24);
+        } else {
+            ib.setImageResource(R.drawable.icon_favorite_24);
+        }
+    }
+
+    @Override
+    protected void applyWindowInsets(View view, Insets systemBars) {
+        view.setPadding(systemBars.left, 0, systemBars.right, systemBars.bottom);
     }
 }
