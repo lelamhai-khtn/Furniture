@@ -2,10 +2,13 @@ package com.example.furniture.api;
 
 import com.example.furniture.models.AvatarResponse;
 import com.example.furniture.models.DeleteAvatarResponse;
+import com.example.furniture.models.UpdateProfileRequest;
+import com.example.furniture.models.UpdateProfileResponse;
 import com.example.furniture.models.UserProfileResponse;
 
 import okhttp3.MultipartBody;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
@@ -15,6 +18,9 @@ import retrofit2.http.Part;
 public interface UserApi {
     @GET("api/Users/profile")
     Call<UserProfileResponse> getUserProfile();
+
+    @PUT("api/Users/profile")
+    Call<UpdateProfileResponse> updateProfile(@Body UpdateProfileRequest request);
 
     @Multipart
     @PUT("api/Users/avatar/upload")

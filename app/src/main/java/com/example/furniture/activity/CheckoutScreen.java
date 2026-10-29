@@ -1,20 +1,26 @@
 package com.example.furniture.activity;
 
-import android.content.Intent;
 import android.graphics.Typeface;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.activity.OnBackPressedCallback;
+import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.furniture.BaseActivity;
 import com.example.furniture.R;
+import com.example.furniture.api.ApiClient;
+import com.example.furniture.models.UserProfileResponse;
 import com.example.furniture.fragments.checkout.AddressFragment;
 import com.example.furniture.fragments.checkout.CheckoutFragment;
 import com.example.furniture.fragments.checkout.ReceiverFragment;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class CheckoutScreen extends BaseActivity {
     private int currentStep = 0;
@@ -23,6 +29,8 @@ public class CheckoutScreen extends BaseActivity {
     private TextView tvStepCheckout;
     private TextView dividerAddressReceiver;
     private TextView dividerReceiverCheckout;
+    private String selectedAddress = "";
+    private UserProfileResponse userProfile;
 
     @Override
     protected int getLayoutResourceId() {
@@ -59,7 +67,45 @@ public class CheckoutScreen extends BaseActivity {
 
     @Override
     protected void data() {
-        goToStep(0);
+        ApiClient.getUserApi().getUserProfile().enqueue(new Callback<UserProfileResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<UserProfileResponse> call, @NonNull Response<UserProfileResponse> response) {
+                if (isFinishing()) {
+                    return;
+                }
+                if (response.isSuccessful() && response.body() != null) {
+                    userProfile = response.body();
+                    if (userProfile.getAddress() != null && !userProfile.getAddress().trim().isEmpty()) {
+                        selectedAddress = userProfile.getAddress();
+                    }
+                }
+                goToStep(0);
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<UserProfileResponse> call, @NonNull Throwable t) {
+                if (isFinishing()) {
+                    return;
+                }
+                goToStep(0);
+            }
+        });
+    }
+
+    public void setUserProfile(UserProfileResponse userProfile) {
+        this.userProfile = userProfile;
+    }
+
+    public UserProfileResponse getUserProfile() {
+        return userProfile;
+    }
+
+    public void setSelectedAddress(String address) {
+        this.selectedAddress = address;
+    }
+
+    public String getSelectedAddress() {
+        return selectedAddress;
     }
 
     public void goToStep(int step) {
