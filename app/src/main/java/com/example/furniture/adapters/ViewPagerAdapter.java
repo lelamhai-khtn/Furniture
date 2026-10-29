@@ -5,10 +5,10 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
-import com.example.furniture.fragments.CartFragment;
-import com.example.furniture.fragments.HomeFragment;
-import com.example.furniture.fragments.ProfileFragment;
-import com.example.furniture.fragments.SearchFragment;
+import com.example.furniture.fragments.home.CartFragment;
+import com.example.furniture.fragments.home.HomeFragment;
+import com.example.furniture.fragments.home.ProfileFragment;
+import com.example.furniture.fragments.home.SearchFragment;
 
 public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
