@@ -16,7 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.furniture.R;
-import com.example.furniture.activity.CartScreen;
+import com.example.furniture.activity.CheckoutScreen;
 import com.example.furniture.adapters.CartAdapter;
 import com.example.furniture.api.ApiClient;
 import com.example.furniture.models.CartItemModel;
@@ -34,6 +34,7 @@ public class CartFragment extends Fragment {
     private RecyclerView rvCart;
     private TextView tvPrice;
     private View bottomScreen;
+    private TextView tvCheckout;
     private CartAdapter cartAdapter;
     private List<CartItemModel> cartItemsList = new ArrayList<>();
 
@@ -57,21 +58,28 @@ public class CartFragment extends Fragment {
         rvCart = view.findViewById(R.id.rv_card);
         tvPrice = view.findViewById(R.id.tv_price);
         bottomScreen = view.findViewById(R.id.bottom_screen);
+        tvCheckout = view.findViewById(R.id.tv_checkout);
 
         TextView tvTitleHeader = view.findViewById(R.id.tv_title_header);
         if (tvTitleHeader != null) {
             tvTitleHeader.setText("My Cart");
         }
 
+        View.OnClickListener checkoutClickListener = v -> {
+            if (cartItemsList == null || cartItemsList.isEmpty()) {
+                Toast.makeText(getContext(), "Giỏ hàng của bạn đang trống", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            Intent intent = new Intent(getContext(), CheckoutScreen.class);
+            startActivity(intent);
+        };
+
         if (bottomScreen != null) {
-            bottomScreen.setOnClickListener(v -> {
-                if (cartItemsList == null || cartItemsList.isEmpty()) {
-                    Toast.makeText(getContext(), "Giỏ hàng của bạn đang trống", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                Intent intent = new Intent(getContext(), CartScreen.class);
-                startActivity(intent);
-            });
+            bottomScreen.setOnClickListener(checkoutClickListener);
+        }
+
+        if (tvCheckout != null) {
+            tvCheckout.setOnClickListener(checkoutClickListener);
         }
 
         setupRecyclerView();

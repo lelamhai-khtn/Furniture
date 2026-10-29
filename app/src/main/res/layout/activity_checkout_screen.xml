@@ -1,10 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".activity.CheckoutScreen">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <include
+        android:id="@+id/header"
+        layout="@layout/header_back_title" />
+
+    <LinearLayout
+        android:id="@+id/stepper_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/tv_step_address"
+            style="@style/Systems.Name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Address"
+            android:textColor="@color/Primary100"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/divider_address_receiver"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="━"
+            android:textColor="@color/Neutral60"
+            android:textStyle="normal" />
+
+        <TextView
+            android:id="@+id/tv_step_receiver"
+            style="@style/Systems.Name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Receiver"
+            android:textColor="@color/Neutral60"
+            android:textStyle="normal" />
+
+        <TextView
+            android:id="@+id/divider_receiver_checkout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="━"
+            android:textColor="@color/Neutral60"
+            android:textStyle="normal" />
+
+        <TextView
+            android:id="@+id/tv_step_checkout"
+            style="@style/Systems.Name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Checkout"
+            android:textColor="@color/Neutral60"
+            android:textStyle="normal" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+</LinearLayout>

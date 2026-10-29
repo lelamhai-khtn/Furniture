@@ -1,5 +1,6 @@
 package com.example.furniture.activity;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -29,6 +30,7 @@ public class CartScreen extends BaseActivity {
     private RecyclerView rvCart;
     private TextView tvPrice;
     private View bottomScreen;
+    private TextView tvCheckout;
     private CartAdapter cartAdapter;
     private List<CartItemModel> cartItemsList = new ArrayList<>();
 
@@ -42,15 +44,23 @@ public class CartScreen extends BaseActivity {
         rvCart = findViewById(R.id.rv_card);
         tvPrice = findViewById(R.id.tv_price);
         bottomScreen = findViewById(R.id.bottom_screen);
+        tvCheckout = findViewById(R.id.tv_checkout);
+
+        View.OnClickListener checkoutClickListener = v -> {
+            if (cartItemsList == null || cartItemsList.isEmpty()) {
+                Toast.makeText(this, "Giỏ hàng của bạn đang trống", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            Intent intent = new Intent(this, CheckoutScreen.class);
+            startActivity(intent);
+        };
 
         if (bottomScreen != null) {
-            bottomScreen.setOnClickListener(v -> {
-                if (cartItemsList == null || cartItemsList.isEmpty()) {
-                    Toast.makeText(this, "Giỏ hàng của bạn đang trống", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                Toast.makeText(this, "Thanh toán thành công!", Toast.LENGTH_SHORT).show();
-            });
+            bottomScreen.setOnClickListener(checkoutClickListener);
+        }
+
+        if (tvCheckout != null) {
+            tvCheckout.setOnClickListener(checkoutClickListener);
         }
 
         setupRecyclerView();
