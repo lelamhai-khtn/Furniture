@@ -27,11 +27,14 @@
         android:paddingEnd="12dp">
 
         <ImageView
+            android:id="@+id/iv_search"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:src="@drawable/icon_search_24"
             app:tint="@color/Neutral80"
-            android:contentDescription="Search Icon" />
+            android:contentDescription="Search Icon"
+            android:clickable="true"
+            android:focusable="true" />
 
         <EditText
             android:id="@+id/et_search_location"

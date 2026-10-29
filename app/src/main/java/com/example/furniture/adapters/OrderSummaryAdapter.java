@@ -57,12 +57,8 @@ public class OrderSummaryAdapter extends RecyclerView.Adapter<OrderSummaryAdapte
         holder.tvTitle.setText(item.getProductName() != null ? item.getProductName() : "Sản phẩm");
         holder.tvQuantity.setText("x " + item.getQuantity());
 
-        double totalItemPrice = item.getPrice() * item.getQuantity();
-        if (totalItemPrice >= 1000) {
-            holder.tvPrice.setText(String.format(Locale.US, "%,.0fđ", totalItemPrice));
-        } else {
-            holder.tvPrice.setText(String.format(Locale.US, "$%.1f", totalItemPrice));
-        }
+        double displayPrice = item.getSubTotal() > 0 ? item.getSubTotal() : item.getPrice() * item.getQuantity();
+        holder.tvPrice.setText(String.format(Locale.US, "$%,.2f", displayPrice));
     }
 
     @Override

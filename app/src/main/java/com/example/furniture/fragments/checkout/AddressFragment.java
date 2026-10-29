@@ -12,6 +12,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -36,6 +37,7 @@ public class AddressFragment extends Fragment implements OnMapReadyCallback {
     private GoogleMap mMap;
     private EditText etSearchLocation;
     private ImageButton btnClearSearch;
+    private ImageView ivSearch;
 
     public AddressFragment() {
         // Required empty public constructor
@@ -53,6 +55,7 @@ public class AddressFragment extends Fragment implements OnMapReadyCallback {
 
         etSearchLocation = view.findViewById(R.id.et_search_location);
         btnClearSearch = view.findViewById(R.id.btn_clear_search);
+        ivSearch = view.findViewById(R.id.iv_search);
         Button btnNext = view.findViewById(R.id.btn_next_b);
 
         if (btnNext != null) {
@@ -65,9 +68,17 @@ public class AddressFragment extends Fragment implements OnMapReadyCallback {
             });
         }
 
+        if (ivSearch != null) {
+            ivSearch.setOnClickListener(v -> {
+                if (etSearchLocation != null) {
+                    searchLocation(etSearchLocation.getText().toString());
+                }
+            });
+        }
+
         if (etSearchLocation != null) {
             etSearchLocation.setOnEditorActionListener((v, actionId, event) -> {
-                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH || actionId == EditorInfo.IME_ACTION_DONE) {
                     searchLocation(etSearchLocation.getText().toString());
                     return true;
                 }
@@ -110,20 +121,23 @@ public class AddressFragment extends Fragment implements OnMapReadyCallback {
         mMap = googleMap;
         LatLng defaultLocation = new LatLng(10.8480542987386, 106.78664738973153);
 
+        boolean hasProfileAddress = false;
         if (getActivity() instanceof CheckoutScreen) {
             CheckoutScreen activity = (CheckoutScreen) getActivity();
             UserProfileResponse profile = activity.getUserProfile();
             if (profile != null && profile.getAddress() != null && !profile.getAddress().trim().isEmpty()) {
+                hasProfileAddress = true;
                 if (etSearchLocation != null) {
                     etSearchLocation.setText(profile.getAddress());
                 }
                 searchLocation(profile.getAddress());
-                return;
             }
         }
 
-        mMap.addMarker(new MarkerOptions().position(defaultLocation).title("Store Location"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(defaultLocation, 15f));
+        if (!hasProfileAddress) {
+            mMap.addMarker(new MarkerOptions().position(defaultLocation).title("Store Location"));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(defaultLocation, 15f));
+        }
 
         mMap.setOnMapClickListener(latLng -> {
             mMap.clear();
@@ -139,6 +153,9 @@ public class AddressFragment extends Fragment implements OnMapReadyCallback {
                     }
                 } else {
                     mMap.addMarker(new MarkerOptions().position(latLng).title("Selected Location"));
+                    if (etSearchLocation != null) {
+                        etSearchLocation.setText(latLng.latitude + ", " + latLng.longitude);
+                    }
                 }
             } catch (IOException e) {
                 mMap.addMarker(new MarkerOptions().position(latLng).title("Selected Location"));
@@ -151,9 +168,18 @@ public class AddressFragment extends Fragment implements OnMapReadyCallback {
             return;
         }
 
-        Geocoder geocoder = new Geocoder(requireContext(), Locale.getDefault());
+        Geocoder geocoder = new Geocoder(requireContext(), new Locale("vi", "VN"));
         try {
-            List<Address> addressList = geocoder.getFromLocationName(locationName, 1);
+            String query = locationName.trim();
+            String lower = query.toLowerCase();
+            if (!lower.contains("vietnam") && !lower.contains("việt nam") && !lower.contains("hồ chí minh") && !lower.contains("hà nội") && !lower.contains("tp.")) {
+                query = query + ", Hồ Chí Minh, Việt Nam";
+            }
+            List<Address> addressList = geocoder.getFromLocationName(query, 1);
+            if ((addressList == null || addressList.isEmpty()) && !query.equals(locationName.trim())) {
+                addressList = geocoder.getFromLocationName(locationName.trim(), 1);
+            }
+
             if (addressList != null && !addressList.isEmpty()) {
                 Address address = addressList.get(0);
                 LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());

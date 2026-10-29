@@ -160,23 +160,23 @@ public class CheckoutFragment extends Fragment {
         double subtotal = serverSubtotal;
         if (subtotal <= 0 && cartItemsList != null) {
             for (CartItemModel item : cartItemsList) {
-                subtotal += item.getPrice() * item.getQuantity();
+                subtotal += item.getSubTotal();
             }
         }
 
         double total = subtotal + deliveryFee;
 
         if (tvSubtotal != null) {
-            tvSubtotal.setText(String.format(Locale.US, "$%.1f", subtotal));
+            tvSubtotal.setText(String.format(Locale.US, "$%,.2f", subtotal));
         }
         if (tvDeliveryFee != null) {
-            tvDeliveryFee.setText(String.format(Locale.US, "$%.1f", deliveryFee));
+            tvDeliveryFee.setText(String.format(Locale.US, "$%,.2f", deliveryFee));
         }
         if (tvTotalPayment != null) {
-            tvTotalPayment.setText(String.format(Locale.US, "$%.1f", total));
+            tvTotalPayment.setText(String.format(Locale.US, "$%,.2f", total));
         }
         if (tvTotalBottom != null) {
-            tvTotalBottom.setText(String.format(Locale.US, "$%.1f", total));
+            tvTotalBottom.setText(String.format(Locale.US, "$%,.2f", total));
         }
     }
 }
