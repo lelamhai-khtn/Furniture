@@ -21,8 +21,12 @@ import com.example.furniture.adapters.OrderSummaryAdapter;
 import com.example.furniture.api.ApiClient;
 import com.example.furniture.models.CartItemModel;
 import com.example.furniture.models.CartModel;
+import com.example.furniture.models.CreateOrderRequest;
+import com.example.furniture.models.CreateOrderResponse;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -46,7 +50,7 @@ public class CheckoutFragment extends Fragment {
 
     private OrderSummaryAdapter orderSummaryAdapter;
     private final List<CartItemModel> cartItemsList = new ArrayList<>();
-    private final double deliveryFee = 15.0;
+    private double deliveryFee = 15.0;
 
     public CheckoutFragment() {
         // Required empty public constructor
@@ -94,10 +98,93 @@ public class CheckoutFragment extends Fragment {
         loadCartFromApi();
 
         if (layoutPlaceOrder != null) {
-            layoutPlaceOrder.setOnClickListener(v -> {
-                Toast.makeText(getContext(), "Order placed successfully!", Toast.LENGTH_SHORT).show();
-            });
+            layoutPlaceOrder.setOnClickListener(v -> createOrderApi());
         }
+    }
+
+    private void createOrderApi() {
+        if (cartItemsList == null || cartItemsList.isEmpty()) {
+            Toast.makeText(getContext(), "Giỏ hàng của bạn đang trống", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        List<Integer> cartIds = new ArrayList<>();
+        for (CartItemModel item : cartItemsList) {
+            if (item != null && item.getCartId() > 0) {
+                cartIds.add(item.getCartId());
+            }
+        }
+
+        String shippingAddress = tvAddress != null ? tvAddress.getText().toString().trim() : "";
+        if (shippingAddress.isEmpty() && getActivity() instanceof CheckoutScreen) {
+            shippingAddress = ((CheckoutScreen) getActivity()).getSelectedAddress();
+        }
+        if (shippingAddress == null || shippingAddress.trim().isEmpty()) {
+            shippingAddress = "123 Đường Lê Lợi, Quận 1, TP.HCM";
+        }
+
+        String deliveryDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+        String deliveryTimeSlot = "08:00-12:00";
+
+        CreateOrderRequest request = new CreateOrderRequest(cartIds, shippingAddress, deliveryDate, deliveryTimeSlot);
+
+        if (layoutPlaceOrder != null) {
+            layoutPlaceOrder.setEnabled(false);
+        }
+        Toast.makeText(getContext(), "Đang tạo đơn hàng...", Toast.LENGTH_SHORT).show();
+
+        ApiClient.getOrderApi().createOrder(request).enqueue(new Callback<CreateOrderResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<CreateOrderResponse> call, @NonNull Response<CreateOrderResponse> response) {
+                if (!isAdded()) {
+                    return;
+                }
+                if (layoutPlaceOrder != null) {
+                    layoutPlaceOrder.setEnabled(true);
+                }
+
+                if (response.isSuccessful() && response.body() != null) {
+                    CreateOrderResponse res = response.body();
+                    String msg = res.getMessage() != null ? res.getMessage() : "Tạo đơn hàng thành công";
+                    Toast.makeText(getContext(), msg, Toast.LENGTH_LONG).show();
+
+                    if (res.getDeliveryFee() > 0) {
+                        deliveryFee = res.getDeliveryFee();
+                    }
+
+                    if (tvSubtotal != null) {
+                        tvSubtotal.setText(String.format(Locale.US, "$%,.2f", res.getProductTotal()));
+                    }
+                    if (tvDeliveryFee != null) {
+                        tvDeliveryFee.setText(String.format(Locale.US, "$%,.2f", res.getDeliveryFee()));
+                    }
+                    if (tvTotalPayment != null) {
+                        tvTotalPayment.setText(String.format(Locale.US, "$%,.2f", res.getTotalAmount()));
+                    }
+                    if (tvTotalBottom != null) {
+                        tvTotalBottom.setText(String.format(Locale.US, "$%,.2f", res.getTotalAmount()));
+                    }
+                    if (tvAddress != null && res.getShippingAddress() != null && !res.getShippingAddress().trim().isEmpty()) {
+                        tvAddress.setText(res.getShippingAddress());
+                    }
+                } else if (response.code() == 401) {
+                    Toast.makeText(getContext(), "Vui lòng đăng nhập lại", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getContext(), "Tạo đơn hàng thất bại (" + response.code() + ")", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<CreateOrderResponse> call, @NonNull Throwable t) {
+                if (!isAdded()) {
+                    return;
+                }
+                if (layoutPlaceOrder != null) {
+                    layoutPlaceOrder.setEnabled(true);
+                }
+                Toast.makeText(getContext(), "Không thể kết nối đến máy chủ", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void setupPaymentSelection() {
