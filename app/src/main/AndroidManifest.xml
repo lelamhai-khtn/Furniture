@@ -28,7 +28,7 @@
         android:theme="@style/Theme.Furniture"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".activity.SignInScreen"
+            android:name=".activity.TrackOrderScreen"
             android:exported="true"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize">
@@ -121,6 +121,10 @@
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".activity.CheckoutScreen"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".activity.SignInScreen"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
     </application>
