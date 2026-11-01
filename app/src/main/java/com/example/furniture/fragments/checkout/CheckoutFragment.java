@@ -81,15 +81,25 @@ public class CheckoutFragment extends Fragment {
 
         if (getActivity() instanceof CheckoutScreen) {
             CheckoutScreen activity = (CheckoutScreen) getActivity();
-            String address = activity.getSelectedAddress();
-            if (tvAddress != null && address != null && !address.trim().isEmpty()) {
-                tvAddress.setText(address);
-            } else if (activity.getUserProfile() != null && activity.getUserProfile().getAddress() != null) {
-                tvAddress.setText(activity.getUserProfile().getAddress());
+            deliveryFee = activity.getDeliveryFee();
+
+            String phone = activity.getReceiverPhone();
+            if ((phone == null || phone.trim().isEmpty()) && activity.getUserProfile() != null) {
+                phone = activity.getUserProfile().getPhone();
+            }
+            if (tvPhone != null && phone != null && !phone.trim().isEmpty()) {
+                tvPhone.setText(phone);
             }
 
-            if (tvPhone != null && activity.getUserProfile() != null && activity.getUserProfile().getPhone() != null) {
-                tvPhone.setText(activity.getUserProfile().getPhone());
+            String address = activity.getReceiverAddress();
+            if (address == null || address.trim().isEmpty()) {
+                address = activity.getSelectedAddress();
+            }
+            if ((address == null || address.trim().isEmpty()) && activity.getUserProfile() != null) {
+                address = activity.getUserProfile().getAddress();
+            }
+            if (tvAddress != null && address != null && !address.trim().isEmpty()) {
+                tvAddress.setText(address);
             }
         }
 
@@ -115,18 +125,32 @@ public class CheckoutFragment extends Fragment {
             }
         }
 
-        String shippingAddress = tvAddress != null ? tvAddress.getText().toString().trim() : "";
-        if (shippingAddress.isEmpty() && getActivity() instanceof CheckoutScreen) {
-            shippingAddress = ((CheckoutScreen) getActivity()).getSelectedAddress();
+        String shippingAddress = "";
+        if (getActivity() instanceof CheckoutScreen) {
+            CheckoutScreen activity = (CheckoutScreen) getActivity();
+            shippingAddress = activity.getReceiverAddress();
+            if (shippingAddress == null || shippingAddress.trim().isEmpty()) {
+                shippingAddress = activity.getSelectedAddress();
+            }
         }
         if (shippingAddress == null || shippingAddress.trim().isEmpty()) {
-            shippingAddress = "123 Đường Lê Lợi, Quận 1, TP.HCM";
+            shippingAddress = tvAddress != null ? tvAddress.getText().toString().trim() : "";
+        }
+        if (shippingAddress == null || shippingAddress.trim().isEmpty()) {
+            shippingAddress = "97 Man Thiện, Phường Hiệp Phú, Thành phố Thủ Đức, TP. Hồ Chí Minh";
+        }
+
+        String paymentGateway = "COD";
+        if (rbSepay != null && rbSepay.isChecked()) {
+            paymentGateway = "Sepay";
+        } else if (rbCod != null && rbCod.isChecked()) {
+            paymentGateway = "COD";
         }
 
         String deliveryDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
-        String deliveryTimeSlot = "08:00-12:00";
+        String deliveryTimeSlot = "Buổi chiều (14:00 - 17:00)";
 
-        CreateOrderRequest request = new CreateOrderRequest(cartIds, shippingAddress, deliveryDate, deliveryTimeSlot);
+        CreateOrderRequest request = new CreateOrderRequest(cartIds, shippingAddress, paymentGateway, deliveryDate, deliveryTimeSlot);
 
         if (layoutPlaceOrder != null) {
             layoutPlaceOrder.setEnabled(false);
@@ -148,21 +172,13 @@ public class CheckoutFragment extends Fragment {
                     String msg = res.getMessage() != null ? res.getMessage() : "Tạo đơn hàng thành công";
                     Toast.makeText(getContext(), msg, Toast.LENGTH_LONG).show();
 
-                    if (res.getDeliveryFee() > 0) {
-                        deliveryFee = res.getDeliveryFee();
-                    }
-
-                    if (tvSubtotal != null) {
-                        tvSubtotal.setText(String.format(Locale.US, "$%,.2f", res.getProductTotal()));
-                    }
-                    if (tvDeliveryFee != null) {
-                        tvDeliveryFee.setText(String.format(Locale.US, "$%,.2f", res.getDeliveryFee()));
-                    }
-                    if (tvTotalPayment != null) {
-                        tvTotalPayment.setText(String.format(Locale.US, "$%,.2f", res.getTotalAmount()));
-                    }
-                    if (tvTotalBottom != null) {
-                        tvTotalBottom.setText(String.format(Locale.US, "$%,.2f", res.getTotalAmount()));
+                    if (res.getTotalAmount() > 0) {
+                        if (tvTotalPayment != null) {
+                            tvTotalPayment.setText(String.format(Locale.US, "$%,.2f", res.getTotalAmount()));
+                        }
+                        if (tvTotalBottom != null) {
+                            tvTotalBottom.setText(String.format(Locale.US, "$%,.2f", res.getTotalAmount()));
+                        }
                     }
                     if (tvAddress != null && res.getShippingAddress() != null && !res.getShippingAddress().trim().isEmpty()) {
                         tvAddress.setText(res.getShippingAddress());

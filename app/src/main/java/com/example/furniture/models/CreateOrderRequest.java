@@ -11,15 +11,19 @@ public class CreateOrderRequest {
     @SerializedName("shippingAddress")
     private String shippingAddress;
 
+    @SerializedName("paymentGateway")
+    private String paymentGateway;
+
     @SerializedName("deliveryDate")
     private String deliveryDate;
 
     @SerializedName("deliveryTimeSlot")
     private String deliveryTimeSlot;
 
-    public CreateOrderRequest(List<Integer> cartIds, String shippingAddress, String deliveryDate, String deliveryTimeSlot) {
+    public CreateOrderRequest(List<Integer> cartIds, String shippingAddress, String paymentGateway, String deliveryDate, String deliveryTimeSlot) {
         this.cartIds = cartIds;
         this.shippingAddress = shippingAddress;
+        this.paymentGateway = paymentGateway;
         this.deliveryDate = deliveryDate;
         this.deliveryTimeSlot = deliveryTimeSlot;
     }
@@ -30,6 +34,10 @@ public class CreateOrderRequest {
 
     public String getShippingAddress() {
         return shippingAddress;
+    }
+
+    public String getPaymentGateway() {
+        return paymentGateway;
     }
 
     public String getDeliveryDate() {

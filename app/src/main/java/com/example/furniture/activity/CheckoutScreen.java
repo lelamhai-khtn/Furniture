@@ -31,6 +31,11 @@ public class CheckoutScreen extends BaseActivity {
     private TextView dividerReceiverCheckout;
     private String selectedAddress = "";
     private UserProfileResponse userProfile;
+    private String receiverFullName = "";
+    private String receiverPhone = "";
+    private String receiverAddress = "";
+    private String receiverGender = "";
+    private double deliveryFee = 15.0;
 
     @Override
     protected int getLayoutResourceId() {
@@ -106,6 +111,40 @@ public class CheckoutScreen extends BaseActivity {
 
     public String getSelectedAddress() {
         return selectedAddress;
+    }
+
+    public void setReceiverInfo(String fullName, String phone, String gender, String address) {
+        this.receiverFullName = fullName;
+        this.receiverPhone = phone;
+        this.receiverGender = gender;
+        this.receiverAddress = address;
+        if (address != null && !address.trim().isEmpty()) {
+            this.selectedAddress = address;
+        }
+    }
+
+    public String getReceiverFullName() {
+        return receiverFullName;
+    }
+
+    public String getReceiverPhone() {
+        return receiverPhone;
+    }
+
+    public String getReceiverAddress() {
+        return receiverAddress;
+    }
+
+    public String getReceiverGender() {
+        return receiverGender;
+    }
+
+    public void setDeliveryFee(double deliveryFee) {
+        this.deliveryFee = deliveryFee;
+    }
+
+    public double getDeliveryFee() {
+        return deliveryFee;
     }
 
     public void goToStep(int step) {

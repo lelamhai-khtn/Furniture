@@ -33,6 +33,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -138,7 +139,7 @@ public class TrackOrderScreen extends BaseActivity implements OnMapReadyCallback
                 return;
             }
 
-            // Fetch real road routing (Google Directions API primary, OSRM secondary)
+            // Fetch real road routing (Google Routes API v2 primary, OSRM secondary)
             RouteResult routeResult = fetchRoute(latLngA, latLngB);
 
             mainHandler.post(() -> {
@@ -225,68 +226,7 @@ public class TrackOrderScreen extends BaseActivity implements OnMapReadyCallback
     }
 
     private RouteResult fetchRoute(LatLng start, LatLng end) {
-        RouteResult googleResult = fetchGoogleDirectionsRoute(start, end);
-        if (googleResult != null && !googleResult.points.isEmpty()) {
-            return googleResult;
-        }
         return fetchOsrmRoute(start, end);
-    }
-
-    private RouteResult fetchGoogleDirectionsRoute(LatLng start, LatLng end) {
-        try {
-            String apiKey = getString(R.string.google_maps_key);
-            String urlStr = String.format(Locale.US,
-                    "https://maps.googleapis.com/maps/api/directions/json?origin=%.6f,%.6f&destination=%.6f,%.6f&mode=driving&key=%s",
-                    start.latitude, start.longitude, end.latitude, end.longitude, apiKey);
-
-            URL url = new URL(urlStr);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("GET");
-            connection.setConnectTimeout(8000);
-            connection.setReadTimeout(8000);
-
-            if (connection.getResponseCode() == 200) {
-                BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-                StringBuilder builder = new StringBuilder();
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    builder.append(line);
-                }
-                reader.close();
-
-                JSONObject root = new JSONObject(builder.toString());
-                if ("OK".equalsIgnoreCase(root.optString("status"))) {
-                    JSONArray routes = root.optJSONArray("routes");
-                    if (routes != null && routes.length() > 0) {
-                        JSONObject route = routes.getJSONObject(0);
-                        JSONObject overviewPolyline = route.optJSONObject("overview_polyline");
-                        String pointsStr = overviewPolyline != null ? overviewPolyline.optString("points") : "";
-
-                        JSONArray legs = route.optJSONArray("legs");
-                        double distanceKm = 0;
-                        int durationMin = 0;
-                        if (legs != null && legs.length() > 0) {
-                            JSONObject leg = legs.getJSONObject(0);
-                            JSONObject distObj = leg.optJSONObject("distance");
-                            JSONObject durObj = leg.optJSONObject("duration");
-                            if (distObj != null) {
-                                distanceKm = distObj.optDouble("value", 0) / 1000.0;
-                            }
-                            if (durObj != null) {
-                                durationMin = (int) Math.ceil(durObj.optDouble("value", 0) / 60.0);
-                            }
-                        }
-
-                        List<LatLng> decodedPoints = decodePolyline(pointsStr);
-                        if (!decodedPoints.isEmpty()) {
-                            return new RouteResult(decodedPoints, distanceKm, durationMin);
-                        }
-                    }
-                }
-            }
-        } catch (Exception ignored) {
-        }
-        return null;
     }
 
     private RouteResult fetchOsrmRoute(LatLng start, LatLng end) {
@@ -303,7 +243,7 @@ public class TrackOrderScreen extends BaseActivity implements OnMapReadyCallback
             connection.setReadTimeout(8000);
 
             if (connection.getResponseCode() == 200) {
-                BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream(), StandardCharsets.UTF_8));
                 StringBuilder builder = new StringBuilder();
                 String line;
                 while ((line = reader.readLine()) != null) {

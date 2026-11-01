@@ -16,9 +16,15 @@ import androidx.fragment.app.Fragment;
 import com.example.furniture.R;
 import com.example.furniture.activity.CheckoutScreen;
 import com.example.furniture.api.ApiClient;
+import android.location.Address;
+import android.location.Geocoder;
+import com.example.furniture.models.DistanceResponse;
 import com.example.furniture.models.UpdateProfileRequest;
 import com.example.furniture.models.UpdateProfileResponse;
 import com.example.furniture.models.UserProfileResponse;
+
+import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -117,7 +123,62 @@ public class ReceiverFragment extends Fragment {
         if (btnNext != null) {
             btnNext.setOnClickListener(v -> {
                 if (getActivity() instanceof CheckoutScreen) {
-                    ((CheckoutScreen) getActivity()).goToStep(2);
+                    CheckoutScreen activity = (CheckoutScreen) getActivity();
+                    String fullName = etFullName != null ? etFullName.getText().toString().trim() : "";
+                    String phone = etPhone != null ? etPhone.getText().toString().trim() : "";
+                    String gender = tvGender != null ? tvGender.getText().toString().trim() : "";
+                    String address = etAddress != null ? etAddress.getText().toString().trim() : "";
+
+                    btnNext.setEnabled(false);
+                    Toast.makeText(getContext(), "Calculating distance & delivery fee...", Toast.LENGTH_SHORT).show();
+
+                    new Thread(() -> {
+                        double lat = 10.7769; // default HCMC
+                        double lng = 106.7009;
+                        if (!address.isEmpty() && Geocoder.isPresent()) {
+                            try {
+                                Geocoder geocoder = new Geocoder(requireContext(), Locale.getDefault());
+                                List<Address> addresses = geocoder.getFromLocationName(address, 1);
+                                if (addresses != null && !addresses.isEmpty()) {
+                                    Address loc = addresses.get(0);
+                                    lat = loc.getLatitude();
+                                    lng = loc.getLongitude();
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        double finalLat = lat;
+                        double finalLng = lng;
+                        if (isAdded()) {
+                            requireActivity().runOnUiThread(() -> {
+                                ApiClient.getDistanceApi().getDistance(finalLat, finalLng).enqueue(new Callback<DistanceResponse>() {
+                                    @Override
+                                    public void onResponse(@NonNull Call<DistanceResponse> call, @NonNull Response<DistanceResponse> response) {
+                                        if (!isAdded()) return;
+                                        btnNext.setEnabled(true);
+                                        double fee = 15.0;
+                                        if (response.isSuccessful() && response.body() != null) {
+                                            fee = response.body().getDeliveryFee();
+                                        }
+                                        activity.setReceiverInfo(fullName, phone, gender, address);
+                                        activity.setDeliveryFee(fee);
+                                        activity.goToStep(2);
+                                    }
+
+                                    @Override
+                                    public void onFailure(@NonNull Call<DistanceResponse> call, @NonNull Throwable t) {
+                                        if (!isAdded()) return;
+                                        btnNext.setEnabled(true);
+                                        activity.setReceiverInfo(fullName, phone, gender, address);
+                                        activity.setDeliveryFee(15.0);
+                                        activity.goToStep(2);
+                                    }
+                                });
+                            });
+                        }
+                    }).start();
                 }
             });
         }
