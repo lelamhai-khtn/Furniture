@@ -1,5 +1,6 @@
 package com.example.furniture.fragments.checkout;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.furniture.R;
 import com.example.furniture.activity.CheckoutScreen;
+import com.example.furniture.activity.SepayScreen;
 import com.example.furniture.adapters.OrderSummaryAdapter;
 import com.example.furniture.api.ApiClient;
 import com.example.furniture.models.CartItemModel;
@@ -182,6 +184,18 @@ public class CheckoutFragment extends Fragment {
                     }
                     if (tvAddress != null && res.getShippingAddress() != null && !res.getShippingAddress().trim().isEmpty()) {
                         tvAddress.setText(res.getShippingAddress());
+                    }
+
+                    if (res.getPayment() != null && "Sepay".equalsIgnoreCase(res.getPayment().getPaymentGateway())) {
+                        Intent intent = new Intent(requireContext(), SepayScreen.class);
+                        intent.putExtra("orderId", res.getOrderId());
+                        intent.putExtra("totalAmount", res.getTotalAmount());
+                        intent.putExtra("qrCodeUrl", res.getPayment().getQrCodeUrl());
+                        intent.putExtra("bank", res.getPayment().getBank());
+                        intent.putExtra("accountNumber", res.getPayment().getAccountNumber());
+                        intent.putExtra("transferContent", res.getPayment().getTransferContent());
+                        startActivity(intent);
+                        requireActivity().finish();
                     }
                 } else if (response.code() == 401) {
                     Toast.makeText(getContext(), "Vui lòng đăng nhập lại", Toast.LENGTH_SHORT).show();

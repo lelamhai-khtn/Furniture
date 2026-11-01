@@ -34,6 +34,18 @@ public class CreateOrderResponse {
         @SerializedName(value = "paymentStatus", alternate = {"PaymentStatus"})
         private String paymentStatus;
 
+        @SerializedName(value = "qrCodeUrl", alternate = {"QrCodeUrl", "qr_code_url"})
+        private String qrCodeUrl;
+
+        @SerializedName(value = "bank", alternate = {"Bank"})
+        private String bank;
+
+        @SerializedName(value = "accountNumber", alternate = {"AccountNumber", "account_number"})
+        private String accountNumber;
+
+        @SerializedName(value = "transferContent", alternate = {"TransferContent", "transfer_content"})
+        private String transferContent;
+
         public int getPaymentId() {
             return paymentId;
         }
@@ -44,6 +56,22 @@ public class CreateOrderResponse {
 
         public String getPaymentStatus() {
             return paymentStatus;
+        }
+
+        public String getQrCodeUrl() {
+            return qrCodeUrl;
+        }
+
+        public String getBank() {
+            return bank;
+        }
+
+        public String getAccountNumber() {
+            return accountNumber;
+        }
+
+        public String getTransferContent() {
+            return transferContent;
         }
     }
 
